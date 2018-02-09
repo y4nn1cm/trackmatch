@@ -5,7 +5,7 @@
         <h1 style="margin-bottom:5%; margin-top:5%; font-family:merriweather; font-size:10vw">trackmatch</h1>
         <div class="line"></div>
         <img :src="profilepicture" class="profile-picture"/> 
-        <h1 style="font-size:7vw;">Hello {{userId}}</h1>
+        <h1 style="font-size:7vw;">Hello {{email}}</h1>
 
         <strong style="font-size:5vmin">Why are you here?</strong>
     
@@ -15,6 +15,9 @@
           </v-flex>
           <v-flex xs6>
           <v-btn @click="togglework" color: light v-bind:class="{primary: workactive}" class="select" id=work>Help my company</v-btn>
+          </v-flex>
+          <v-flex class="text-xs-center" mt-5>
+            <v-btn primary type="submit" :disabled="loading">Continue</v-btn>
           </v-flex>
         </v-layout>
       </div>
@@ -32,7 +35,9 @@ export default {
       profilepicture: "http://www.indiewire.com/wp-content/uploads/2014/12/de-niro-a-life.jpg?w=780",
       jobactive:false,
       workactive:false,
-      userId: firebase.auth().currentUser.email
+      user: firebase.auth().currentUser,
+      email: firebase.auth().currentUser.email,
+      userId: firebase.auth().currentUser.uid
     }
   },
       methods:
@@ -45,6 +50,10 @@ export default {
           this.workactive = !this.workactive
         },
 
+        // userSetObjective () {
+        //    this.$store.dispatch('userSetObjective', { user: this.user, haswork: this.workactive, 
+        // jobsearch: this.jobactive })
+    // }
   }
 }
 
