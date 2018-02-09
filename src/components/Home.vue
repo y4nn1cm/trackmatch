@@ -5,7 +5,7 @@
         <h1 style="margin-bottom:5%; margin-top:5%; font-family:merriweather; font-size:10vw">trackmatch</h1>
         <div class="line"></div>
         <img :src="profilepicture" class="profile-picture"/> 
-        <h1 style="font-size:7vw;">Hello {{username}}</h1>
+        <h1 style="font-size:7vw;">Hello {{userId}}</h1>
 
         <strong style="font-size:5vmin">Why are you here?</strong>
     
@@ -23,16 +23,16 @@
 </template>
 
 <script>
-  
+import firebase from 'firebase'  
 export default {
   
   name: 'Hello',
   data () {
     return {
-      username: "Robert",
       profilepicture: "http://www.indiewire.com/wp-content/uploads/2014/12/de-niro-a-life.jpg?w=780",
       jobactive:false,
       workactive:false,
+      userId: firebase.auth().currentUser.email
     }
   },
       methods:
@@ -43,7 +43,8 @@ export default {
 
         togglework: function(event) {
           this.workactive = !this.workactive
-        }
+        },
+
   }
 }
 

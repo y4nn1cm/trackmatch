@@ -8,7 +8,6 @@ import { firebaseConfig } from './config'
 
 Vue.use(Vuetify)
 Vue.config.productionTip = false
-
 firebase.initializeApp(firebaseConfig)
 
 /* eslint-disable no-new */
