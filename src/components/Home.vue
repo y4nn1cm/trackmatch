@@ -29,7 +29,7 @@ export default {
   name: 'Hello',
   data () {
     return {
-      username: 'Robert',
+      username: "Robert",
       profilepicture: "http://www.indiewire.com/wp-content/uploads/2014/12/de-niro-a-life.jpg?w=780",
       jobactive:false,
       workactive:false,
@@ -38,11 +38,11 @@ export default {
       methods:
       {
         togglejob: function(event) {
-          this.jobactive = !this.jobactive;
+          this.jobactive = !this.jobactive
         },
 
         togglework: function(event) {
-          this.workactive = !this.workactive;
+          this.workactive = !this.workactive
         }
   }
 }
