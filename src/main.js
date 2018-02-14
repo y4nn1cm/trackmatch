@@ -4,11 +4,13 @@ import App from './App'
 import router from './router'
 import { store } from './store'
 import firebase from 'firebase'
+import 'firebase/firestore'
 import { firebaseConfig } from './config'
 
 Vue.use(Vuetify)
 Vue.config.productionTip = false
-firebase.initializeApp(firebaseConfig)
+// Initialize firebase app with config const that is saved in ./config
+const firebaseApp = firebase.initializeApp(firebaseConfig)
 
 /* eslint-disable no-new */
 const unsubscribe = firebase.auth()
@@ -24,3 +26,6 @@ const unsubscribe = firebase.auth()
   })
   unsubscribe()
 })
+
+export default firebaseApp.firestore()
+

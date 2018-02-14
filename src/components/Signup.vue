@@ -58,7 +58,7 @@
               ></v-text-field>
           </v-flex>
           <v-flex class="text-xs-center" mt-5>
-            <v-btn primary type="submit" :disabled="loading">Sign Up</v-btn>
+            <v-btn primary type="submit">Sign Up</v-btn>
           </v-flex>
         </v-layout>
       </form>
