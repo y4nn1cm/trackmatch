@@ -32,6 +32,10 @@ export const actions = {
     }, { merge: true }).then(() => { console.log('SearchJob has been saved') })
   },
 
+  openSite ({commit}, payload) {
+    router.push(payload.target)
+  },
+
   userSignUp ({commit}, payload) {
     commit('setLoading', true)
     firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password).then(firebaseUser => {

@@ -1,22 +1,21 @@
 <template>
-  <div>
-      <div class="center">
-        <h1 style="margin-bottom:5%; margin-top:5%; font-family:merriweather; font-size:10vw">trackmatch</h1>
-        <div class="line"></div>
-        <p @click="editpicture=true" v-if="editpicture === false" style='text-align:left; margin-bottom:0px'>press to edit profile picture</p>
-        <div v-if="editpicture === true">
-        <a @click="editpicture=false"><p style='text-align:left; margin-bottom:0px'>press to close</p></a>
-        <form @submit.prevent="pictureUpload">
-          <v-text-field 
-              name="imageurl"
-              label="Paste link to image here"
-              id="imageurl"
-              type="imageurl"
-              v-model="imageurl"
-              style= "input-size:1vw"
-              mb-0>
-          </v-text-field>
-          <v-btn primary class="button" type="submit" mt-0>upload</v-btn>
+  <v-app>
+    <div class="center">
+      <h1 style="margin-bottom:5%; margin-top:5%; font-family:merriweather; font-size:10vw">trackmatch</h1>
+      <div class="line"></div>
+      <p @click="editpicture=true" v-if="editpicture === false" style='text-align:left; margin-bottom:0px'>press to edit profile picture</p>
+      <div v-if="editpicture === true">
+      <a @click="editpicture=false"><p style='text-align:left; margin-bottom:0px'>press to close</p></a>
+      <form @submit.prevent="pictureUpload">
+        <v-text-field 
+          name="imageurl"
+          label="Paste link to image here"
+          id="imageurl"
+          type="imageurl"
+          v-model="imageurl"
+          style= "margin-bottom:0; padding-bottom:0">
+        </v-text-field>
+          <v-btn primary class="button" type="submit" style="margin-top:0; padding-top:0">upload</v-btn>
         </form>
         </div>
         <img :src="profilepicture" class="profile-picture"> 
@@ -34,12 +33,12 @@
           <v-flex xs12>
           <v-btn @click="togglefeedback" v-bind:class="{primary: givefeedback}" class="select" id=feedback>Create my ideal work environment</v-btn>
           </v-flex>
-          <v-flex class="text-xs-center" mt-4>
-            <v-btn primary type="submit">Continue</v-btn>
+          <v-flex class="text-xs-center" style="margin-top:4%">
+            <v-btn primary @click="continuePress" type="submit">Continue</v-btn>
           </v-flex>
         </v-layout>
       </div>
-  </div>
+  </v-app>
 </template>
 
 <script>
@@ -54,7 +53,7 @@ export default {
       givefeedback: false,
       helphiring: false,
       imageurl: '',
-      user:'',
+      user: '',
       editpicture: false
     }
   },
@@ -69,39 +68,36 @@ export default {
     })
   },
   methods:
-  
+
   {
     pictureUpload () {
-      if (this.imageurl.length>10){
-      this.editpicture=false
-      this.$store.dispatch('pictureUpload', {imageurl: this.imageurl})
-      firestore.collection('Users').where('ID', '==', firebase.auth().currentUser.uid).get().then(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        this.profilepicture = doc.data().profilepicture
-      })
-    })
+      if (this.imageurl.length > 10) {
+        this.editpicture = false
+        this.$store.dispatch('pictureUpload', {imageurl: this.imageurl})
+        firestore.collection('Users').where('ID', '==', firebase.auth().currentUser.uid).get().then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            this.profilepicture = doc.data().profilepicture
+          })
+        })
       }
     },
 
     togglejobsearch: function (event) {
       this.searchjob = !this.searchjob
-      this.$store.dispatch('editSearchJob', {searchjob: this.searchjob})
     },
 
     togglehelphiring: function (event) {
       this.helphiring = !this.helphiring
-      this.$store.dispatch('editHelpHiring', {helphiring: this.helphiring})
     },
 
     togglefeedback: function (event) {
       this.givefeedback = !this.givefeedback
-      this.$store.dispatch('editGiveFeedback', {givefeedback: this.givefeedback})
     },
-
-    userSetObjective () {
-      this.$store.dispatch('userSetObjective', {
-        user: this.user, haswork: this.givefeedback, jobsearch: this.searchjob
-      })
+    continuePress: function (event) {
+      this.$store.dispatch('editGiveFeedback', {givefeedback: this.givefeedback})
+      this.$store.dispatch('editHelpHiring', {helphiring: this.helphiring})
+      this.$store.dispatch('editSearchJob', {searchjob: this.searchjob})
+      this.$store.dispatch('openSite', {target: '/details'})
     }
   }
 }
