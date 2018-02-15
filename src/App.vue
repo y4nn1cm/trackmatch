@@ -27,7 +27,7 @@
         </v-toolbar-side-icon>
       </span>
       <v-toolbar-title>
-        <router-link to="/" tag="span" style="cursor: pointer">
+        <router-link to="/home" tag="span" style="cursor: pointer; font-family:merriweather">
           {{ appTitle }}
         </router-link>
       </v-toolbar-title>
@@ -61,7 +61,7 @@
   export default {
     data () {
       return {
-        // appTitle: 'Awesome App',
+        // appTitle: 'trackmatch',
         sidebar: false
       }
     },
@@ -96,4 +96,5 @@
 
 <style lang="stylus">
   @import './stylus/main'
+  @import url('https://fonts.googleapis.com/css?family=Merriweather');
 </style>

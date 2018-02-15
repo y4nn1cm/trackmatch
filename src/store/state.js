@@ -1,5 +1,5 @@
 export const state = {
-  appTitle: 'My Awesome App',
+  appTitle: 'trackmatch',
   user: null,
   error: null,
   loading: false

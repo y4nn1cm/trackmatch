@@ -1,42 +1,44 @@
 <template>
   <div>
-    <v-container id="box">
       <div class="center">
         <h1 style="margin-bottom:5%; margin-top:5%; font-family:merriweather; font-size:10vw">trackmatch</h1>
         <div class="line"></div>
+        <p @click="editpicture=true" v-if="editpicture === false" style='text-align:left; margin-bottom:0px'>press to edit profile picture</p>
+        <div v-if="editpicture === true">
+        <a @click="editpicture=false"><p style='text-align:left; margin-bottom:0px'>press to close</p></a>
         <form @submit.prevent="pictureUpload">
-          <v-flex class="text-xs-center" mt-5>
-            <v-text-field
+          <v-text-field 
               name="imageurl"
-              label="Please paste a link to your profilepicture"
+              label="Paste link to image here"
               id="imageurl"
               type="imageurl"
-              v-model="imageurl">
-              </v-text-field>
-            <v-btn primary type="submit">upload</v-btn>
-          </v-flex>
+              v-model="imageurl"
+              style= "input-size:1vw"
+              mb-0>
+          </v-text-field>
+          <v-btn primary class="button" type="submit" mt-0>upload</v-btn>
         </form>
+        </div>
         <img :src="profilepicture" class="profile-picture"> 
         <h1 style="font-size:7vw;">Hello {{ user }}</h1>
 
-        <strong style="font-size:5vmin">Why are you here?</strong>
+        <strong style="font-size:5vmin">What can we help you with?</strong>
     
-        <v-layout style=margin-top:2vw row wrap> 
-          <v-flex xs4>
+        <v-layout style=margin-top:5vw row wrap> 
+          <v-flex xs12>
             <v-btn @click="togglejobsearch" v-bind:class="{primary: searchjob}" class="select" id=jobsearch>Find a job</v-btn>
           </v-flex>
-          <v-flex xs4>
-          <v-btn @click="togglehelphiring" v-bind:class="{primary: helphiring}" class="select" id=hiring>Help my<br>company hiring</v-btn>
+          <v-flex xs12>
+          <v-btn @click="togglehelphiring" v-bind:class="{primary: helphiring}" class="select" id=hiring>Help my company hiring</v-btn>
           </v-flex>
-          <v-flex xs4>
-          <v-btn @click="togglefeedback" v-bind:class="{primary: givefeedback}" class="select" id=feedback>Give anonymous<br>Feedback</v-btn>
+          <v-flex xs12>
+          <v-btn @click="togglefeedback" v-bind:class="{primary: givefeedback}" class="select" id=feedback>Create my ideal work environment</v-btn>
           </v-flex>
-          <v-flex class="text-xs-center" mt-5>
+          <v-flex class="text-xs-center" mt-4>
             <v-btn primary type="submit">Continue</v-btn>
           </v-flex>
         </v-layout>
       </div>
-    </v-container>
   </div>
 </template>
 
@@ -52,7 +54,8 @@ export default {
       givefeedback: false,
       helphiring: false,
       imageurl: '',
-      user:''
+      user:'',
+      editpicture: false
     }
   },
   created () {
@@ -69,12 +72,15 @@ export default {
   
   {
     pictureUpload () {
+      if (this.imageurl.length>10){
+      this.editpicture=false
       this.$store.dispatch('pictureUpload', {imageurl: this.imageurl})
       firestore.collection('Users').where('ID', '==', firebase.auth().currentUser.uid).get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
         this.profilepicture = doc.data().profilepicture
       })
     })
+      }
     },
 
     togglejobsearch: function (event) {
@@ -111,37 +117,30 @@ export default {
   height:30vw;
   border-radius: 50%;
   object-fit:cover;
-  margin:4vw;
-  margin-bottom:6vw;
+  margin:6vw;
+}
+
+#imageurl {
+  margin-bottom: 0;
+  font-size: 2vw;
 }
 
 .center {
   position: relative;
   text-align: center;
   box-sizing: border-box;
-  padding:2%;
   width: 100%;
   height:100%;
-}
-
-#box {
-  position: relative;
-  text-align: center;
-  width: 94%;
-  margin-top:5%;
-  margin-bottom:5%;
-  background: rgb(245, 245, 245);
-  border-radius: 2px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  font-size:2.5vw;
 }
 
 .select {
-  margin-top:7.5%;
-  margin-bottom:5%;
+  margin-top:2.5%;
+  margin-bottom:2.5%;
   width:90%;
-  font-size: 2vw;
+  font-size: 3vw;
   padding:0;
-  height:40px;
+  height:10vw;
   text-align:center;
 }
 
