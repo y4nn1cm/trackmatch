@@ -26,6 +26,18 @@ export const actions = {
     }, { merge: true }).then(() => { console.log('HelpHiring has been saved') })
   },
 
+  editFindEvents ({commit}, payload) {
+    firestore.collection('Users').doc(firebase.auth().currentUser.uid).set({
+      findevents: payload.findevents
+    }, { merge: true }).then(() => { console.log('FindEvents has been saved') })
+  },
+
+  editFindCoach ({commit}, payload) {
+    firestore.collection('Users').doc(firebase.auth().currentUser.uid).set({
+      findcoach: payload.findcoach
+    }, { merge: true }).then(() => { console.log('FindCoach has been saved') })
+  },
+
   editSearchJob ({commit}, payload) {
     firestore.collection('Users').doc(firebase.auth().currentUser.uid).set({
       searchjob: payload.searchjob

@@ -1,65 +1,39 @@
 <template>
   <v-app>
     <div style="margin-bottom:0; margin-top:0" class="containerwork">
-      <strong style="font-size:4.5vmin">Which company do you work at?</strong>
+      <h4 style="margin-bottom:0">Which company do you work at?</h4>
       <v-text-field
         name="company"
         label="Type in the company"
         id="company"
         type="company"
         v-model="company"
-        style="margin-bottom:0; padding-bottom:0; border:0; font-size:10%">
+        style="margin-top:0; border:0; font-size:10%">
       </v-text-field>
     </div>
-    <v-container class="containersearch containerwork" style="margin-bottom:5%; margin-top:0">
-      <strong style="font-size:4vmin; margin-top:0">How experienced are you?</strong>
-      <v-radio  label="entry level" value=1 name="experience" v-model='experience' style="margin-top:3%; margin-bottom:-0%; margin-left:-0%; margin-right:-0%; padding:0; font-size:10%"></v-radio>
-      <v-radio style="margin:-0%; padding:0" label="> 2 years" value=2 name="experience" v-model='experience'></v-radio>
-      <v-radio style="margin:-0%; padding:0" label="> 5 years" value=3 name="experience" v-model='experience'></v-radio>
-      <v-radio style="margin:-0%; padding:0; font-size:4px" label="> 10 years" value=4 name="experience" v-model='experience'></v-radio>
-      <strong style="font-size:4vmin">What disciplines do you come from?</strong>
+    <div class="containersearch containerwork" style="margin-bottom:5%; margin-top:0">
+      <h4>How experienced are you?</h4>
+      <v-radio  label="entry level" value=1 name="experience" v-model='experience' style="margin-top:3%; margin-bottom:0%; margin-left:-0%; margin-right:-0%; padding:0; font-size:10%"></v-radio>
+      <v-radio style="margin:0%; padding:0" label="> 2 years" value=2 name="experience" v-model='experience'></v-radio>
+      <v-radio style="margin:0%; padding:0" label="> 5 years" value=3 name="experience" v-model='experience'></v-radio>
+      <v-radio style="margin:0%; padding:0; font-size:4px" label="> 10 years" value=4 name="experience" v-model='experience'></v-radio>
+      <h4>What are your areas of expertise?</h4>
       <div>   
-        <select id=discipline1 class="backgroundselect">
-          <option>Select</option>
-          <option>Healthcare</option>
-          <option>Art</option>
-          <option>Music</option>
-          <option>Engineering</option>
-          <option>Business</option>
-          <option>Design</option>
-          <option>Politics</option>
-          <option>Law</option>
-          <option>Social Science</option>
-          <option>Media</option>
-          <option>Natural Science</option>
-          <option>Culture Science</option>
-          <option>Historical Science</option>
-          <option>Communication</option>
-        </select>
-           
-<select id=discipline2 class="backgroundselect">
-  <option>Select</option>
-  <option>Healthcare</option>
-  <option>Art</option>
-  <option>Music</option>
-  <option>Engineering</option>
-  <option>Business</option>
-  <option>Design</option>
-  <option>Politics</option>
-  <option>Law</option>
-  <option>Social Science</option>
-  <option>Media</option>
-  <option>Natural Science</option>
-  <option>Culture Science</option>
-  <option>Historical Science</option>
-  <option>Communication</option>
-</select>
+        <v-select id=discipline1
+          label="Discipline or Industry"
+          :items="disciplineitems"
+          v-bind="selection1"
+          class="input-group--focused">
+        </v-select>
+        <v-select id=discipline1
+          label="Discipline or Industry"
+          :items="disciplineitems"
+          v-bind="selection2"
+          class="input-group--focused">
+        </v-select>
     </div>
-    
     <div class="line" style="margin-top:5%"></div>
-    
-
-  </v-container>
+    </div>
   </v-app>
 </template>
 
@@ -78,10 +52,13 @@ export default {
       user: '',
       editpicture: false,
       experience: 1,
-      experiencechoices: [' entry level', ' > 2 years', ' > 5 years', ' > 10 years']
+      selection1: null,
+      selection2: null,
+      disciplineitems: ['Healthcare', 'Art', 'Music', 'Food', 'Engineering', 'Transportation']
     }
   },
   created () {
+    window.scrollTo(0, 0)
     firestore.collection('Users').where('ID', '==', firebase.auth().currentUser.uid).get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
         this.user = doc.data().firstname

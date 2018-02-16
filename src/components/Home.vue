@@ -1,11 +1,11 @@
 <template>
   <v-app>
     <div class="center">
-      <h1 style="margin-bottom:5%; margin-top:5%; font-family:merriweather; font-size:10vw">trackmatch</h1>
+      <h2 style="margin-bottom:5%; margin-top:5%; font-family:merriweather">trackmatch</h2>
       <div class="line"></div>
-      <p @click="editpicture=true" v-if="editpicture === false" style='text-align:left; margin-bottom:0px'>press to edit profile picture</p>
+      <p @click="editpicture=true" v-if="editpicture === false" style='text-align:left; margin-bottom:0px; font-size:2.5vw'>press to edit profile picture</p>
       <div v-if="editpicture === true">
-      <a @click="editpicture=false"><p style='text-align:left; margin-bottom:0px'>press to close</p></a>
+      <a @click="editpicture=false"><p style='text-align:left; margin-bottom:0px; font-size:2.5vw;'>press to close</p></a>
       <form @submit.prevent="pictureUpload">
         <v-text-field 
           name="imageurl"
@@ -19,19 +19,25 @@
         </form>
         </div>
         <img :src="profilepicture" class="profile-picture"> 
-        <h1 style="font-size:7vw;">Hello {{ user }}</h1>
+        <h2>Hello {{ user }}</h2>
 
-        <strong style="font-size:5vmin">What can we help you with?</strong>
+        <h3>What can we help you with?</h3>
     
         <v-layout style=margin-top:5vw row wrap> 
           <v-flex xs12>
-            <v-btn @click="togglejobsearch" v-bind:class="{primary: searchjob}" class="select" id=jobsearch>Find a job</v-btn>
+            <v-btn @click="togglejobsearch" v-bind:class="{primary: searchjob}" class="select" id=jobsearch>Find a (new) job</v-btn>
           </v-flex>
           <v-flex xs12>
-          <v-btn @click="togglehelphiring" v-bind:class="{primary: helphiring}" class="select" id=hiring>Help my company hiring</v-btn>
+          <v-btn @click="togglehelphiring" v-bind:class="{primary: helphiring}" class="select" id=hiring>Help our company hiring</v-btn>
           </v-flex>
           <v-flex xs12>
           <v-btn @click="togglefeedback" v-bind:class="{primary: givefeedback}" class="select" id=feedback>Create my ideal work environment</v-btn>
+          </v-flex>
+          <v-flex xs12>
+          <v-btn @click="toggleevent" v-bind:class="{primary: findevents}" class="select" id=feedback>Find events with like-minded people</v-btn>
+          </v-flex>
+          <v-flex xs12>
+          <v-btn @click="togglecoach" v-bind:class="{primary: findcoach}" class="select" id=feedback>Find a Coach / Mentor that fits me</v-btn>
           </v-flex>
           <v-flex class="text-xs-center" style="margin-top:4%">
             <v-btn primary @click="continuePress" type="submit">Continue</v-btn>
@@ -52,12 +58,15 @@ export default {
       searchjob: false,
       givefeedback: false,
       helphiring: false,
+      findevents: false,
+      findcoach: false,
       imageurl: '',
       user: '',
       editpicture: false
     }
   },
   created () {
+    window.scrollTo(0, 0)
     firestore.collection('Users').where('ID', '==', firebase.auth().currentUser.uid).get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
         this.user = doc.data().firstname
@@ -93,10 +102,21 @@ export default {
     togglefeedback: function (event) {
       this.givefeedback = !this.givefeedback
     },
+
+    toggleevent: function (event) {
+      this.findevents = !this.findevents
+    },
+
+    togglecoach: function (event) {
+      this.findcoach = !this.findcoach
+    },
+
     continuePress: function (event) {
       this.$store.dispatch('editGiveFeedback', {givefeedback: this.givefeedback})
       this.$store.dispatch('editHelpHiring', {helphiring: this.helphiring})
       this.$store.dispatch('editSearchJob', {searchjob: this.searchjob})
+      this.$store.dispatch('editFindEvents', {findevents: this.findevents})
+      this.$store.dispatch('editFindCoach', {findcoach: this.findcoach})
       this.$store.dispatch('openSite', {target: '/details'})
     }
   }
@@ -127,14 +147,12 @@ export default {
   box-sizing: border-box;
   width: 100%;
   height:100%;
-  font-size:2.5vw;
 }
 
 .select {
   margin-top:2.5%;
   margin-bottom:2.5%;
   width:90%;
-  font-size: 3vw;
   padding:0;
   height:10vw;
   text-align:center;
