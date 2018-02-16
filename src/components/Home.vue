@@ -73,6 +73,8 @@ export default {
         this.profilepicture = doc.data().profilepicture
         this.searchjob = doc.data().searchjob
         this.givefeedback = doc.data().givefeedback
+        this.findevents = doc.data().findevents
+        this.findcoach = doc.data().findcoach
       })
     })
   },
