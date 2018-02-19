@@ -12,7 +12,8 @@
           id="imageurl"
           type="imageurl"
           v-model="logourl"
-          style= "margin-bottom:0; padding-bottom:0">
+          style= "margin-bottom:0; padding-bottom:0"
+          required>
         </v-text-field>
 
         <v-text-field
@@ -20,20 +21,23 @@
               label="Paste link to company website here"
               id="website"
               type="website"
-              v-model="website">
+              v-model="website"
+              required>
         </v-text-field>
   <h4>What areas is your company active in?</h4> 
         <v-select id=discipline1
           label="Discipline or Industry"
           :items="disciplines"
           v-model="area1"
-          class="input-group--focused">
+          class="input-group--focused"
+          required>
         </v-select>
         <v-select id=discipline2
           label="Discipline or Industry"
           :items="disciplines"
           v-model="area2"
-          class="input-group--focused">
+          class="input-group--focused"
+          required>
         </v-select>
 <h4 style="font-weight:500">Let's describe your Job search</h4>
     <v-text-field
@@ -166,7 +170,7 @@ methods:
     createEmployeeSearch: function (event) {
       this.$store.dispatch('createEmployeeSearch', {rolemodels: this.employeeselection, experiencelevels: this.experiencelevel, activities: this.activities, company: this.forcompany, logo: this.logourl, website: this.website, jobad: this.jobad, area1: this.area1, area2: this.area2, uniquename: this.position
       })
-      this.$store.dispatch('createCompany', {company: this.forcompany, logo: this.logourl, website: this.website, area1: this.area1, area2: this.area2
+      this.$store.dispatch('createCompanyDetails', {company: this.forcompany, logo: this.logourl, website: this.website, area1: this.area1, area2: this.area2
       })
     }
   }

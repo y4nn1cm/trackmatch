@@ -29,14 +29,20 @@ export const actions = {
     }).then(() => { console.log('Job Search has been created') })
   },
 
-  createCompany ({commit}, payload) {
+  createCompanyDetails ({commit}, payload) {
     firestore.collection('Companies').doc(payload.company).set({
       companyname: payload.company,
       logo: payload.logo,
       website: payload.website,
       area1: payload.area1,
       area2: payload.area2
-    }, { merge: true }).then(() => { console.log('Company has been created/updated') })
+    }, { merge: true }).then(() => { console.log('Company has been updated') })
+  },
+
+  createCompany ({commit}, payload) {
+    firestore.collection('Companies').doc(payload.company).set({
+      companyname: payload.company
+    }, { merge: true }).then(() => { console.log('Company has been created') })
   },
 
   editDetails ({commit}, payload) {

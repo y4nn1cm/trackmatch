@@ -19,6 +19,7 @@
         <img :src="profilepicture" class="profile-picture">
         </div>
       <p class="body-2" style="text-align:center; color:#42b983">On this page we will ask you for some information. Based on your answers we are able to help reaching the goals you told us about.</p>
+      <div v-if="searchjob">
       <h4 style="margin-bottom:0">Which company do you work at?</h4>
       <v-text-field
         name="company"
@@ -26,8 +27,10 @@
         id="company"
         type="company"
         v-model="company"
-        style="margin-top:0; border:0; font-size:10%">
+        style="margin-top:0; border:0; font-size:10%"
+        required>
       </v-text-field>
+      </div>
     
       <h4>How experienced are you?</h4>
       <v-radio  label="entry level" value=1 name="experience" v-model='experience' style="margin-top:3%; margin-bottom:0%; margin-left:-0%; margin-right:-0%; padding:0; font-size:10%"></v-radio>
@@ -475,7 +478,7 @@ export default {
         this.company = doc.data().company
         }
       })
-    })
+    }).then(() => this.searchjob = !this.searchjob)
   },
   methods:
   {
@@ -492,6 +495,7 @@ export default {
     },
 
     transferData: function (event) {
+      this.company = this.company.toLowerCase().trim()
       this.$store.dispatch('editDetails', {
       experience : this.experience,
       background1 : this.selection1,
@@ -524,7 +528,7 @@ export default {
       company : this.company,
       forcompany: this.company
       })
-
+      this.$store.dispatch('createCompany', {company: this.company})
     },
 
     plusCollaboration () {
