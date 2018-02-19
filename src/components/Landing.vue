@@ -1,7 +1,8 @@
 <template>
   <v-layout column>
     <v-flex xs12 class="text-xs-center" mt-5>
-      <h3>Welcome to Awesome App</h3>
+      <h3>Welcome to</h3>
+      <h3 style="font-family:Merriweather">trackmatch</h3>
     </v-flex>
     <v-flex xs12 sm6 offset-sm3 mt-3>
       <blockquote>
@@ -19,3 +20,7 @@
 export default {
 }
 </script>
+<style>
+@import url('https://fonts.googleapis.com/css?family=Merriweather');
+
+</style>

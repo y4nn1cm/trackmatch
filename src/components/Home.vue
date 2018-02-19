@@ -40,7 +40,7 @@
           <v-btn @click="togglecoach" v-bind:class="{primary: findcoach}" class="select" id=feedback>Find a Coach / Mentor that fits me</v-btn>
           </v-flex>
           <v-flex class="text-xs-center" style="margin-top:4%">
-            <v-btn primary @click="continuePress" type="submit">Continue</v-btn>
+            <v-btn primary @click="editGoals" type="submit">Continue</v-btn>
           </v-flex>
         </v-layout>
       </div>
@@ -69,12 +69,16 @@ export default {
     window.scrollTo(0, 0)
     firestore.collection('Users').where('ID', '==', firebase.auth().currentUser.uid).get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
+        if (doc.data().pointsleft < 19)
+        {
         this.user = doc.data().firstname
         this.profilepicture = doc.data().profilepicture
         this.searchjob = doc.data().searchjob
+        this.helphiring = doc.data().helphiring
         this.givefeedback = doc.data().givefeedback
         this.findevents = doc.data().findevents
         this.findcoach = doc.data().findcoach
+        }
       })
     })
   },
@@ -113,12 +117,8 @@ export default {
       this.findcoach = !this.findcoach
     },
 
-    continuePress: function (event) {
-      this.$store.dispatch('editGiveFeedback', {givefeedback: this.givefeedback})
-      this.$store.dispatch('editHelpHiring', {helphiring: this.helphiring})
-      this.$store.dispatch('editSearchJob', {searchjob: this.searchjob})
-      this.$store.dispatch('editFindEvents', {findevents: this.findevents})
-      this.$store.dispatch('editFindCoach', {findcoach: this.findcoach})
+    editGoals: function (event) {
+      this.$store.dispatch('editGoals', {givefeedback: this.givefeedback, helphiring: this.helphiring, searchjob: this.searchjob, findevents: this.findevents, findcoach: this.findcoach})
       this.$store.dispatch('openSite', {target: '/details'})
     }
   }
