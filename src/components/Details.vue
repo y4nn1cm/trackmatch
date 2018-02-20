@@ -29,18 +29,6 @@
         required>
       </v-text-field>
       <div v-if="searchjob">
-      <h4 style="margin-bottom:0">Which company do you work at?</h4>
-      <v-text-field
-        name="company"
-        label="Type in the company"
-        id="company"
-        type="company"
-        v-model="company"
-        style="margin-top:0; border:0; font-size:10%"
-        required>
-      </v-text-field>
-      </div>
-      <div v-else>
       <v-text-field
         name="goal"
         label="What do you want to achieve at your next job?"
@@ -71,9 +59,21 @@
         required>
       </v-text-field>
       </div>
+      <div v-else>
+      <h4 style="margin-bottom:0">Which company do you work at?</h4>
+      <v-text-field
+        name="company"
+        label="Type in the company"
+        id="company"
+        type="company"
+        v-model="company"
+        style="margin-top:0; border:0; font-size:10%"
+        required>
+      </v-text-field>
+      </div>
       <v-text-field
         name="mail"
-        label="Please provide a contact mail"
+        label="Please provide your contact mail"
         id="mail"
         type="mail"
         v-model="email"
@@ -82,30 +82,36 @@
       </v-text-field>
       <v-text-field
         name="phone"
-        label="Please provide a contact number"
+        label="Please provide your contact number"
         id="phone"
         type="phone"
         v-model="phone"
         style="margin-top:0; border:0; font-size:10%">
       </v-text-field>
     
-      <h4>How experienced are you?</h4>
-      <v-radio  label="entry level" value=1 name="experience" v-model='experience' style="margin-top:3%; margin-bottom:0%; margin-left:-0%; margin-right:-0%; padding:0; font-size:10%"></v-radio>
-      <v-radio style="margin:0%; padding:0" label="> 2 years" value=2 name="experience" v-model='experience'></v-radio>
-      <v-radio style="margin:0%; padding:0" label="> 5 years" value=3 name="experience" v-model='experience'></v-radio>
-      <v-radio style="margin:0%; padding:0; font-size:4px" label="> 10 years" value=4 name="experience" v-model='experience'></v-radio>
+      <h4>Your workexperience</h4>
+      <v-text-field
+        name="experience"
+        label="Experience in years (number only)"
+        id="experience"
+        type="experience"
+        v-model="experience"
+        style="margin-top:0; border:0; font-size:10%">
+      </v-text-field>
       <h4>What are your areas of expertise?</h4> 
         <v-select id=discipline1
           label="Discipline or Industry"
           :items="disciplineitems"
           v-model="selection1"
-          class="input-group--focused">
+          class="input-group--focused"
+          required>
         </v-select>
         <v-select id=discipline2
           label="Discipline or Industry"
           :items="disciplineitems"
           v-model="selection2"
-          class="input-group--focused">
+          class="input-group--focused"
+          required>
         </v-select>
     <div class="line" style="margin-top:5%"></div>
     <h4>What do you do?</h4>
@@ -445,45 +451,45 @@ export default {
       hide: false,
       vision: null,
       goal: null,
-      linkedin: '',
-      phone: '',
-      email: '',
-      imageurl: '',
-      profilepicture: '',
-      searchjob: false,
-      givefeedback: false,
-      helphiring: false,
-      findevents: false,
-      findcoach: false,
+      linkedin: null,
+      phone: null,
+      email: null,
+      imageurl: null,
+      profilepicture: null,
+      searchjob: null,
+      givefeedback: null,
+      helphiring: null,
+      findevents: null,
+      findcoach: null,
       feedback: false,
-      company: '',
+      company: null,
       pointsleft: 18,
-      experience: '',
-      selection1: '',
-      selection2: '',
+      experience: null,
+      selection1: null,
+      selection2: null,
       adaptability: 0,
       goalorientation: 0,
       detailorientation: 0,
       customerorientation: 0,
       perseverence: 0,
       collaboration: 0,
-      leadership: '',
-      athmosphere: '',
-      roles: '',
-      moneysatisfaction: '',
-      freedom: '',
-      teamwork: '',
-      pragmatism: '',
-      feedbackleadership: '',
-      feedbackathmosphere: '',
-      feedbackroles: '',
-      feedbackmoneysatisfaction: '',
-      feedbackfreedom: '',
-      feedbackteamwork: '',
-      feedbackpragmatism: '',
-      factor1: '',
-      factor2: '',
-      factor3: '',
+      leadership: null,
+      athmosphere: null,
+      roles: null,
+      moneysatisfaction: null,
+      freedom: null,
+      teamwork: null,
+      pragmatism: null,
+      feedbackleadership: null,
+      feedbackathmosphere: null,
+      feedbackroles: null,
+      feedbackmoneysatisfaction: null,
+      feedbackfreedom: null,
+      feedbackteamwork: null,
+      feedbackpragmatism: null,
+      factor1: null,
+      factor2: null,
+      factor3: null,
       disciplineitems: ['Healthcare', 'Art', 'Music', 'Food', 'Engineering', 'Transportation'],
       product: null,
       design: null,
@@ -492,7 +498,9 @@ export default {
       software: null,
       ai: null,
       vrar: null,
-      blockchain: null
+      blockchain: null,
+      firstname: null,
+      lastname: null
     }
   },
   created () {
@@ -547,10 +555,12 @@ export default {
         this.software = doc.data().software,
         this.ai = doc.data().ai,
         this.vrar = doc.data().vrar,
-        this.blockchain = doc.data().blockchain
+        this.blockchain = doc.data().blockchain,
+        this.firstname = doc.data().firstname,
+        this.lastname = doc.data().lastname
         }
       })
-    }).then(() => this.searchjob = !this.searchjob)
+    })
   },
   methods:
   {
@@ -565,8 +575,31 @@ export default {
         })
       }
     },
-
     transferData: function (event) {
+      if (this.blockchain === null){
+        this.blockchain = false
+      }
+      if (this.ai === null){
+        this.ai = false
+      }
+      if (this.vrar === null){
+        this.vrar = false
+      }
+      if (this.software === null){
+        this.software = false
+      }
+      if (this.operations === null){
+        this.operations = false
+      }
+      if (this.product === null){
+        this.product = false
+      }
+      if (this.business === null){
+        this.business = false
+      }
+      if (this.design === null){
+        this.design = false
+      }
       this.company = this.company.toUpperCase().trim()
       this.$store.dispatch('editDetails', {
       vision: this.vision,
@@ -611,7 +644,51 @@ export default {
       email: this.email,
       linkedin: this.linkedin
       })
+      if (this.company.length > 1){
       this.$store.dispatch('createCompany', {company: this.company})
+      }
+      if (this.searchjob === true)
+      {
+      this.$store.dispatch('createCandidate',{
+      vision: this.vision,
+      goal: this.goal,  
+      product : this.product,
+      design : this.design,
+      business : this.business,
+      operations :  this.operations,
+      software : this.software,
+      ai : this.ai,
+      vrar : this.vrar,
+      blockchain : this.blockchain,
+      experience : this.experience,
+      background1 : this.selection1,
+      background2 : this.selection2,
+      adaptability : this.adaptability,
+      goalorientation : this.goalorientation,
+      detailorientation : this.detailorientation,
+      customerorientation : this.customerorientation,
+      perseverence : this.perseverence,
+      collaboration : this.collaboration,
+      leadership : this.leadership,
+      athmosphere : this.athmosphere,
+      roles : this.roles,
+      moneysatisfaction : this.moneysatisfaction,
+      freedom : this.freedom,
+      teamwork : this.teamwork,
+      pragmatism : this.pragmatism,
+      factor1 : this.factor1,
+      factor2 : this.factor2,
+      factor3 : this.factor3,
+      pointsleft : this.pointsleft,
+      company : this.company,
+      phone: this.phone,
+      email: this.email,
+      linkedin: this.linkedin,
+      profilepicture: this.profilepicture,
+      firstname: this.firstname,
+      lastname: this.lastname
+      })
+      }
     },
 
     plusCollaboration () {

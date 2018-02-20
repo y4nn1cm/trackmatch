@@ -7,7 +7,7 @@
         <img class="employee-picture" :src="job.logo">
       </v-flex>
       <v-flex class="body-2" xs10><p style="margin-top:0; margin-bottom:0.5vw; margin-left:0; padding:0">{{job.description}}</p>
-      <p style="margin-top:0; margin-bottom:0; margin-left:0; padding:0">In: {{background1}} / {{background2}}
+      <p style="margin-top:0; margin-bottom:0; margin-left:0; padding:0">In: {{job.background1}} / {{job.background2}}
       </p>
       </v-flex>
       <v-flex>
@@ -17,9 +17,11 @@
         <p style="font-weight:500; margin-top:2vw; margin-bottom:0; padding:0">Contact:</p>
         <p style="margin-top:0; margin-bottom:0; padding:0">{{job.phone}}</p>  
         <p style="margin-top:0; margin-bottom:0; padding:0">{{job.email}}</p>
+        <p style="margin-top:2vw; margin-bottom:0; padding:0" class="body-2">Culture fit: coming soon</p>
       </v-flex>
       <v-flex xs6>
-        <p style="font-weight:500; margin-top:1.5vw; margin-bottom:1vw; padding:0; text-align:right">Ideal Candidate Profile:</p>  
+        <p style="font-weight:500; margin-top:1.5vw; margin-bottom:1vw; padding:0; text-align:right">Ideal Candidate Profile:</p>
+        <p style="margin-top:0; margin-bottom:1vw; padding:0; text-align:right">Experience: {{job.experience}} years</p>
         <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Adaptability: {{job.adaptability}}</p>
         <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Detailorientation: {{job.detailorientation}}</p>
         <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Perseverence: {{job.perseverence}}</p>
@@ -30,7 +32,6 @@
       <v-flex xs12>
         <p style="margin-top:1.5vw; margin-bottom:0; padding:0" class="body-2">Company vision</p>
         <p style="text-align:justify; margin-bottom:0; padding:0">{{job.vision}}</p>
-        <p style="margin-top:2vw; margin-bottom:0; padding:0" class="body-2">Your culture fit: coming soon</p>
       </v-flex>
       <div class="line" style="margin-top:4vw"></div>
     </v-layout>
@@ -46,6 +47,7 @@ export default {
       return {
         activities: [],
         background1: null,
+        experience: null,
         background2: null,
         adaptability: null,
         perseverence: null,
@@ -53,14 +55,14 @@ export default {
         goalorientation: null,
         detailorientation: null,
         customerorientation: null,
-        product: null,
-        design: null,
-        business: null,
-        operations: null,
-        software: null,
-        ai: null,
-        vrar: null,
-        blockchain: null,
+        product: false,
+        design: false,
+        business: false,
+        operations: false,
+        software: false,
+        ai: false,
+        vrar: false,
+        blockchain: false,
         leadership: this.leadership,
         athmosphere: this.athmosphere,
         roles: this.roles,
@@ -80,22 +82,22 @@ export default {
       querySnapshot.forEach(doc => {
         if (doc.data().pointsleft < 19)
         {
-        this.experience = doc.data().experience
-        this.background1 = doc.data().background1
-        this.background2 = doc.data().background2
-        this.adaptability = doc.data().adaptability
-        this.goalorientation = doc.data().goalorientation
-        this.detailorientation = doc.data().detailorientation
-        this.customerorientation = doc.data().customerorientation
-        this.perseverence = doc.data().perseverence
-        this.collaboration = doc.data().collaboration
-        this.leadership = doc.data().leadership
-        this.athmosphere = doc.data().athmosphere
-        this.roles = doc.data().roles
-        this.moneysatisfaction = doc.data().moneysatisfaction
-        this.freedom = doc.data().freedom
-        this.teamwork = doc.data().teamwork
-        this.pragmatism = doc.data().pragmatism
+        this.experience = doc.data().experience,
+        this.background1 = doc.data().background1,
+        this.background2 = doc.data().background2,
+        this.adaptability = doc.data().adaptability,
+        this.goalorientation = doc.data().goalorientation,
+        this.detailorientation = doc.data().detailorientation,
+        this.customerorientation = doc.data().customerorientation,
+        this.perseverence = doc.data().perseverence,
+        this.collaboration = doc.data().collaboration,
+        this.leadership = doc.data().leadership,
+        this.athmosphere = doc.data().athmosphere,
+        this.roles = doc.data().roles,
+        this.moneysatisfaction = doc.data().moneysatisfaction,
+        this.freedom = doc.data().freedom,
+        this.teamwork = doc.data().teamwork,
+        this.pragmatism = doc.data().pragmatism,
         this.product = doc.data().product,
         this.design = doc.data().design,
         this.business = doc.data().business,
@@ -111,6 +113,8 @@ export default {
         let data = {
         company : doc.data().company,
         website : doc.data().website,
+        background1 : doc.data().area1,
+        background2 : doc.data().area2,
         logo: doc.data().logo,
         jobad: doc.data().jobad,
         description: doc.data().description,
@@ -122,7 +126,8 @@ export default {
         detailorientation: doc.data().detailorientation,
         email: doc.data().email,
         phone: doc.data().phone,
-        vision: doc.data().vision
+        vision: doc.data().vision,
+        experience: doc.data().experiencelevels
         }
         this.jobs.push(data)
         })
@@ -133,6 +138,8 @@ export default {
         website : doc.data().website,
         logo: doc.data().logo,
         jobad: doc.data().jobad,
+        background1 : doc.data().area1,
+        background2 : doc.data().area2,
         description : doc.data().description,
         adaptability : doc.data().adaptability,
         perseverence : doc.data().perseverence,
@@ -142,7 +149,8 @@ export default {
         detailorientation : doc.data().detailorientation,
         email: doc.data().email,
         phone: doc.data().phone,
-        vision: doc.data().vision
+        vision: doc.data().vision,
+        experience: doc.data().experiencelevels
         }
         this.jobs.push(data)
         })
@@ -153,6 +161,8 @@ export default {
         website : doc.data().website,
         logo: doc.data().logo,
         jobad: doc.data().jobad,
+        background1 : doc.data().area1,
+        background2 : doc.data().area2,
         description : doc.data().description,
         adaptability : doc.data().adaptability,
         perseverence : doc.data().perseverence,
@@ -162,7 +172,8 @@ export default {
         detailorientation : doc.data().detailorientation,
         email: doc.data().email,
         phone: doc.data().phone,
-        vision: doc.data().vision
+        vision: doc.data().vision,
+        experience: doc.data().experiencelevels
         }
         this.jobs.push(data)
         })
@@ -173,6 +184,8 @@ export default {
         website : doc.data().website,
         logo: doc.data().logo,
         jobad: doc.data().jobad,
+        background1 : doc.data().area1,
+        background2 : doc.data().area2,
         description : doc.data().description,
         adaptability : doc.data().adaptability,
         perseverence : doc.data().perseverence,
@@ -182,7 +195,8 @@ export default {
         detailorientation : doc.data().detailorientation,
         email: doc.data().email,
         phone: doc.data().phone,
-        vision: doc.data().vision
+        vision: doc.data().vision,
+        experience: doc.data().experiencelevels
         }
         this.jobs.push(data)
         })
@@ -193,6 +207,8 @@ export default {
         website : doc.data().website,
         logo: doc.data().logo,
         jobad: doc.data().jobad,
+        background1 : doc.data().area1,
+        background2 : doc.data().area2,
         description : doc.data().description,
         adaptability : doc.data().adaptability,
         perseverence : doc.data().perseverence,
@@ -202,7 +218,8 @@ export default {
         detailorientation : doc.data().detailorientation,
         email: doc.data().email,
         phone: doc.data().phone,
-        vision: doc.data().vision
+        vision: doc.data().vision,
+        experience: doc.data().experiencelevels
         }
         this.jobs.push(data)
         })
@@ -213,6 +230,8 @@ export default {
         website : doc.data().website,
         logo: doc.data().logo,
         jobad: doc.data().jobad,
+        background1 : doc.data().area1,
+        background2 : doc.data().area2,
         description : doc.data().description,
         adaptability : doc.data().adaptability,
         perseverence : doc.data().perseverence,
@@ -222,7 +241,8 @@ export default {
         detailorientation : doc.data().detailorientation,
         email: doc.data().email,
         phone: doc.data().phone,
-        vision: doc.data().vision
+        vision: doc.data().vision,
+        experience: doc.data().experiencelevels
         }
         this.jobs.push(data)
         })
@@ -233,6 +253,8 @@ export default {
         website : doc.data().website,
         logo: doc.data().logo,
         jobad: doc.data().jobad,
+        background1 : doc.data().area1,
+        background2 : doc.data().area2,
         description : doc.data().description,
         adaptability : doc.data().adaptability,
         perseverence : doc.data().perseverence,
@@ -242,7 +264,8 @@ export default {
         detailorientation : doc.data().detailorientation,
         email: doc.data().email,
         phone: doc.data().phone,
-        vision: doc.data().vision
+        vision: doc.data().vision,
+        experience: doc.data().experiencelevels
         }
         this.jobs.push(data)
         })
@@ -253,6 +276,8 @@ export default {
         website : doc.data().website,
         logo: doc.data().logo,
         jobad: doc.data().jobad,
+        background1 : doc.data().area1,
+        background2 : doc.data().area2,
         description : doc.data().description,
         adaptability : doc.data().adaptability,
         perseverence : doc.data().perseverence,
@@ -262,7 +287,8 @@ export default {
         detailorientation : doc.data().detailorientation,
         email: doc.data().email,
         phone: doc.data().phone,
-        vision: doc.data().vision
+        vision: doc.data().vision,
+        experience: doc.data().experiencelevels
         }
         this.jobs.push(data)
         })

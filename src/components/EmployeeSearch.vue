@@ -82,10 +82,15 @@
       v-model="jobad">
     </v-text-field>
     <h4>What experience level(s) are you looking for?</h4>
-      <v-checkbox  label="entry level" value=1 v-model='experiencelevel' style="margin-top:3%; margin-bottom:0%; margin-left:-0%; margin-right:-0%; padding:0; font-size:10%"></v-checkbox>
-      <v-checkbox style="margin:0%; padding:0" label="> 2 years" value=2 v-model='experiencelevel'></v-checkbox>
-      <v-checkbox style="margin:0%; padding:0" label="> 5 years" value=3 v-model='experiencelevel'></v-checkbox>
-      <v-checkbox style="margin:0%; padding:0; font-size:4px" label="> 10 years" value=4 v-model='experiencelevel'></v-checkbox>
+      <v-text-field
+        name="experience"
+        label="Experience in years"
+        id="experience"
+        type="experience"
+        v-model="experience"
+        style="margin-top:0; border:0; font-size:10%"
+        required>
+      </v-text-field>
         <div class="line"></div>
         <h4>What areas are you looking for?</h4>
         <p class="body-2">Business and Product</p>
@@ -200,7 +205,7 @@ export default {
     selectemployees: false, 
     forcompany: null,
     description: '',
-    experiencelevel: [],
+    experience: null,
     phone: null,
     email: null,
     area1: null,
@@ -220,14 +225,14 @@ export default {
     customerorientation: 0,
     perseverence: 0,
     collaboration: 0,
-    product: false,
-    design: false,
-    business: false,
-    operations: false,
-    software: false,
-    ai: false,
-    vrar: false,
-    blockchain: false,
+    product: null,
+    design: null,
+    business: null,
+    operations: null,
+    software: null,
+    ai: null,
+    vrar: null,
+    blockchain: null,
     }
   },  
   created () {
@@ -354,8 +359,8 @@ methods:
     },
 
     createEmployeeSearch: function (event) {
-      if (pointsleft < 1){
-      this.$store.dispatch('createEmployeeSearch', {selectemployees: this.selectemployees,rolemodels: this.employeeselection, adaptability: this.adaptability, perseverence: this.perseverence, detailorientation: this.detailorientation, customerorientation: this.customerorientation, goalorientation: this.goalorientation, collaboration: this.collaboration, experiencelevels: this.experiencelevel, product: this.product,
+      if (this.pointsleft < 1){
+      this.$store.dispatch('createEmployeeSearch', {selectemployees: this.selectemployees,rolemodels: this.employeeselection, adaptability: this.adaptability, perseverence: this.perseverence, detailorientation: this.detailorientation, customerorientation: this.customerorientation, goalorientation: this.goalorientation, collaboration: this.collaboration, experiencelevels: this.experience, product: this.product,
       design: this.design, business: this.business, operations:  this.operations,
       software: this.software, ai: this.ai, vrar: this.vrar, blockchain: this.blockchain, company: this.forcompany, logo: this.logourl, website: this.website, jobad: this.jobad, area1: this.area1, area2: this.area2, description: this.description, phone: this.phone, email: this.email, vision: this.vision
       })
