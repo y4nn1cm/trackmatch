@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 style="text-align:center">Job offerings at munich companies that fit your profile.</h3>
+    <h3 style="text-align:center">Job offerings in Munich for you</h3>
     <div class="line" style="margin-top:4vw"></div>
     <v-layout align-top style="margin-top:6vw" v-for="job in jobs" :key="job.description" row wrap>
       <v-flex xs2>
@@ -12,12 +12,12 @@
       </v-flex>
       <v-flex>
         <p style="font-weight:500; margin-top:1.5vw; margin-bottom:1vw; padding:0">{{job.company}}</p>  
-        <a style="margin-top:0; margin-bottom:1vw; padding:0" :href="job.website">{{job.website}}</a><br>
-        <a style="margin-top:0; margin-bottom:1vw; padding:0" :href="job.jobad">see job ad</a>
-        <p style="font-weight:500; margin-top:2vw; margin-bottom:0; padding:0">Contact:</p>
+        <a :href="job.website">{{job.website}}</a>
+        <p style="margin-top:1vw; margin-bottom:0; padding:0"><a :href="job.jobad">See job ad</a></p>
+        <p style="font-weight:500; margin-top:1.5vw; margin-bottom:0; padding:0">Contact:</p>
         <p style="margin-top:0; margin-bottom:0; padding:0">{{job.phone}}</p>  
         <p style="margin-top:0; margin-bottom:0; padding:0">{{job.email}}</p>
-        <p style="margin-top:2vw; margin-bottom:0; padding:0" class="body-2">Culture fit: coming soon</p>
+        <p style="margin-top:1.5vw; margin-bottom:0; padding:0" class="body-2">Culture fit: coming soon</p>
       </v-flex>
       <v-flex xs6>
         <p style="font-weight:500; margin-top:1.5vw; margin-bottom:1vw; padding:0; text-align:right">Ideal Candidate Profile:</p>
@@ -30,7 +30,7 @@
         <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Goalorientation: {{job.goalorientation}}</p>  
       </v-flex>
       <v-flex xs12>
-        <p style="margin-top:1.5vw; margin-bottom:0; padding:0" class="body-2">Company vision</p>
+        <p style="margin-top:0.5vw; margin-bottom:0; padding:0" class="body-2">Company vision</p>
         <p style="text-align:justify; margin-bottom:0; padding:0">{{job.vision}}</p>
       </v-flex>
       <div class="line" style="margin-top:4vw"></div>

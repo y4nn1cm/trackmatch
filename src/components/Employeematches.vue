@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 style="text-align:center">Candidates in munich companies that fit your company.</h3>
+    <h3 style="text-align:center">Candidates in Munich</h3>
     <h4>What are you looking for?</h4>
         <p class="body-2">Business and Product</p>
         <v-checkbox style="margin:0; padding:0" label="Product Management and Conceptualization" v-model="product" value=true></v-checkbox>
@@ -25,16 +25,19 @@
       <p style="margin-top:0; margin-bottom:0; margin-left:0; padding:0">Background in: {{candidate.background1}} / {{candidate.background2}}
       </p>
       </v-flex>
-      <v-flex>
-        <p style="margin-top:1.5vw; margin-bottom:1vw; padding:0"><a :href="candidate.linkedin">see LinkedIn Profile</a></p>
-        <p style="font-weight:500; margin-top:2vw; margin-bottom:0; padding:0">Contact:</p>
+      <v-flex xs12>
+        <p style="margin-top:1vw; margin-bottom:0; padding:0" class="body-2">Job Goal:</p>
+        <p style="text-align:justify; margin-bottom:0; padding:0">{{candidate.goal}}</p>
+      </v-flex>
+      <v-flex xs6>
+        <p style="margin-top:1.5vw; margin-bottom:1vw; padding:0">Experience: {{candidate.experience}} years</p>
+        <p style="margin-top:1.5vw; margin-bottom:0vw; padding:0"><a :href="candidate.linkedin">See profile</a></p>
+        <p style="font-weight:500; margin-top:1.5vw; margin-bottom:0; padding:0">Contact:</p>
         <p style="margin-top:0; margin-bottom:0; padding:0">{{candidate.phone}}</p>  
         <p style="margin-top:0; margin-bottom:0; padding:0">{{candidate.email}}</p>
-        <p style="margin-top:2vw; margin-bottom:0; padding:0" class="body-2">Culture fit: coming soon</p>
       </v-flex>
       <v-flex xs6>
         <p style="font-weight:500; margin-top:1.5vw; margin-bottom:1vw; padding:0; text-align:right">Candidate Profile:</p>
-        <p style="margin-top:0; margin-bottom:1vw; padding:0; text-align:right">Experience: {{candidate.experience}} years</p>
         <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Adaptability: {{candidate.adaptability}}</p>
         <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Detailorientation: {{candidate.detailorientation}}</p>
         <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Perseverence: {{candidate.perseverence}}</p>
@@ -43,7 +46,7 @@
         <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Goalorientation: {{candidate.goalorientation}}</p>  
       </v-flex>
       <v-flex xs12>
-        <p style="margin-top:1.5vw; margin-bottom:0; padding:0" class="body-2">Candidates vision</p>
+        <p style="margin-top:0; margin-bottom:0; padding:0" class="body-2">Candidates vision</p>
         <p style="text-align:justify; margin-bottom:0; padding:0">{{candidate.vision}}</p>
       </v-flex>
       <div class="line" style="margin-top:4vw"></div>
