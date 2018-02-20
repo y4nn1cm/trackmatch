@@ -31,7 +31,7 @@
       </v-flex>
       <v-flex xs6>
         <p style="margin-top:1.5vw; margin-bottom:1vw; padding:0">Experience: {{candidate.experience}} years</p>
-        <p style="margin-top:1.5vw; margin-bottom:0vw; padding:0"><a :href="candidate.linkedin">See profile</a></p>
+        <a :href="candidate.linkedin">See profile</a>
         <p style="font-weight:500; margin-top:1.5vw; margin-bottom:0; padding:0">Contact:</p>
         <p style="margin-top:0; margin-bottom:0; padding:0">{{candidate.phone}}</p>  
         <p style="margin-top:0; margin-bottom:0; padding:0">{{candidate.email}}</p>
@@ -118,7 +118,8 @@ methods: {
         lastname: doc.data().lastname,
         background1: doc.data().background1,
         background2: doc.data().background2,
-        goal: doc.data().goal
+        goal: doc.data().goal,
+        linkedin: doc.data().linkedin
         }
         this.candidates.push(data)
         })
@@ -141,7 +142,8 @@ methods: {
         lastname: doc.data().lastname,
         background1: doc.data().background1,
         background2: doc.data().background2,
-        goal: doc.data().goal
+        goal: doc.data().goal,
+        linkedin: doc.data().linkedin
         }
         this.candidates.push(data)
         })
@@ -164,7 +166,8 @@ methods: {
         lastname: doc.data().lastname,
         background1: doc.data().background1,
         background2: doc.data().background2,
-        goal: doc.data().goal
+        goal: doc.data().goal,
+        linkedin: doc.data().linkedin
         }
         this.candidates.push(data)
         })
@@ -187,7 +190,8 @@ methods: {
         lastname: doc.data().lastname,
         background1: doc.data().background1,
         background2: doc.data().background2,
-        goal: doc.data().goal
+        goal: doc.data().goal,
+        linkedin: doc.data().linkedin
         }
         this.candidates.push(data)
         })
@@ -210,7 +214,8 @@ methods: {
         lastname: doc.data().lastname,
         background1: doc.data().background1,
         background2: doc.data().background2,
-        goal: doc.data().goal
+        goal: doc.data().goal,
+        linkedin: doc.data().linkedin
         }
         this.candidates.push(data)
         })
@@ -233,7 +238,8 @@ methods: {
         lastname: doc.data().lastname,
         background1: doc.data().background1,
         background2: doc.data().background2,
-        goal: doc.data().goal
+        goal: doc.data().goal,
+        linkedin: doc.data().linkedin
         }
         this.candidates.push(data)
         })
@@ -256,7 +262,8 @@ methods: {
         lastname: doc.data().lastname,
         background1: doc.data().background1,
         background2: doc.data().background2,
-        goal: doc.data().goal
+        goal: doc.data().goal,
+        linkedin: doc.data().linkedin
         }
         this.candidates.push(data)
         })
@@ -279,7 +286,8 @@ methods: {
         lastname: doc.data().lastname,
         background1: doc.data().background1,
         background2: doc.data().background2,
-        goal: doc.data().goal
+        goal: doc.data().goal,
+        linkedin: doc.data().linkedin
         }
         this.candidates.push(data)
         })

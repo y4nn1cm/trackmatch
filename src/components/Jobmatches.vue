@@ -12,8 +12,8 @@
       </v-flex>
       <v-flex>
         <p style="font-weight:500; margin-top:1.5vw; margin-bottom:1vw; padding:0">{{job.company}}</p>  
-        <a :href="job.website">{{job.website}}</a>
-        <p style="margin-top:1vw; margin-bottom:0; padding:0"><a :href="job.jobad">See job ad</a></p>
+        <a :href="job.website">{{job.website}}</a><br>
+        <a :href="job.jobad">See job ad</a>
         <p style="font-weight:500; margin-top:1.5vw; margin-bottom:0; padding:0">Contact:</p>
         <p style="margin-top:0; margin-bottom:0; padding:0">{{job.phone}}</p>  
         <p style="margin-top:0; margin-bottom:0; padding:0">{{job.email}}</p>
