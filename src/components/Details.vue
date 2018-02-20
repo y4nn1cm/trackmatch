@@ -19,6 +19,15 @@
         <img :src="profilepicture" class="profile-picture">
         </div>
       <p class="body-2" style="text-align:center; color:#42b983">On this page we will ask you for some information. Based on your answers we are able to help reaching the goals you told us about.</p>
+      <v-text-field
+        name="vision"
+        label="What is your personal vision at work"
+        id="vision"
+        type="vision"
+        v-model="vision"
+        style="margin-top:0; border:0; font-size:10%"
+        required>
+      </v-text-field>
       <div v-if="searchjob">
       <h4 style="margin-bottom:0">Which company do you work at?</h4>
       <v-text-field
@@ -31,6 +40,54 @@
         required>
       </v-text-field>
       </div>
+      <div v-else>
+      <v-text-field
+        name="goal"
+        label="What do you want to achieve at your next job?"
+        id="goal"
+        type="goal"
+        v-model="goal"
+        style="margin-top:0; border:0; font-size:10%"
+        required="">
+      </v-text-field>
+      <p @click="hide=!hide" style="margin:4vw; font-size:2vw; text-align:center">Click here if you would like to hide your job search from a specific company</p>
+      <v-text-field
+        v-if="hide"
+        name="company"
+        label="Type in the company"
+        id="company"
+        type="company"
+        v-model="company"
+        style="margin-top:0; border:0; font-size:10%"
+        required>
+      </v-text-field>
+      <v-text-field
+        name="linkedin"
+        label="Please share your linkedIN or Xing profile"
+        id="linkedin"
+        type="linkedin"
+        v-model="linkedin"
+        style="margin-top:0; border:0; font-size:10%"
+        required>
+      </v-text-field>
+      </div>
+      <v-text-field
+        name="mail"
+        label="Please provide a contact mail"
+        id="mail"
+        type="mail"
+        v-model="email"
+        style="margin-top:0; border:0; font-size:10%"
+        required>
+      </v-text-field>
+      <v-text-field
+        name="phone"
+        label="Please provide a contact number"
+        id="phone"
+        type="phone"
+        v-model="phone"
+        style="margin-top:0; border:0; font-size:10%">
+      </v-text-field>
     
       <h4>How experienced are you?</h4>
       <v-radio  label="entry level" value=1 name="experience" v-model='experience' style="margin-top:3%; margin-bottom:0%; margin-left:-0%; margin-right:-0%; padding:0; font-size:10%"></v-radio>
@@ -52,29 +109,19 @@
         </v-select>
     <div class="line" style="margin-top:5%"></div>
     <h4>What do you do?</h4>
-    <p class="body-2">Product</p>
-        <v-checkbox style="margin:0%; padding:0" label="Product Management" v-model="activities" value="Product Management"></v-checkbox>
-        <v-checkbox style="margin:0%; padding:0" label="Product Design" v-model="activities" value="Product Design"></v-checkbox>
-        <v-checkbox style="margin:0%; padding:0" label="Customer Success" v-model="activities" value="Customer Success"></v-checkbox>
-        <v-checkbox style="margin:0%; padding:0" label="UX/UI Design" v-model="activities" value="UX/UI Design"></v-checkbox>
-        <v-checkbox style="margin:0%; padding:0" label="Graphic Design" v-model="activities" value="Graphic Design"></v-checkbox>
-    <p class="body-2">Business</p>
-    <v-checkbox style="margin:0%; padding:0" label="Operations" v-model="activities" value="Operations"></v-checkbox>
-        <v-checkbox style="margin:0%; padding:0" label="Finance" v-model="activities" value="Finance"></v-checkbox>
-        <v-checkbox style="margin:0%; padding:0" label="Marketing" v-model="activities" value="Marketing"></v-checkbox>
-        <v-checkbox style="margin:0%; padding:0" label="Sales" v-model="activities" value="Sales"></v-checkbox>
-        <v-checkbox style="margin:0%; padding:0" label="Business Development" v-model="activities" value="Business Development"></v-checkbox>
-    <p class="body-2">Technology</p>
-        <v-checkbox style="margin:0%; padding:0" label="Software Development" v-model="activities" value="Software Development"></v-checkbox>
-        <v-checkbox style="margin:0%; padding:0" label="Web Development" v-model="activities" value="Web Development"></v-checkbox>
-        <v-checkbox style="margin:0%; padding:0" label="Mobile Development" v-model="activities" value="Mobile Development"></v-checkbox>
-        <v-checkbox style="margin:0%; padding:0" label="Virtual / Augmented Reality" v-model="activities" value="VR/AR"></v-checkbox>
-        <v-checkbox style="margin:0%; padding:0" label="Artificial Intelligence" v-model="activities" value="AI"></v-checkbox>
-        <v-checkbox style="margin:0%; padding:0" label="Natural Language Processing" v-model="activities" value="NLP"></v-checkbox>
-        <v-checkbox style="margin:0%; padding:0" label="Blockchain" v-model="activities" value="Blockchain"></v-checkbox>
+    <p class="body-2">Business and Product</p>
+        <v-checkbox style="margin:0%; padding:0" label="Product Management and Conceptualization" v-model="product" value=true></v-checkbox>
+        <v-checkbox style="margin:0%; padding:0" label="Design and User Experience" v-model="design" value=true></v-checkbox>
+        <v-checkbox style="margin:0%; padding:0" label="Operations / Finance" v-model="operations" value=true></v-checkbox>
+        <v-checkbox style="margin:0%; padding:0" label="Business Development / Marketing" v-model="business" value=true></v-checkbox>
+        <p class="body-2">Technology</p>
+        <v-checkbox style="margin:0%; padding:0" label="Software / Web Development" v-model="software" value=true></v-checkbox>
+        <v-checkbox style="margin:0%; padding:0" label="Virtual / Augmented Reality" v-model="vrar" value=true></v-checkbox>
+        <v-checkbox style="margin:0%; padding:0" label="Artificial Intelligence" v-model="ai" value=true></v-checkbox>
+        <v-checkbox style="margin:0%; padding:0" label="Blockchain" v-model="blockchain" value=true></v-checkbox>
         <div class="line" style="margin-top:5%"></div>
         <h4>Please tell us about yourself</h4>
-        <p style="margin-bottom:0px; text-align:justify"> For our recommendations, please provide some information about yourself. Please answer truthfully, our matching is not based on certain requirements but on how compatible job searchers are with employees, and without your manager ever knowing any scores.
+        <p style="margin-bottom:0px; text-align:justify"> For our recommendations, please provide some information about yourself. Please answer truthfully, our matching is not based on certain requirements but on how compatible job searchers are with companies, and without your manager ever knowing any scores.
         </p>
         <p class="caption">(We promise and are legally bind to never share the information with any third party!)
         </p>
@@ -269,7 +316,7 @@
         <v-flex xs1><v-radio value="3" v-model="feedbackmoneysatisfaction"></v-radio></v-flex>
         <v-flex xs1><v-radio value="4" v-model="feedbackmoneysatisfaction"></v-radio></v-flex>
         <v-flex xs1><v-radio value="5" v-model="feedbackmoneysatisfaction"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="6" v-model="feedbackmoneysatisfaction"></v-radio></v-flex>      
+        <v-flex xs1><v-radio value="6" v-model="feedbackmoneysatisfaction"></v-radio></v-flex> 
         <v-flex xs3>
           <p>Job Satisfaction</p>
         </v-flex>
@@ -382,7 +429,7 @@
           </v-flex>
       </v-layout>
       <div class=text-xs-center>
-      <v-btn @click="transferData" primary type="submit">Reach my goals</v-btn>
+      <v-btn @click="transferData" primary type="submit">save</v-btn>
       </div>
   </v-app>
 </template>
@@ -395,6 +442,12 @@ export default {
   data () {
     return {
       editpicture: false,
+      hide: false,
+      vision: null,
+      goal: null,
+      linkedin: '',
+      phone: '',
+      email: '',
       imageurl: '',
       profilepicture: '',
       searchjob: false,
@@ -432,7 +485,14 @@ export default {
       factor2: '',
       factor3: '',
       disciplineitems: ['Healthcare', 'Art', 'Music', 'Food', 'Engineering', 'Transportation'],
-      activities:[]
+      product: null,
+      design: null,
+      business: null,
+      operations: null,
+      software: null,
+      ai: null,
+      vrar: null,
+      blockchain: null
     }
   },
   created () {
@@ -441,6 +501,11 @@ export default {
       querySnapshot.forEach(doc => {
         if (doc.data().pointsleft < 19)
         {
+        this.phone = doc.data().phone,
+        this.vision = doc.data().vision,
+        this.goal = doc.data().goal,
+        this.linkedin = doc.data().linkedin,
+        this.email = doc.data().email,
         this.profilepicture = doc.data().profilepicture
         this.searchjob = doc.data().searchjob
         this.helphiring = doc.data().helphiring
@@ -473,9 +538,16 @@ export default {
         this.factor1 = doc.data().factor1
         this.factor2 = doc.data().factor2
         this.factor3 = doc.data().factor3
-        this.activities = doc.data().activities
         this.pointsleft = doc.data().pointsleft
         this.company = doc.data().company
+        this.product = doc.data().product,
+        this.design = doc.data().design,
+        this.business = doc.data().business,
+        this.operations = doc.data().operations,
+        this.software = doc.data().software,
+        this.ai = doc.data().ai,
+        this.vrar = doc.data().vrar,
+        this.blockchain = doc.data().blockchain
         }
       })
     }).then(() => this.searchjob = !this.searchjob)
@@ -495,8 +567,18 @@ export default {
     },
 
     transferData: function (event) {
-      this.company = this.company.toLowerCase().trim()
+      this.company = this.company.toUpperCase().trim()
       this.$store.dispatch('editDetails', {
+      vision: this.vision,
+      goal: this.goal,  
+      product : this.product,
+      design : this.design,
+      business : this.business,
+      operations :  this.operations,
+      software : this.software,
+      ai : this.ai,
+      vrar : this.vrar,
+      blockchain : this.blockchain,
       experience : this.experience,
       background1 : this.selection1,
       background2 : this.selection2,
@@ -523,10 +605,11 @@ export default {
       factor1 : this.factor1,
       factor2 : this.factor2,
       factor3 : this.factor3,
-      activities : this.activities,
       pointsleft : this.pointsleft,
       company : this.company,
-      forcompany: this.company
+      phone: this.phone,
+      email: this.email,
+      linkedin: this.linkedin
       })
       this.$store.dispatch('createCompany', {company: this.company})
     },

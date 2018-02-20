@@ -31,16 +31,10 @@
           <v-btn @click="togglehelphiring" v-bind:class="{primary: helphiring}" class="select" id=hiring>Help our company hiring</v-btn>
           </v-flex>
           <v-flex xs12>
-          <v-btn @click="togglefeedback" v-bind:class="{primary: givefeedback}" class="select" id=feedback>Create my ideal work environment</v-btn>
-          </v-flex>
-          <v-flex xs12>
-          <v-btn @click="toggleevent" v-bind:class="{primary: findevents}" class="select" id=feedback>Find events with like-minded people</v-btn>
-          </v-flex>
-          <v-flex xs12>
-          <v-btn @click="togglecoach" v-bind:class="{primary: findcoach}" class="select" id=feedback>Find a Coach / Mentor that fits me</v-btn>
+          <v-btn @click="togglefeedback" v-bind:class="{primary: givefeedback}" class="select" id=feedback>Create the perfect company culture</v-btn>
           </v-flex>
           <v-flex class="text-xs-center" style="margin-top:4%">
-            <v-btn primary @click="editGoals" type="submit">Continue</v-btn>
+            <v-btn primary @click="editGoals" type="submit">let's go</v-btn>
           </v-flex>
         </v-layout>
       </div>

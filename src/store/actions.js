@@ -16,22 +16,40 @@ export const actions = {
 
   createEmployeeSearch ({commit}, payload) {
     firestore.collection('EmployeeSearches').add({
+      phone: payload.phone,
+      email: payload.email,
+      selectemployees: payload.selectemployees,
       rolemodels: payload.rolemodels,
-      uniquename: payload.uniquename,
+      adaptability: payload.adaptability,
+      perseverence: payload.perseverence,
+      collaboration: payload.collaboration,
+      goalorientation: payload.goalorientation,
+      customerorientation: payload.customerorientation,
+      detailorientation: payload.detailorientation,
+      description: payload.description,
       experiencelevels: payload.experiencelevels,
-      activities: payload.activities,
+      product: payload.product,
+      design: payload.design,
+      business: payload.business,
+      operations:  payload.operations,
+      software: payload.software,
+      ai: payload.ai,
+      vrar: payload.vrar,
+      blockchain: payload.blockchain,
       company: payload.company,
       logo: payload.logo,
       website: payload.website,
       jobad: payload.jobad,
       area1: payload.area1,
-      area2: payload.area2
+      area2: payload.area2,
+      vision: payload.vision
     }).then(() => { console.log('Job Search has been created') })
   },
 
   createCompanyDetails ({commit}, payload) {
     firestore.collection('Companies').doc(payload.company).set({
       companyname: payload.company,
+      vision: payload.vision,
       logo: payload.logo,
       website: payload.website,
       area1: payload.area1,
@@ -48,6 +66,11 @@ export const actions = {
   editDetails ({commit}, payload) {
     firestore.collection('Users').doc(firebase.auth().currentUser.uid).set({
       experience: payload.experience,
+      vision: payload.vision,
+      goal: payload.goal,
+      phone: payload.phone,
+      email: payload.email,
+      linkedin: payload.linkedin,
       background1: payload.background1,
       background2: payload.background2,
       adaptability: payload.adaptability,
@@ -73,10 +96,16 @@ export const actions = {
       factor1: payload.factor1,
       factor2: payload.factor2,
       factor3: payload.factor3,
-      activities: payload.activities,
+      product: payload.product,
+      design: payload.design,
+      business: payload.business,
+      operations:  payload.operations,
+      software: payload.software,
+      ai: payload.ai,
+      vrar: payload.vrar,
+      blockchain: payload.blockchain,
       pointsleft: payload.pointsleft,
       company: payload.company,
-      forcompany: payload.forcompany
     }, { merge: true }).then(() => { console.log('Details have been saved') })
   },
 
