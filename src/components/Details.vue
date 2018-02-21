@@ -95,6 +95,7 @@
         id="experience"
         type="experience"
         v-model="experience"
+        required
         style="margin-top:0; border:0; font-size:10%">
       </v-text-field>
       <h4>What are your areas of expertise?</h4> 
@@ -506,6 +507,7 @@ export default {
     window.scrollTo(0, 0)
     firestore.collection('Users').where('ID', '==', firebase.auth().currentUser.uid).get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
+        this.profilepicture = doc.data().profilepicture
         if (doc.data().pointsleft < 19)
         {
         this.phone = doc.data().phone,
@@ -513,40 +515,39 @@ export default {
         this.goal = doc.data().goal,
         this.linkedin = doc.data().linkedin,
         this.email = doc.data().email,
-        this.profilepicture = doc.data().profilepicture
-        this.searchjob = doc.data().searchjob
-        this.helphiring = doc.data().helphiring
-        this.givefeedback = doc.data().givefeedback
-        this.findevents = doc.data().findevents
-        this.findcoach = doc.data().findcoach
-        this.experience = doc.data().experience
-        this.background1 = doc.data().background1
-        this.background2 = doc.data().background2
-        this.adaptability = doc.data().adaptability
-        this.goalorientation = doc.data().goalorientation
-        this.detailorientation = doc.data().detailorientation
-        this.customerorientation = doc.data().customerorientation
-        this.perseverence = doc.data().perseverence
-        this.collaboration = doc.data().collaboration
-        this.leadership = doc.data().leadership
-        this.athmosphere = doc.data().athmosphere
-        this.roles = doc.data().roles
-        this.moneysatisfaction = doc.data().moneysatisfaction
-        this.freedom = doc.data().freedom
-        this.teamwork = doc.data().teamwork
-        this.pragmatism = doc.data().pragmatism
-        this.feedbackleadership = doc.data().feedbackleadership
-        this.feedbackathmosphere = doc.data().feedbackathmosphere
-        this.feedbackroles = doc.data().feedbackroles
-        this.feedbackmoneysatisfaction = doc.data().feedbackmoneysatisfaction
-        this.feedbackfreedom = doc.data().feedbackfreedom
-        this.feedbackteamwork = doc.data().feedbackteamwork
-        this.feedbackpragmatism = doc.data().feedbackpragmatism
-        this.factor1 = doc.data().factor1
-        this.factor2 = doc.data().factor2
-        this.factor3 = doc.data().factor3
-        this.pointsleft = doc.data().pointsleft
-        this.company = doc.data().company
+        this.searchjob = doc.data().searchjob,
+        this.helphiring = doc.data().helphiring,
+        this.givefeedback = doc.data().givefeedback,
+        this.findevents = doc.data().findevents,
+        this.findcoach = doc.data().findcoach,
+        this.experience = doc.data().experience,
+        this.background1 = doc.data().background1,
+        this.background2 = doc.data().background2,
+        this.adaptability = doc.data().adaptability,
+        this.goalorientation = doc.data().goalorientation,
+        this.detailorientation = doc.data().detailorientation,
+        this.customerorientation = doc.data().customerorientation,
+        this.perseverence = doc.data().perseverence,
+        this.collaboration = doc.data().collaboration,
+        this.leadership = doc.data().leadership,
+        this.athmosphere = doc.data().athmosphere,
+        this.roles = doc.data().roles,
+        this.moneysatisfaction = doc.data().moneysatisfaction,
+        this.freedom = doc.data().freedom,
+        this.teamwork = doc.data().teamwork,
+        this.pragmatism = doc.data().pragmatism,
+        this.feedbackleadership = doc.data().feedbackleadership,
+        this.feedbackathmosphere = doc.data().feedbackathmosphere,
+        this.feedbackroles = doc.data().feedbackroles,
+        this.feedbackmoneysatisfaction = doc.data().feedbackmoneysatisfaction,
+        this.feedbackfreedom = doc.data().feedbackfreedom,
+        this.feedbackteamwork = doc.data().feedbackteamwork,
+        this.feedbackpragmatism = doc.data().feedbackpragmatism,
+        this.factor1 = doc.data().factor1,
+        this.factor2 = doc.data().factor2,
+        this.factor3 = doc.data().factor3,
+        this.pointsleft = doc.data().pointsleft,
+        this.company = doc.data().company,
         this.product = doc.data().product,
         this.design = doc.data().design,
         this.business = doc.data().business,
@@ -600,7 +601,7 @@ export default {
         this.design = false
       }
       this.company = this.company.toUpperCase().trim()
-      if(pointsleft<1){
+      if(this.pointsleft<1){
       this.$store.dispatch('editDetails', {
       vision: this.vision,
       goal: this.goal,  

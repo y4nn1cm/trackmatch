@@ -5,7 +5,7 @@ import router from '@/router'
 export const actions = {
   autoSignIn ({commit}, payload) {
     commit('setUser', payload)
-    router.push('/home')
+    router.push('/start')
   },
 
   pictureUpload ({commit}, payload) {
@@ -42,7 +42,8 @@ export const actions = {
       jobad: payload.jobad,
       area1: payload.area1,
       area2: payload.area2,
-      vision: payload.vision
+      vision: payload.vision,
+      purpose: payload.purpose
     }).then(() => { console.log('Job Search has been created') })
   },
 
@@ -177,13 +178,20 @@ export const actions = {
       commit('setUser', firebaseUser)
       commit('setLoading', false)
       commit('setError', null)
-      router.push('/home')
+      router.push('/start')
       // Extend User Signup by firstname and lastname and save it together with e-mail in database
       firestore.collection('Users').doc(firebase.auth().currentUser.uid).set({
         ID: firebase.auth().currentUser.uid,
         firstname: payload.firstname,
+        profilepicture: 'https://www.fing.edu.uy/inco/grupos/gsi/img/placeholder.png',
         lastname: payload.lastname,
-        email: payload.email
+        email: payload.email,
+        searchjob: false,
+        helphiring: false,
+        findevents: false,
+        findcoach: false,
+        givefeedback: false,
+
       }).then(() => { console.log('user data has been saved') })
     })
     .catch(error => {
@@ -202,7 +210,7 @@ export const actions = {
       commit('setUser', firebaseUser)
       commit('setLoading', false)
       commit('setError', null)
-      router.push('/home')
+      router.push('/start')
     })
     .catch(error => {
       commit('setError', error.message)

@@ -8,12 +8,13 @@ const routerOptions = [
   { path: '/signin', component: 'Signin' },
   { path: '/signup', component: 'Signup' },
   { path: '/home', component: 'Home', meta: { requiresAuth: true } },
-  { path: '/profile', component: 'Details' },
+  { path: '/profile', component: 'Details', meta: { requiresAuth: true } },
   { path: '/details', component: 'Details', meta: { requiresAuth: true } },
   { path: '/employeesearch', component: 'EmployeeSearch', meta: { requiresAuth: true } },
   { path: '/jobmatches', component: 'Jobmatches', meta: { requiresAuth: true } },
   { path: '/candidates', component: 'Employeematches', meta: { requiresAuth: true } },
-  { path: '/searchlist', component: 'SearchList', meta: { requiresAuth: true } }
+  { path: '/searchlist', component: 'SearchList', meta: { requiresAuth: true } },
+  { path: '/start', component: 'Start', meta: { requiresAuth: true } }
 ]
 
 const routes = routerOptions.map(route => {
@@ -38,7 +39,7 @@ router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
   const user = firebase.auth().currentUser
   if (requiresAuth && !user) {
-    next('/signin')
+    next('/')
   }
   next()
 })

@@ -27,7 +27,10 @@
         </v-toolbar-side-icon>
       </span>
       <v-toolbar-title>
-        <router-link to="/home" tag="span" style="cursor: pointer; font-family:merriweather">
+        <router-link v-if="isAuthenticated" to="/start" tag="span" style="cursor: pointer; font-family:merriweather">
+          {{ appTitle }}
+        </router-link>
+        <router-link v-else to="/" tag="span" style="cursor: pointer; font-family:merriweather">
           {{ appTitle }}
         </router-link>
       </v-toolbar-title>
@@ -47,13 +50,11 @@
   </v-btn>
       </v-toolbar-items>
     </v-toolbar>
-    
     <main>
       <v-container fluid>
         <router-view></router-view>
       </v-container>
     </main>
-    
   </v-app>
 </template>
 
@@ -75,12 +76,13 @@
       menuItems () {
         if (this.isAuthenticated) {
           return [
+      { title: 'Start', path: '/start', icon: 'grade' },
       { title: 'Home', path: '/home', icon: 'home' },
       { title: 'Edit Profile', path: '/details', icon: 'face' },
-      { title: 'Create Employee Search', path: '/employeesearch', icon: 'face' },
-      { title: 'See Job Candidates', path: '/candidates', icon: 'face' },
-      { title: 'Your Job Matches', path: '/jobmatches', icon: 'face' },
-      { title: 'Your Employee Searches', path: '/searchlist', icon: 'face' }
+      { title: 'Find Jobs', path: '/jobmatches', icon: 'check_circle' },
+      { title: 'Create Employee Search', path: '/employeesearch', icon: 'find_in_page' },
+      { title: 'Your Employee Searches', path: '/searchlist', icon: 'list' },
+      { title: 'Find Employees', path: '/candidates', icon: 'perm_identity' }
           ]
         } else {
           return [

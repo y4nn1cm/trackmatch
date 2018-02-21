@@ -34,18 +34,19 @@
         <p style="font-weight:500; margin-top:2.5vw; margin-bottom:0; padding:0">Contact:</p>
         <p style="margin-top:0; margin-bottom:0; padding:0">{{candidate.phone}}</p>  
         <p style="margin-top:0; margin-bottom:0; padding:0">{{candidate.email}}</p>
+        <p style="margin-top:1.5vw; margin-bottom:0; padding:0" class="body-2">Culture fit: coming soon</p>
       </v-flex>
       <v-flex xs6>
         <p style="font-weight:500; margin-top:2.5vw; margin-bottom:1vw; padding:0; text-align:right">Candidate Profile:</p>
-        <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Adaptability: {{candidate.adaptability}}</p>
-        <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Detailorientation: {{candidate.detailorientation}}</p>
-        <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Perseverence: {{candidate.perseverence}}</p>
-        <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Customerorientation: {{candidate.customerorientation}}</p>
-        <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Collaboration: {{candidate.collaboration}}</p>
+        <p style="margin-top:0; margin-bottom:0.15vw; padding:0; text-align:right">Adaptability: {{candidate.adaptability}}</p>
+        <p style="margin-top:0; margin-bottom:0.15vw; padding:0; text-align:right">Detailorientation: {{candidate.detailorientation}}</p>
+        <p style="margin-top:0; margin-bottom:0.15vw; padding:0; text-align:right">Perseverence: {{candidate.perseverence}}</p>
+        <p style="margin-top:0; margin-bottom:0.15vw; padding:0; text-align:right">Customerorientation: {{candidate.customerorientation}}</p>
+        <p style="margin-top:0; margin-bottom:0.15vw; padding:0; text-align:right">Collaboration: {{candidate.collaboration}}</p>
         <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Goalorientation: {{candidate.goalorientation}}</p>  
       </v-flex>
       <v-flex xs12>
-        <p style="margin-top:0; margin-bottom:0; padding:0" class="body-2">Vision</p>
+        <p style="margin-top:2.5vw; margin-bottom:0; padding:0" class="body-2">Vision</p>
         <p style="text-align:justify; margin-bottom:0; padding:0">{{candidate.vision}}</p>
       </v-flex>
       <div class="line" style="margin-top:4vw"></div>

@@ -1,45 +1,11 @@
 <template>
-  <v-app>
-    <div class="center">
-      <h2 style="margin-bottom:5%; margin-top:5%; font-family:merriweather">trackmatch</h2>
-      <div class="line"></div>
-      <div v-if="profilepicture.length < 5">
-      <p @click="editpicture=true" v-if="editpicture === false" style='text-align:left; margin-bottom:0px; font-size:2.5vw'>press to edit profile picture</p>
-      <div v-if="editpicture === true">
-      <a @click="editpicture=false"><p style='text-align:left; margin-bottom:0px; font-size:2.5vw;'>press to close</p></a>
-      <form @submit.prevent="pictureUpload">
-        <v-text-field 
-          name="imageurl"
-          label="Paste link to image here"
-          id="imageurl"
-          type="imageurl"
-          v-model="imageurl"
-          style= "margin-bottom:0; padding-bottom:0">
-        </v-text-field>
-          <v-btn primary class="button" type="submit" style="margin-top:0; padding-top:0">upload</v-btn>
-        </form>
-        </div>
-        </div>
-        <img :src="profilepicture" class="profile-picture"> 
-        <h2>Hello {{ user }}</h2>
-
-        <h3>What can we help you with?</h3>
-    
-        <v-layout style=margin-top:5vw row wrap> 
-          <v-flex xs12>
-            <v-btn @click="togglejobsearch" v-bind:class="{primary: searchjob}" class="select" id=jobsearch>Find a (new) job</v-btn>
-          </v-flex>
-          <v-flex xs12>
-          <v-btn @click="togglehelphiring" v-bind:class="{primary: helphiring}" class="select" id=hiring>Help our company hiring</v-btn>
-          </v-flex>
-          <v-flex xs12>
-          <v-btn @click="togglefeedback" v-bind:class="{primary: givefeedback}" class="select" id=feedback>Create the perfect company culture</v-btn>
-          </v-flex>
-          <v-flex class="text-xs-center" style="margin-top:4%">
-            <v-btn class="teal" @click="editGoals">let's go</v-btn>
-          </v-flex>
-        </v-layout>
-      </div>
+  <v-app style="text-align:center">
+    <h3>It's great that you are here!</h3>
+    <p class="body-2">First, we have to ask you to fill out your profile...</p>
+    <p class="blocktext" v-if="this.searchjob">...to help you <span class="body-2">finding a new job</span>. Afterwards you can navigate to the "Find Jobs" section and check out your matching job offers.</p>
+    <p class="blocktext" v-if="this.helphiring">...to help you <span class="body-2">hiring new employees</span>. Afterwards you can navigate to the "Create Employee Search" section to create a Job offer or to the "Find Employees" section and check out jobseekers directly.</p>
+    <p class="blocktext" v-if="this.givefeedback">...to help you <span class="body-2">creating better company culture</span>. You can give insights about your desired work environment and feedback about the actual work environment you are working in. Your input is only visible as an aggregated and anonymized feedback for the whole company, so that all employees can improve on the company culture together</p>
+    <v-btn class="teal" @click="this.$store.dispatch('openSite', {target: '/start'})">Edit Profile now</v-btn>
   </v-app>
 </template>
 
@@ -56,17 +22,14 @@ export default {
       helphiring: false,
       findevents: false,
       findcoach: false,
-      imageurl: '',
       user: '',
-      editpicture: false
+      experience: null,
     }
   },
   created () {
     window.scrollTo(0, 0)
     firestore.collection('Users').where('ID', '==', firebase.auth().currentUser.uid).get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
-        if (doc.data().pointsleft < 19)
-        {
         this.user = doc.data().firstname
         this.profilepicture = doc.data().profilepicture
         this.searchjob = doc.data().searchjob
@@ -74,52 +37,15 @@ export default {
         this.givefeedback = doc.data().givefeedback
         this.findevents = doc.data().findevents
         this.findcoach = doc.data().findcoach
-        }
+        this.experience = doc.data().experience
       })
     })
   },
   methods:
 
   {
-    pictureUpload () {
-      if (this.imageurl.length > 10) {
-        this.editpicture = false
-        this.$store.dispatch('pictureUpload', {imageurl: this.imageurl})
-        firestore.collection('Users').where('ID', '==', firebase.auth().currentUser.uid).get().then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            this.profilepicture = doc.data().profilepicture
-          })
-        })
-      }
-    },
-
-    togglejobsearch: function (event) {
-      this.searchjob = !this.searchjob
-    },
-
-    togglehelphiring: function (event) {
-      this.helphiring = !this.helphiring
-    },
-
-    togglefeedback: function (event) {
-      this.givefeedback = !this.givefeedback
-    },
-
-    toggleevent: function (event) {
-      this.findevents = !this.findevents
-    },
-
-    togglecoach: function (event) {
-      this.findcoach = !this.findcoach
-    },
-
-    editGoals: function (event) {
-      this.$store.dispatch('editGoals', {givefeedback: this.givefeedback, helphiring: this.helphiring, searchjob: this.searchjob, findevents: this.findevents, findcoach: this.findcoach})
-      this.$store.dispatch('openSite', {target: '/details'})
-    }
-  }
+  }      
 }
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -132,6 +58,11 @@ export default {
   border-radius: 50%;
   object-fit:cover;
   margin:6vw;
+}
+
+.blocktext {
+    text-align:justify;
+    margin-bottom:5vw;
 }
 
 #imageurl {

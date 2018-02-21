@@ -10,7 +10,11 @@
       <p style="margin-top:0; margin-bottom:0; margin-left:0; padding:0">In: {{job.background1}} / {{job.background2}}
       </p>
       </v-flex>
-      <v-flex>
+      <v-flex xs12>
+        <p style="margin-top:1vw; margin-bottom:0; padding:0" class="body-2">Job purpose:</p>
+        <p style="text-align:justify; margin-bottom:0; padding:0">{{job.purpose}}</p>
+      </v-flex>
+      <v-flex xs6>
         <p style="font-weight:500; margin-top:1.5vw; margin-bottom:1vw; padding:0">{{job.company}}</p>  
         <a :href="job.website">{{job.website}}</a><br>
         <a :href="job.jobad">See job ad</a>
@@ -128,7 +132,8 @@ export default {
         email: doc.data().email,
         phone: doc.data().phone,
         vision: doc.data().vision,
-        experience: doc.data().experiencelevels
+        experience: doc.data().experiencelevels,
+        purpose : doc.data().purpose
         }
         this.jobs.push(data)
         })
