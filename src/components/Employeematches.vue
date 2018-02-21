@@ -17,7 +17,7 @@
     <v-btn primary class="button" @click="getCandidates" style="margin:3vw; padding-top:0">See Candidates</v-btn>
     </div>
     <div class="line" style="margin-top:4vw"></div>
-    <v-layout align-top style="margin-top:6vw" v-for="candidate in candidates" :key="candidate.uid" row wrap>
+    <v-layout align-top style="margin-top:6vw" v-for="candidate in getJobCandidates" :key="candidate.uid" row wrap>
       <v-flex xs2>
         <img class="employee-picture" :src="candidate.image">
       </v-flex>
@@ -57,6 +57,9 @@
 <script>
 import firebase from 'firebase'
 import firestore from '../main'
+import uniq from 'lodash/uniq'
+import uniqWith from 'lodash/uniqWith'
+import uniqBy from 'lodash/uniqBy'
 
 export default {
     data (){
@@ -119,7 +122,8 @@ methods: {
         background1: doc.data().background1,
         background2: doc.data().background2,
         goal: doc.data().goal,
-        linkedin: doc.data().linkedin
+        linkedin: doc.data().linkedin,
+        ID: doc.data().ID
         }
         this.candidates.push(data)
         })
@@ -143,7 +147,8 @@ methods: {
         background1: doc.data().background1,
         background2: doc.data().background2,
         goal: doc.data().goal,
-        linkedin: doc.data().linkedin
+        linkedin: doc.data().linkedin,
+        ID: doc.data().ID
         }
         this.candidates.push(data)
         })
@@ -167,7 +172,8 @@ methods: {
         background1: doc.data().background1,
         background2: doc.data().background2,
         goal: doc.data().goal,
-        linkedin: doc.data().linkedin
+        linkedin: doc.data().linkedin,
+        ID: doc.data().ID
         }
         this.candidates.push(data)
         })
@@ -191,7 +197,8 @@ methods: {
         background1: doc.data().background1,
         background2: doc.data().background2,
         goal: doc.data().goal,
-        linkedin: doc.data().linkedin
+        linkedin: doc.data().linkedin,
+        ID: doc.data().ID
         }
         this.candidates.push(data)
         })
@@ -215,7 +222,8 @@ methods: {
         background1: doc.data().background1,
         background2: doc.data().background2,
         goal: doc.data().goal,
-        linkedin: doc.data().linkedin
+        linkedin: doc.data().linkedin,
+        ID: doc.data().ID
         }
         this.candidates.push(data)
         })
@@ -239,7 +247,8 @@ methods: {
         background1: doc.data().background1,
         background2: doc.data().background2,
         goal: doc.data().goal,
-        linkedin: doc.data().linkedin
+        linkedin: doc.data().linkedin,
+        ID: doc.data().ID
         }
         this.candidates.push(data)
         })
@@ -263,7 +272,8 @@ methods: {
         background1: doc.data().background1,
         background2: doc.data().background2,
         goal: doc.data().goal,
-        linkedin: doc.data().linkedin
+        linkedin: doc.data().linkedin,
+        ID: doc.data().ID
         }
         this.candidates.push(data)
         })
@@ -287,14 +297,23 @@ methods: {
         background1: doc.data().background1,
         background2: doc.data().background2,
         goal: doc.data().goal,
-        linkedin: doc.data().linkedin
+        linkedin: doc.data().linkedin,
+        ID: doc.data().ID
         }
         this.candidates.push(data)
         })
     }))
-  },
+  }
+},
+
+  computed:
+  {
+    getJobCandidates (){
+    return uniqBy(this.candidates, 'ID');
+    }
+  }
 }
-}
+
 </script>
 <style>
 @import url('https://fonts.googleapis.com/css?family=Merriweather');

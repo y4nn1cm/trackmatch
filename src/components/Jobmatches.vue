@@ -2,7 +2,7 @@
   <div>
     <h3 style="text-align:center">Job offerings in Munich for you</h3>
     <div class="line" style="margin-top:4vw"></div>
-    <v-layout align-top style="margin-top:6vw" v-for="job in jobs" :key="job.description" row wrap>
+    <v-layout align-top style="margin-top:6vw" v-for="job in getJobs" :key="job.description" row wrap>
       <v-flex xs2>
         <img class="employee-picture" :src="job.logo">
       </v-flex>
@@ -41,6 +41,9 @@
 <script>
 import firebase from 'firebase'
 import firestore from '../main'
+import uniq from 'lodash/uniq'
+import uniqWith from 'lodash/uniqWith'
+import uniqBy from 'lodash/uniqBy'
 
 export default {
     data (){
@@ -294,6 +297,13 @@ export default {
         })
     }))
   },
+
+  computed:
+  {
+    getJobs (){
+    return uniqBy(this.jobs, 'description');
+    }
+  }
 }
 </script>
 <style>

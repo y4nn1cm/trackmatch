@@ -111,6 +111,7 @@ export const actions = {
 
   createCandidate ({commit}, payload) {
     firestore.collection('Candidates').doc(firebase.auth().currentUser.uid).set({
+      ID: firebase.auth().currentUser.uid,
       experience: payload.experience,
       vision: payload.vision,
       profilepicture: payload.profilepicture,
