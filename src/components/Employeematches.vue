@@ -12,7 +12,6 @@
         <v-checkbox style="margin:0; padding:0" label="Virtual / Augmented Reality" v-model="vrar" value=true></v-checkbox>
         <v-checkbox style="margin:0; padding:0" label="Artificial Intelligence" v-model="ai" value=true></v-checkbox>
         <v-checkbox style="margin:0; padding:0" label="Blockchain" v-model="blockchain" value=true></v-checkbox>
-        <div class="line" style="margin-top:2vw"></div>
         <div style=text-align:center>
     <v-btn primary class="button" @click="getCandidates" style="margin:3vw; padding-top:0">See Candidates</v-btn>
     </div>
@@ -22,7 +21,7 @@
         <img class="employee-picture" :src="candidate.image">
       </v-flex>
       <v-flex class="body-2" xs10><p style="margin-top:0; margin-bottom:0.5vw; margin-left:0; padding:0">{{candidate.firstname}} {{candidate.lastname}}</p>
-      <p style="margin-top:0; margin-bottom:0; margin-left:0; padding:0">Background in: {{candidate.background1}} / {{candidate.background2}}
+      <p style="margin-top:0; margin-bottom:0; margin-left:0; padding:0">{{candidate.background1}} / {{candidate.background2}}
       </p>
       </v-flex>
       <v-flex xs12>
@@ -30,14 +29,14 @@
         <p style="text-align:justify; margin-bottom:0; padding:0">{{candidate.goal}}</p>
       </v-flex>
       <v-flex xs6>
-        <p style="margin-top:1.5vw; margin-bottom:1vw; padding:0">Experience: {{candidate.experience}} years</p>
+        <p style="margin-top:2.5vw; margin-bottom:2.5vw; padding:0; font-weight:500;">Experience: {{candidate.experience}} years</p>
         <a :href="candidate.linkedin">See profile</a>
-        <p style="font-weight:500; margin-top:1.5vw; margin-bottom:0; padding:0">Contact:</p>
+        <p style="font-weight:500; margin-top:2.5vw; margin-bottom:0; padding:0">Contact:</p>
         <p style="margin-top:0; margin-bottom:0; padding:0">{{candidate.phone}}</p>  
         <p style="margin-top:0; margin-bottom:0; padding:0">{{candidate.email}}</p>
       </v-flex>
       <v-flex xs6>
-        <p style="font-weight:500; margin-top:1.5vw; margin-bottom:1vw; padding:0; text-align:right">Candidate Profile:</p>
+        <p style="font-weight:500; margin-top:2.5vw; margin-bottom:1vw; padding:0; text-align:right">Candidate Profile:</p>
         <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Adaptability: {{candidate.adaptability}}</p>
         <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Detailorientation: {{candidate.detailorientation}}</p>
         <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Perseverence: {{candidate.perseverence}}</p>
@@ -46,7 +45,7 @@
         <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Goalorientation: {{candidate.goalorientation}}</p>  
       </v-flex>
       <v-flex xs12>
-        <p style="margin-top:0; margin-bottom:0; padding:0" class="body-2">Candidates vision</p>
+        <p style="margin-top:0; margin-bottom:0; padding:0" class="body-2">Vision</p>
         <p style="text-align:justify; margin-bottom:0; padding:0">{{candidate.vision}}</p>
       </v-flex>
       <div class="line" style="margin-top:4vw"></div>

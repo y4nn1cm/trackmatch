@@ -216,7 +216,7 @@ export default {
     toselect: true,
     select: false,
     employeeselection:[],
-    disciplines: ['Healthcare', 'Art', 'Music', 'Food', 'Engineering', 'Transportation'],
+    disciplines: ['Consulting','Company Building','Venture Capital','Hardware Technology','Software Technology','e-commerce','Healthcare','Medicine','Sports','Architecture','Food','Media','Transportation','Music','Art','Tourism','Education','Marketing','Recruiting','Social Media','Social Networks','Production','Logistics','Accounting and Finance','Sales Tools','Social Science','Math','Physics','Chemistry','Psychology','International Relationships','Governmental Institutions','Politics','Trade','Languages','Writing','Literature','Culture Science','Philosophy','History'],
     employees:[],
     pointsleft: 18,
     adaptability: 0,

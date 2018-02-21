@@ -38,11 +38,9 @@
         style="margin-top:0; border:0; font-size:10%"
         required="">
       </v-text-field>
-      <p @click="hide=!hide" style="margin:4vw; font-size:2vw; text-align:center">Click here if you would like to hide your job search from a specific company</p>
       <v-text-field
-        v-if="hide"
         name="company"
-        label="Type in the company"
+        label="Do you work at a company at the moment?"
         id="company"
         type="company"
         v-model="company"
@@ -102,14 +100,14 @@
         <v-select id=discipline1
           label="Discipline or Industry"
           :items="disciplineitems"
-          v-model="selection1"
+          v-model="background1"
           class="input-group--focused"
           required>
         </v-select>
         <v-select id=discipline2
           label="Discipline or Industry"
           :items="disciplineitems"
-          v-model="selection2"
+          v-model="background2"
           class="input-group--focused"
           required>
         </v-select>
@@ -465,8 +463,8 @@ export default {
       company: null,
       pointsleft: 18,
       experience: null,
-      selection1: null,
-      selection2: null,
+      background1: null,
+      background2: null,
       adaptability: 0,
       goalorientation: 0,
       detailorientation: 0,
@@ -490,7 +488,6 @@ export default {
       factor1: null,
       factor2: null,
       factor3: null,
-      disciplineitems: ['Healthcare', 'Art', 'Music', 'Food', 'Engineering', 'Transportation'],
       product: null,
       design: null,
       business: null,
@@ -500,7 +497,8 @@ export default {
       vrar: null,
       blockchain: null,
       firstname: null,
-      lastname: null
+      lastname: null,
+      disciplineitems: ['Consulting','Company Building','Venture Capital','Hardware Technology','Software Technology','e-commerce','Healthcare','Medicine','Sports','Architecture','Food','Media','Transportation','Music','Art','Tourism','Education','Marketing','Recruiting','Social Media','Social Networks','Production','Logistics','Accounting and Finance','Sales Tools','Social Science','Math','Physics','Chemistry','Psychology','International Relationships','Governmental Institutions','Politics','Trade','Languages','Writing','Literature','Culture Science','Philosophy','History'],
     }
   },
   created () {
@@ -521,8 +519,8 @@ export default {
         this.findevents = doc.data().findevents
         this.findcoach = doc.data().findcoach
         this.experience = doc.data().experience
-        this.selection1 = doc.data().background1
-        this.selection2 = doc.data().background2
+        this.background1 = doc.data().background1
+        this.background2 = doc.data().background2
         this.adaptability = doc.data().adaptability
         this.goalorientation = doc.data().goalorientation
         this.detailorientation = doc.data().detailorientation
@@ -613,8 +611,8 @@ export default {
       vrar : this.vrar,
       blockchain : this.blockchain,
       experience : this.experience,
-      background1 : this.selection1,
-      background2 : this.selection2,
+      background1 : this.background1,
+      background2 : this.background2,
       adaptability : this.adaptability,
       goalorientation : this.goalorientation,
       detailorientation : this.detailorientation,
@@ -661,8 +659,8 @@ export default {
       vrar : this.vrar,
       blockchain : this.blockchain,
       experience : this.experience,
-      background1 : this.selection1,
-      background2 : this.selection2,
+      background1 : this.background1,
+      background2 : this.background2,
       adaptability : this.adaptability,
       goalorientation : this.goalorientation,
       detailorientation : this.detailorientation,
