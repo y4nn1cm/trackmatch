@@ -121,7 +121,7 @@
     </v-layout>
     -->
     <div style="text-align:left" v-if="describestrengths">
-      <p style="margin-top:5vw">Please distribute 18 points on the following 6 categories according to your own priorities:</p>
+      <p style="margin-top:5vw">Please distribute 18 points on the following 6 categories according to your own priorities: <span style="font-weight:500">required!</span></p>
         <p>Points left: {{pointsleft}}</p>
         <v-layout row wrap align-baseline> 
         <v-flex xs2>
@@ -366,8 +366,9 @@ methods:
       })
       this.$store.dispatch('createCompanyDetails', {company: this.forcompany, logo: this.logourl, website: this.website, area1: this.area1, area2: this.area2, vision: this.vision
       })
-      }
-    }
+      this.$store.dispatch('openSite', {target: '/searchlist'})
+      } 
+    } 
   }
 }  
 

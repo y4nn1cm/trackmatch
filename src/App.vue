@@ -79,7 +79,8 @@
       { title: 'Edit Profile', path: '/details', icon: 'face' },
       { title: 'Create Employee Search', path: '/employeesearch', icon: 'face' },
       { title: 'See Job Candidates', path: '/candidates', icon: 'face' },
-      { title: 'Your Job Matches', path: '/jobmatches', icon: 'face' }
+      { title: 'Your Job Matches', path: '/jobmatches', icon: 'face' },
+      { title: 'Your Employee Searches', path: '/searchlist', icon: 'face' }
           ]
         } else {
           return [

@@ -1,9 +1,10 @@
 <template>
   <v-app>
-    <div class="center">
+    <div class="center">  
     <p @click="editpicture=true" v-if="editpicture === false" style='text-align:left; margin-bottom:0px; font-size:2.5vw'>press to edit profile picture</p>
       <div v-if="editpicture === true">
       <a @click="editpicture=false"><p style='text-align:left; margin-bottom:0px; font-size:2.5vw;'>press to close</p></a>
+      
       <form @submit.prevent="pictureUpload">
         <v-text-field 
           name="imageurl"
@@ -130,7 +131,7 @@
         <p class="caption">(We promise and are legally bind to never share the information with any third party!)
         </p>
         <p class="title">Strenghts</p>
-        <p>Please distribute 18 points on the following 6 categories according to your own priorities:</p>
+        <p>Please distribute 18 points on the following 6 categories according to your own priorities: <span style="font-weight:500">required!</span></p>
         <p>Points left: {{pointsleft}}</p>
         <v-layout row wrap align-baseline> 
         <v-flex xs2>
@@ -599,6 +600,7 @@ export default {
         this.design = false
       }
       this.company = this.company.toUpperCase().trim()
+      if(pointsleft<1){
       this.$store.dispatch('editDetails', {
       vision: this.vision,
       goal: this.goal,  
@@ -686,6 +688,8 @@ export default {
       firstname: this.firstname,
       lastname: this.lastname
       })
+      }
+      this.$store.dispatch('openSite', {target: '/home'})
       }
     },
 

@@ -56,8 +56,6 @@
 <script>
 import firebase from 'firebase'
 import firestore from '../main'
-import uniq from 'lodash/uniq'
-import uniqWith from 'lodash/uniqWith'
 import uniqBy from 'lodash/uniqBy'
 
 export default {

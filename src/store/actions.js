@@ -15,7 +15,7 @@ export const actions = {
   },
 
   createEmployeeSearch ({commit}, payload) {
-    firestore.collection('EmployeeSearches').add({
+    firestore.collection('EmployeeSearches').doc(payload.description).set({
       phone: payload.phone,
       email: payload.email,
       selectemployees: payload.selectemployees,
@@ -55,6 +55,10 @@ export const actions = {
       area1: payload.area1,
       area2: payload.area2
     }, { merge: true }).then(() => { console.log('Company has been updated') })
+  },
+
+  deleteDocument ({commit}, payload) {
+    firestore.collection(payload.collection).doc(payload.document).delete()
   },
 
   createCompany ({commit}, payload) {

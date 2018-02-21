@@ -3,6 +3,7 @@
     <div class="center">
       <h2 style="margin-bottom:5%; margin-top:5%; font-family:merriweather">trackmatch</h2>
       <div class="line"></div>
+      <div v-if="profilepicture.length < 5">
       <p @click="editpicture=true" v-if="editpicture === false" style='text-align:left; margin-bottom:0px; font-size:2.5vw'>press to edit profile picture</p>
       <div v-if="editpicture === true">
       <a @click="editpicture=false"><p style='text-align:left; margin-bottom:0px; font-size:2.5vw;'>press to close</p></a>
@@ -17,6 +18,7 @@
         </v-text-field>
           <v-btn primary class="button" type="submit" style="margin-top:0; padding-top:0">upload</v-btn>
         </form>
+        </div>
         </div>
         <img :src="profilepicture" class="profile-picture"> 
         <h2>Hello {{ user }}</h2>
@@ -34,7 +36,7 @@
           <v-btn @click="togglefeedback" v-bind:class="{primary: givefeedback}" class="select" id=feedback>Create the perfect company culture</v-btn>
           </v-flex>
           <v-flex class="text-xs-center" style="margin-top:4%">
-            <v-btn primary @click="editGoals" type="submit">let's go</v-btn>
+            <v-btn class="teal" @click="editGoals">let's go</v-btn>
           </v-flex>
         </v-layout>
       </div>
@@ -48,7 +50,7 @@ export default {
 
   data () {
     return {
-      profilepicture: null,
+      profilepicture: '',
       searchjob: false,
       givefeedback: false,
       helphiring: false,
