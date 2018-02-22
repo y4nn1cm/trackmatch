@@ -1,11 +1,27 @@
 <template>
   <v-app style="text-align:center">
+    
+    <div v-if="this.pragmatism>0">
+      <h3>Great! Your profile is filled out!</h3>
+    <p class="body-2">You can now use our app to help you...</p>
+    <p class="blocktext" v-if="this.searchjob"><span class="body-2">Finding a new job:</span><br>Navigate to the <span class="body-2">»Find Jobs«</span> section and check out your matching job offers.</p>
+    <p class="blocktext" v-if="this.helphiring"><span class="body-2">Hiring new employees:</span><br>First navigate to the <span class="body-2">»Create Position«</span> section and create a job posting. Job seekers will now see this position. Afterwards you can also go to the <span class="body-2">»Find Employees«</span> section to contact candidates yourself.</p>
+    <p class="blocktext" v-if="this.givefeedback"><span class="body-2">Creating a better company culture:</span><br>unfortunately this feature is not fully implemented yet, but we are doing our best to deliver it as soon as possible. For now, your input is already valuable to create better job postings, so it was definitely worth giving it.</p>
+    </div>
+
+    <div v-else>
     <h3>It's great that you are here!</h3>
     <p class="body-2">First, we have to ask you to fill out your profile...</p>
-    <p class="blocktext" v-if="this.searchjob">...to help you <span class="body-2">finding a new job</span>. Afterwards you can navigate to the "Find Jobs" section and check out your matching job offers.</p>
-    <p class="blocktext" v-if="this.helphiring">...to help you <span class="body-2">hiring new employees</span>. Then you can go to the "Create Employee Search" section and create a position. Job seekers will now see this position. Afterwards you can also check out job seekers that match your open positions in the "Find Employees" section.</p>
-    <p class="blocktext" v-if="this.givefeedback">...to help you <span class="body-2">creating better company culture</span>. You can give insights about your desired work environment and feedback about the actual work environment you are working in. Your input is only visible as an aggregated and anonymized feedback for the whole company, so that all employees can improve on the company culture together</p>
+    <p class="blocktext" v-if="this.searchjob">...to help you <span class="body-2">finding a new job</span>. Afterwards you can check out your matching job offers.</p>
+    <p class="blocktext" v-if="this.helphiring">...to help you <span class="body-2">hiring new employees</span>. Afterwards you can create open positions and check out candidates.</p>
+    <p class="blocktext" v-if="this.givefeedback">...to help you <span class="body-2">creating a better company culture</span>. You can give insights about your desired work environment and feedback about the actual work environment you are working in. Your input is only visible as an aggregated and anonymized feedback for the whole company, so that all employees can improve on the company culture together</p>
+    </div>
     <v-btn class="teal" @click="openDetails">Edit Profile now</v-btn>
+    
+
+    
+
+
   </v-app>
 </template>
 
@@ -24,6 +40,7 @@ export default {
       findcoach: false,
       user: '',
       experience: null,
+      pragmatism: null,
     }
   },
   created () {
@@ -38,6 +55,7 @@ export default {
         this.findevents = doc.data().findevents
         this.findcoach = doc.data().findcoach
         this.experience = doc.data().experience
+        this.pragmatism = doc.data().pragmatism
       })
     })
   },

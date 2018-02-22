@@ -7,12 +7,12 @@
         <img class="employee-picture" :src="job.logo">
       </v-flex>
       <v-flex xs10><p class="title" style="margin-top:1.5vw; margin-bottom:1vw; margin-left:0; padding:0">{{job.description}}</p>
-      <p class="body-2" style="margin-top:0; margin-bottom:0; margin-left:0; padding:0"><a :href="job.website" style="font-color: black; font-weight:500; margin-top:3vw; margin-bottom:1.5vw; padding:0">{{job.company}}</a>: {{job.background1}} / {{job.background2}}
+      <p class="body-2" style="margin-top:0; margin-bottom:0; margin-left:0; padding:0"><a target="_blank" :href="job.website" style="font-color: black; font-weight:500; margin-top:3vw; margin-bottom:1.5vw; padding:0">{{job.company}}</a>: {{job.background1}} / {{job.background2}}
       </p>
       </v-flex>
       <v-flex xs12>
         <p style="margin-top:2vw; margin-bottom:0; padding:0; font-weight:600">Job purpose:</p>
-        <p style="text-align:justify; margin-bottom:0; padding:0">{{job.purpose}} - <a :href="job.jobad"> See job ad</a></p>
+        <p style="text-align:justify; margin-bottom:0; padding:0">{{job.purpose}} - <a target="_blank" :href="job.jobad"> see details</a></p>
       </v-flex>
       <v-flex xs6>
         <p class="body-2" style="margin-top:2.5vw; margin-bottom:0; padding:0; text-align:left"> 

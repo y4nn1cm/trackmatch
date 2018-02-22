@@ -291,7 +291,7 @@
           <p>Pragmatism</p>
         </v-flex>
       </v-layout>
-      <v-btn style="margin-bottom:6vw; min-width:0" @click='feedback=!feedback' v-bind:class="{primary: feedback}"> Feedback Mode</v-btn>
+      <v-btn v-if="givefeedback" style="margin-bottom:6vw; min-width:0" @click='feedback=!feedback' v-bind:class="{primary: feedback}">Give Feedback now</v-btn>
       
       <v-layout row wrap align-center v-if="feedback===true">
         <v-flex xs12>
@@ -408,7 +408,7 @@
         </v-flex>
       </v-layout>
 
-      <p style="text-align:justify; margin-top:5vw">If you want, provide up to three additional factors that are important for you in the workplace. This will help to make your workplace better and also supports us to further improve our product.</p>
+      <p style="text-align:justify; margin-top:5vw">If you want, please provide up to three additional factors that are important for you in your job.</p>
       <v-layout>
         <v-flex xs4>
             <v-text-field

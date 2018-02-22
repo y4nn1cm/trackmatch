@@ -45,7 +45,7 @@
         <p style="margin-top:0; margin-bottom:0; padding:0" class="body-2">Vision</p>
         <p style="text-align:justify; margin-bottom:0; padding:0">{{candidate.vision}}</p>
         <p style="font-weight:500; margin-top:1.5vw; margin-bottom:0; padding:0">Contact: </p>
-        <p style="font-weight:400; margin-top:0.5vw; margin-bottom:0; padding:0"><a :href="candidate.linkedin" style="font-weight:400"> See profile</a> / {{candidate.email}} / {{candidate.phone}}</p>
+        <p style="font-weight:400; margin-top:0.5vw; margin-bottom:0; padding:0"><a target="_blank" :href="candidate.linkedin" style="font-weight:400"> See profile</a> / {{candidate.email}} / {{candidate.phone}}</p>
       </v-flex>
     </v-layout>
   </div>
