@@ -6,37 +6,45 @@
       <v-flex xs2>
         <img class="employee-picture" :src="job.logo">
       </v-flex>
-      <v-flex class="body-2" xs10><p style="margin-top:0; margin-bottom:0.5vw; margin-left:0; padding:0">{{job.description}}</p>
-      <p style="margin-top:0; margin-bottom:0; margin-left:0; padding:0">In: {{job.background1}} / {{job.background2}}
+      <v-flex xs10><p class="title" style="margin-top:1.5vw; margin-bottom:1vw; margin-left:0; padding:0">{{job.description}}</p>
+      <p class="body-2" style="margin-top:0; margin-bottom:0; margin-left:0; padding:0"><a :href="job.website" style="font-color: black; font-weight:500; margin-top:3vw; margin-bottom:1.5vw; padding:0">{{job.company}}</a>: {{job.background1}} / {{job.background2}}
       </p>
       </v-flex>
       <v-flex xs12>
-        <p style="margin-top:1vw; margin-bottom:0; padding:0" class="body-2">Job purpose:</p>
-        <p style="text-align:justify; margin-bottom:0; padding:0">{{job.purpose}}</p>
+        <p style="margin-top:2vw; margin-bottom:0; padding:0; font-weight:600">Job purpose:</p>
+        <p style="text-align:justify; margin-bottom:0; padding:0">{{job.purpose}} - <a :href="job.jobad"> See job ad</a></p>
       </v-flex>
       <v-flex xs6>
-        <p style="font-weight:500; margin-top:1.5vw; margin-bottom:1vw; padding:0">{{job.company}}</p>  
-        <a :href="job.website">{{job.website}}</a><br>
-        <a :href="job.jobad">See job ad</a>
-        <p style="font-weight:500; margin-top:1.5vw; margin-bottom:0; padding:0">Contact:</p>
-        <p style="margin-top:0; margin-bottom:0; padding:0">{{job.phone}}</p>  
-        <p style="margin-top:0; margin-bottom:0; padding:0">{{job.email}}</p>
-        <p style="margin-top:1.5vw; margin-bottom:0; padding:0" class="body-2">Culture fit: coming soon</p>
+        <p class="body-2" style="margin-top:2.5vw; margin-bottom:0; padding:0; text-align:left"> 
+          Experience in years: <span class="title">{{job.experience}}</span></p>
       </v-flex>
-      <v-flex xs6>
-        <p style="font-weight:500; margin-top:1.5vw; margin-bottom:1vw; padding:0; text-align:right">Ideal Candidate Profile:</p>
-        <p style="margin-top:0; margin-bottom:1vw; padding:0; text-align:right">Experience: {{job.experience}} years</p>
+      <v-flex xs4>
+        <p class="body-2" style="margin-top:3vw; margin-bottom:1vw; padding:0; text-align:right"> Strengths match:</p>
+        <p class="body-2" style="margin-top:1.5vw; margin-bottom:0; padding:0; text-align:right"> Culture fit:</p>
+        </v-flex>
+        <v-flex xs2>
+          <p class=title style="margin-top:2.5vw; margin-bottom:1vw; padding:0; text-align:left;"> 
+            {{job.strengthsfit}}%</p>
+        <p class=title style="margin-top:1.8vw; margin-bottom:0; padding:0; text-align:left"> {{job.culturefit}}%</p>
+        </v-flex>
+        
+        <!--
         <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Adaptability: {{job.adaptability}}</p>
         <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Detailorientation: {{job.detailorientation}}</p>
         <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Perseverence: {{job.perseverence}}</p>
         <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Customerorientation: {{job.customerorientation}}</p>
         <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Collaboration: {{job.collaboration}}</p>
-        <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Goalorientation: {{job.goalorientation}}</p>  
-      </v-flex>
+        <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Goalorientation: {{job.goalorientation}}</p>
+        -->
+
       <v-flex xs12>
-        <p style="margin-top:0.5vw; margin-bottom:0; padding:0" class="body-2">Company vision</p>
+        <div class="fineline"></div>
+        <p style="margin-top:0; margin-bottom:0; padding:0; font-weight:600"> Company vision</p>
         <p style="text-align:justify; margin-bottom:0; padding:0">{{job.vision}}</p>
+        <p style="font-weight:500; margin-top:1.5vw; margin-bottom:0; padding:0">Contact:</p>
+        <p style="font-weight:400; margin-top:0.5vw; margin-bottom:0; padding:0">{{job.email}} / {{job.phone}}</p>
       </v-flex>
+      
       <div class="line" style="margin-top:4vw"></div>
     </v-layout>
   </div>
@@ -60,6 +68,13 @@ export default {
         goalorientation: null,
         detailorientation: null,
         customerorientation: null,
+        pragmatism: 0,
+        teamwork: 0,
+        athmosphere: 0,
+        moneysatisfaction: 0,
+        leadership: 0,
+        roles: 0,
+        freedom: 0,
         product: false,
         design: false,
         business: false,
@@ -68,16 +83,32 @@ export default {
         ai: false,
         vrar: false,
         blockchain: false,
-        leadership: this.leadership,
-        athmosphere: this.athmosphere,
-        roles: this.roles,
-        moneysatisfaction: this.moneysatisfaction,
-        freedom: this.freedom,
-        teamwork: this.teamwork,
-        pragmatism: this.pragmatism,
+        leadership: null,
+        athmosphere: null,
+        roles: null,
+        moneysatisfaction: null,
+        freedom: null,
+        teamwork: null,
+        pragmatism: null,
         jobs: [],
+        uniquejobs: [],
         email: null,
         phone: null,
+        adaptabilityfit: 0,
+        perseverencefit: 0,
+        collaborationfit: 0,
+        goalorientationfit: 0,
+        customerorientationfit: 0,
+        detailorientationfit: 0,
+        pragmatismfit: 0,
+        teamworkfit: 0,
+        athmospherefit: 0,
+        moneysatisfactionfit: 0,
+        leadershipfit: 0,
+        rolesfit: 0,
+        freedomfit: 0,
+        strengthsfit: 0,
+        culturefit: 0,
       }
     },
 
@@ -115,6 +146,7 @@ export default {
       })
     }).then(() => firestore.collection('EmployeeSearches').where('product', '==', this.product).get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
+        
         let data = {
         company : doc.data().company,
         website : doc.data().website,
@@ -133,12 +165,16 @@ export default {
         phone: doc.data().phone,
         vision: doc.data().vision,
         experience: doc.data().experiencelevels,
-        purpose : doc.data().purpose
+        purpose : doc.data().purpose,
+        strengthsfit: this.calculateStrengthsFit(doc),
+        culturefit: this.calculateCultureFit(doc),
+        fit: (this.strengthsfit+this.culturefit)/2
         }
         this.jobs.push(data)
         })
     })).then(() => firestore.collection('EmployeeSearches').where('design', '==', this.design).get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
+        
         let data = {
         company : doc.data().company,
         website : doc.data().website,
@@ -156,12 +192,17 @@ export default {
         email: doc.data().email,
         phone: doc.data().phone,
         vision: doc.data().vision,
-        experience: doc.data().experiencelevels
+        experience: doc.data().experiencelevels,
+        purpose : doc.data().purpose,
+        strengthsfit: this.calculateStrengthsFit(doc),
+        culturefit: this.calculateCultureFit(doc),
+        fit: (this.strengthsfit+this.culturefit)/2
         }
         this.jobs.push(data)
         })
     })).then(() => firestore.collection('EmployeeSearches').where('business', '==', this.business).get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
+        
         let data = {
         company : doc.data().company,
         website : doc.data().website,
@@ -179,12 +220,17 @@ export default {
         email: doc.data().email,
         phone: doc.data().phone,
         vision: doc.data().vision,
-        experience: doc.data().experiencelevels
+        experience: doc.data().experiencelevels,
+        purpose : doc.data().purpose,
+        strengthsfit: this.calculateStrengthsFit(doc),
+        culturefit: this.calculateCultureFit(doc),
+        fit: (this.strengthsfit+this.culturefit)/2
         }
         this.jobs.push(data)
         })
     })).then(() => firestore.collection('EmployeeSearches').where('operations', '==', this.operations).get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
+        
         let data = {
         company : doc.data().company,
         website : doc.data().website,
@@ -202,12 +248,17 @@ export default {
         email: doc.data().email,
         phone: doc.data().phone,
         vision: doc.data().vision,
-        experience: doc.data().experiencelevels
+        experience: doc.data().experiencelevels,
+        purpose : doc.data().purpose,
+        strengthsfit: this.calculateStrengthsFit(doc),
+        culturefit: this.calculateCultureFit(doc),
+        fit: (this.strengthsfit+this.culturefit)/2
         }
         this.jobs.push(data)
         })
     })).then(() => firestore.collection('EmployeeSearches').where('software', '==', this.software).get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
+        
         let data = {
         company : doc.data().company,
         website : doc.data().website,
@@ -225,12 +276,17 @@ export default {
         email: doc.data().email,
         phone: doc.data().phone,
         vision: doc.data().vision,
-        experience: doc.data().experiencelevels
+        experience: doc.data().experiencelevels,
+        purpose : doc.data().purpose,
+        strengthsfit: this.calculateStrengthsFit(doc),
+        culturefit: this.calculateCultureFit(doc),
+        fit: (this.strengthsfit+this.culturefit)/2
         }
         this.jobs.push(data)
         })
     })).then(() => firestore.collection('EmployeeSearches').where('ai', '==', this.ai).get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
+        
         let data = {
         company : doc.data().company,
         website : doc.data().website,
@@ -248,12 +304,17 @@ export default {
         email: doc.data().email,
         phone: doc.data().phone,
         vision: doc.data().vision,
-        experience: doc.data().experiencelevels
+        experience: doc.data().experiencelevels,
+        purpose : doc.data().purpose,
+        strengthsfit: this.calculateStrengthsFit(doc),
+        culturefit: this.calculateCultureFit(doc),
+        fit: (this.strengthsfit+this.culturefit)/2
         }
         this.jobs.push(data)
         })
     })).then(() => firestore.collection('EmployeeSearches').where('vrar', '==', this.vrar).get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
+        
         let data = {
         company : doc.data().company,
         website : doc.data().website,
@@ -271,12 +332,17 @@ export default {
         email: doc.data().email,
         phone: doc.data().phone,
         vision: doc.data().vision,
-        experience: doc.data().experiencelevels
+        experience: doc.data().experiencelevels,
+        purpose : doc.data().purpose,
+        strengthsfit: this.calculateStrengthsFit(doc),
+        culturefit: this.calculateCultureFit(doc),
+        fit: (this.strengthsfit+this.culturefit)/2
         }
         this.jobs.push(data)
         })
     })).then(() => firestore.collection('EmployeeSearches').where('blockchain', '==', this.blockchain).get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
+        
         let data = {
         company : doc.data().company,
         website : doc.data().website,
@@ -294,17 +360,50 @@ export default {
         email: doc.data().email,
         phone: doc.data().phone,
         vision: doc.data().vision,
-        experience: doc.data().experiencelevels
+        experience: doc.data().experiencelevels,
+        purpose : doc.data().purpose,
+        strengthsfit: this.calculateStrengthsFit(doc),
+        culturefit: this.calculateCultureFit(doc),
+        fit: (this.strengthsfit+this.culturefit)/2
         }
         this.jobs.push(data)
         })
     }))
   },
 
+  methods:
+  {
+    calculateStrengthsFit(doc){
+      this.adaptabilityfit = Math.abs(this.adaptability-doc.data().adaptability)
+      this.collaborationfit = Math.abs(this.collaboration-doc.data().collaboration)
+      this.perseverencefit = Math.abs(this.perseverence-doc.data().perseverence)
+      this.goalorientationfit = Math.abs(this.goalorientation-doc.data().goalorientation)
+      this.detailorientationfit = Math.abs(this.detailorientation-doc.data().detailorientation)
+      this.customerorientationfit = Math.abs(this.customerorientation-doc.data().customerorientation)
+      this.strengthsfit = 100-2.77*(this.adaptabilityfit+this.collaborationfit+this.perseverencefit+this.goalorientationfit+this.detailorientationfit+this.customerorientationfit)
+      this.strengthsfit = Math.floor(this.strengthsfit)
+      return this.strengthsfit
+    },
+    calculateCultureFit(doc){
+      this.pragmatismfit = Math.abs(this.pragmatism-doc.data().pragmatism)
+      this.leadershipfit = Math.abs(this.leadership-doc.data().leadership)
+      this.athmospherefit = Math.abs(this.athmosphere-doc.data().athmosphere)
+      this.rolesfit = Math.abs(this.roles-doc.data().roles)
+      this.moneysatisfactionfit = Math.abs(this.moneysatisfaction-doc.data().moneysatisfaction)
+      this.freedomfit = Math.abs(this.freedom-doc.data().freedom)
+      this.teamworkfit = Math.abs(this.teamwork-doc.data().teamwork)
+      this.culturefit = 100-2.85*(this.pragmatismfit+this.leadershipfit+this.athmospherefit+this.rolesfit+this.moneysatisfactionfit+this.freedomfit+this.teamworkfit)
+      this.culturefit = Math.floor(this.culturefit)
+      return this.culturefit
+    }
+  },
+
   computed:
   {
     getJobs (){
-    return uniqBy(this.jobs, 'description');
+    this.uniquejobs = uniqBy(this.jobs, 'description')
+    this.uniquejobs.sort(function(a, b){return b.fit - a.fit})
+    return this.uniquejobs
     }
   }
 }
@@ -326,5 +425,16 @@ export default {
   background: #DDD;
   border-radius: 10%;
   line-height: 0px;
+}
+
+.fineline {
+  position: relative;
+  width: 40%;
+  height: 1px;
+  background: #DDD;
+  border-radius: 10%;
+  line-height: 0px;
+  margin-top: 2.5vw;
+  margin-bottom: 2.5vw;
 }
 </style>

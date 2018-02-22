@@ -17,7 +17,6 @@
         <p style="font-weight:500; margin-top:1.5vw; margin-bottom:0; padding:0">Contact:</p>
         <p style="margin-top:0; margin-bottom:0; padding:0">{{job.phone}}</p>  
         <p style="margin-top:0; margin-bottom:0; padding:0">{{job.email}}</p>
-        <p style="margin-top:1.5vw; margin-bottom:0; padding:0" class="body-2">Culture fit: coming soon</p>
       </v-flex>
       <v-flex xs6>
         <p style="font-weight:500; margin-top:1.5vw; margin-bottom:1vw; padding:0; text-align:right">Ideal Candidate Profile:</p>
@@ -30,8 +29,8 @@
         <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Goalorientation: {{job.goalorientation}}</p>  
       </v-flex>
       <v-flex xs12>
-        <p style="margin-top:0.5vw; margin-bottom:0; padding:0" class="body-2">Company vision</p>
-        <p style="text-align:justify; margin-bottom:0; padding:0">{{job.vision}}</p>
+        <p style="margin-top:0.5vw; margin-bottom:0; padding:0" class="body-2">Job purpose</p>
+        <p style="text-align:justify; margin-bottom:0; padding:0">{{job.purpose}}</p>
       </v-flex>
       <v-flex xs12 v-if="neutral">
       <div style="text-align:center">
@@ -88,7 +87,8 @@ export default {
         email: doc.data().email,
         phone: doc.data().phone,
         vision: doc.data().vision,
-        experience: doc.data().experiencelevels
+        experience: doc.data().experiencelevels,
+        purpose: doc.data().purpose
         }
         this.jobs.push(data)
         })
@@ -127,7 +127,8 @@ export default {
         email: doc.data().email,
         phone: doc.data().phone,
         vision: doc.data().vision,
-        experience: doc.data().experiencelevels
+        experience: doc.data().experiencelevels,
+        purpose: doc.data().purpose
         }
         this.jobs.push(data)
         })

@@ -29,13 +29,13 @@
     
         <v-layout style=margin-top:5vw row wrap> 
           <v-flex xs12>
-            <v-btn @click="togglejobsearch" v-bind:class="{primary: searchjob}" class="select" id=jobsearch>Find a (new) job</v-btn>
+            <v-btn @click="togglejobsearch" v-bind:class="{primary: searchjob}" class="select" id=jobsearch>I am open for a new job</v-btn>
           </v-flex>
           <v-flex xs12>
-          <v-btn @click="togglehelphiring" v-bind:class="{primary: helphiring}" class="select" id=hiring>Help our company hiring</v-btn>
+          <v-btn @click="togglehelphiring" v-bind:class="{primary: helphiring}" class="select" id=hiring>We are looking for employees</v-btn>
           </v-flex>
           <v-flex xs12>
-          <v-btn @click="togglefeedback" v-bind:class="{primary: givefeedback}" class="select" id=feedback>Create the perfect company culture</v-btn>
+          <v-btn @click="togglefeedback" v-bind:class="{primary: givefeedback}" class="select" id=feedback>We want the perfect company culture</v-btn>
           </v-flex>
           <v-flex class="text-xs-center" style="margin-top:4%">
             <v-btn class="teal" @click="editGoals">Let's go</v-btn>

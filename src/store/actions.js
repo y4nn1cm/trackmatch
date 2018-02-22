@@ -43,7 +43,14 @@ export const actions = {
       area1: payload.area1,
       area2: payload.area2,
       vision: payload.vision,
-      purpose: payload.purpose
+      purpose: payload.purpose,
+      pragmatism: payload.pragmatism, 
+      roles: payload.roles, 
+      freedom: payload.freedom, 
+      moneysatisfaction: payload.moneysatisfaction, 
+      athmosphere: payload.athmosphere, 
+      teamwork: payload.teamwork, 
+      leadership: payload.leadership
     }).then(() => { console.log('Job Search has been created') })
   },
 
@@ -54,7 +61,14 @@ export const actions = {
       logo: payload.logo,
       website: payload.website,
       area1: payload.area1,
-      area2: payload.area2
+      area2: payload.area2,
+      pragmatism: payload.pragmatism, 
+      roles: payload.roles, 
+      freedom: payload.freedom, 
+      moneysatisfaction: payload.moneysatisfaction, 
+      athmosphere: payload.athmosphere, 
+      teamwork: payload.teamwork, 
+      leadership: payload.leadership
     }, { merge: true }).then(() => { console.log('Company has been updated') })
   },
 

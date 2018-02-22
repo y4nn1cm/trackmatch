@@ -101,17 +101,18 @@
       <h4>What are your areas of expertise?</h4> 
         <v-select id=discipline1
           label="Discipline or Industry"
-          :items="disciplineitems"
+          :items="disciplineitems1"
           v-model="background1"
           class="input-group--focused"
           required>
         </v-select>
         <v-select id=discipline2
           label="Discipline or Industry"
-          :items="disciplineitems"
+          :items="disciplineitems2"
           v-model="background2"
           class="input-group--focused"
-          required>
+          required
+          >
         </v-select>
     <div class="line" style="margin-top:5%"></div>
     <h4>What do you do?</h4>
@@ -202,12 +203,12 @@
         <v-flex xs3>
           <p style="text-align:right">Strong Leadership</p>
         </v-flex>
-        <v-flex xs1><v-radio value="1" v-model="leadership"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="2" v-model="leadership"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="3" v-model="leadership"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="4" v-model="leadership"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="5" v-model="leadership"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="6" v-model="leadership"></v-radio></v-flex>      
+        <v-flex xs1><v-radio value=1 v-model="leadership"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=2 v-model="leadership"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=3 v-model="leadership"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=4 v-model="leadership"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=5 v-model="leadership"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=6 v-model="leadership"></v-radio></v-flex>      
         <v-flex xs3>
           <p>Loose Leadership</p>
         </v-flex>
@@ -215,12 +216,12 @@
         <v-flex xs3>
           <p style="text-align:right">Monetary Benefits</p>
         </v-flex>
-        <v-flex xs1><v-radio value="1" v-model="moneysatisfaction"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="2" v-model="moneysatisfaction"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="3" v-model="moneysatisfaction"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="4" v-model="moneysatisfaction"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="5" v-model="moneysatisfaction"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="6" v-model="moneysatisfaction"></v-radio></v-flex>      
+        <v-flex xs1><v-radio value=1 v-model="moneysatisfaction"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=2 v-model="moneysatisfaction"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=3 v-model="moneysatisfaction"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=4 v-model="moneysatisfaction"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=5 v-model="moneysatisfaction"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=6 v-model="moneysatisfaction"></v-radio></v-flex>      
         <v-flex xs3>
           <p>Job Satisfaction</p>
         </v-flex>
@@ -228,12 +229,12 @@
         <v-flex xs3>
           <p style="text-align:right">Freedom</p>
         </v-flex>
-        <v-flex xs1><v-radio value="1" v-model="freedom"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="2" v-model="freedom"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="3" v-model="freedom"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="4" v-model="freedom"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="5" v-model="freedom"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="6" v-model="freedom"></v-radio></v-flex>      
+        <v-flex xs1><v-radio value=1 v-model="freedom"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=2 v-model="freedom"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=3 v-model="freedom"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=4 v-model="freedom"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=5 v-model="freedom"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=6 v-model="freedom"></v-radio></v-flex>      
         <v-flex xs3>
           <p>Guidelines</p>
         </v-flex>
@@ -241,12 +242,12 @@
         <v-flex xs3>
           <p style="text-align:right">Relaxed Athmosphere</p>
         </v-flex>
-        <v-flex xs1><v-radio value="1" v-model="athmosphere"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="2" v-model="athmosphere"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="3" v-model="athmosphere"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="4" v-model="athmosphere"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="5" v-model="athmosphere"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="6" v-model="athmosphere"></v-radio></v-flex>      
+        <v-flex xs1><v-radio value=1 v-model="athmosphere"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=2 v-model="athmosphere"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=3 v-model="athmosphere"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=4 v-model="athmosphere"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=5 v-model="athmosphere"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=6 v-model="athmosphere"></v-radio></v-flex>      
         <v-flex xs3>
           <p>Professional Athmosphere</p>
         </v-flex>
@@ -254,12 +255,12 @@
         <v-flex xs3>
           <p style="text-align:right">Sole Work</p>
         </v-flex>
-        <v-flex xs1><v-radio value="1" v-model="teamwork"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="2" v-model="teamwork"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="3" v-model="teamwork"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="4" v-model="teamwork"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="5" v-model="teamwork"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="6" v-model="teamwork"></v-radio></v-flex>      
+        <v-flex xs1><v-radio value=1 v-model="teamwork"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=2 v-model="teamwork"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=3 v-model="teamwork"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=4 v-model="teamwork"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=5 v-model="teamwork"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=6 v-model="teamwork"></v-radio></v-flex>      
         <v-flex xs3>
           <p>Team Work</p>
         </v-flex>
@@ -267,12 +268,12 @@
         <v-flex xs3>
           <p style="text-align:right">Fluid Roles</p>
         </v-flex>
-        <v-flex xs1><v-radio value="1" v-model="roles"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="2" v-model="roles"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="3" v-model="roles"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="4" v-model="roles"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="5" v-model="roles"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="6" v-model="roles"></v-radio></v-flex>      
+        <v-flex xs1><v-radio value=1 v-model="roles"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=2 v-model="roles"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=3 v-model="roles"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=4 v-model="roles"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=5 v-model="roles"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=6 v-model="roles"></v-radio></v-flex>      
         <v-flex xs3>
           <p>Fixed Roles</p>
         </v-flex>
@@ -280,12 +281,12 @@
         <v-flex xs3>
           <p style="text-align:right">Processes</p>
         </v-flex>
-        <v-flex xs1><v-radio value="1" v-model="pragmatism"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="2" v-model="pragmatism"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="3" v-model="pragmatism"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="4" v-model="pragmatism"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="5" v-model="pragmatism"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="6" v-model="pragmatism"></v-radio></v-flex>      
+        <v-flex xs1><v-radio value=1 v-model="pragmatism"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=2 v-model="pragmatism"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=3 v-model="pragmatism"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=4 v-model="pragmatism"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=5 v-model="pragmatism"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=6 v-model="pragmatism"></v-radio></v-flex>      
         <v-flex xs3>
           <p>Pragmatism</p>
         </v-flex>
@@ -302,12 +303,12 @@
         <v-flex xs3>
           <p style="text-align:right">Strong Leadership</p>
         </v-flex>
-        <v-flex xs1><v-radio value="1" v-model="feedbackleadership"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="2" v-model="feedbackleadership"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="3" v-model="feedbackleadership"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="4" v-model="feedbackleadership"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="5" v-model="feedbackleadership"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="6" v-model="feedbackleadership"></v-radio></v-flex>      
+        <v-flex xs1><v-radio value=1 v-model="feedbackleadership"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=2 v-model="feedbackleadership"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=3 v-model="feedbackleadership"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=4 v-model="feedbackleadership"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=5 v-model="feedbackleadership"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=6 v-model="feedbackleadership"></v-radio></v-flex>      
         <v-flex xs3>
           <p>Loose Leadership</p>
         </v-flex>
@@ -317,12 +318,12 @@
         <v-flex xs3>
           <p style="text-align:right">Monetary Benefits</p>
         </v-flex>
-        <v-flex xs1><v-radio value="1" v-model="feedbackmoneysatisfaction"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="2" v-model="feedbackmoneysatisfaction"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="3" v-model="feedbackmoneysatisfaction"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="4" v-model="feedbackmoneysatisfaction"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="5" v-model="feedbackmoneysatisfaction"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="6" v-model="feedbackmoneysatisfaction"></v-radio></v-flex> 
+        <v-flex xs1><v-radio value=1 v-model="feedbackmoneysatisfaction"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=2 v-model="feedbackmoneysatisfaction"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=3 v-model="feedbackmoneysatisfaction"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=4 v-model="feedbackmoneysatisfaction"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=5 v-model="feedbackmoneysatisfaction"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=6 v-model="feedbackmoneysatisfaction"></v-radio></v-flex> 
         <v-flex xs3>
           <p>Job Satisfaction</p>
         </v-flex>
@@ -332,12 +333,12 @@
         <v-flex xs3>
           <p style="text-align:right">Freedom</p>
         </v-flex>
-        <v-flex xs1><v-radio value="1" v-model="feedbackfreedom"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="2" v-model="feedbackfreedom"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="3" v-model="feedbackfreedom"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="4" v-model="feedbackfreedom"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="5" v-model="feedbackfreedom"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="6" v-model="feedbackfreedom"></v-radio></v-flex>      
+        <v-flex xs1><v-radio value=1 v-model="feedbackfreedom"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=2 v-model="feedbackfreedom"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=3 v-model="feedbackfreedom"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=4 v-model="feedbackfreedom"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=5 v-model="feedbackfreedom"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=6 v-model="feedbackfreedom"></v-radio></v-flex>      
         <v-flex xs3>
           <p>Guidelines</p>
         </v-flex>
@@ -347,12 +348,12 @@
         <v-flex xs3>
           <p style="text-align:right">Relaxed Athmosphere</p>
         </v-flex>
-        <v-flex xs1><v-radio value="1" v-model="feedbackathmosphere"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="2" v-model="feedbackathmosphere"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="3" v-model="feedbackathmosphere"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="4" v-model="feedbackathmosphere"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="5" v-model="feedbackathmosphere"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="6" v-model="feedbackathmosphere"></v-radio></v-flex>      
+        <v-flex xs1><v-radio value=1 v-model="feedbackathmosphere"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=2 v-model="feedbackathmosphere"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=3 v-model="feedbackathmosphere"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=4 v-model="feedbackathmosphere"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=5 v-model="feedbackathmosphere"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=6 v-model="feedbackathmosphere"></v-radio></v-flex>      
         <v-flex xs3>
           <p>Professional Athmosphere</p>
         </v-flex>
@@ -363,12 +364,12 @@
         <v-flex xs3>
           <p style="text-align:right">Sole Work</p>
         </v-flex>
-        <v-flex xs1><v-radio value="1" v-model="feedbackteamwork"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="2" v-model="feedbackteamwork"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="3" v-model="feedbackteamwork"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="4" v-model="feedbackteamwork"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="5" v-model="feedbackteamwork"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="6" v-model="feedbackteamwork"></v-radio></v-flex>      
+        <v-flex xs1><v-radio value=1 v-model="feedbackteamwork"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=2 v-model="feedbackteamwork"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=3 v-model="feedbackteamwork"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=4 v-model="feedbackteamwork"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=5 v-model="feedbackteamwork"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=6 v-model="feedbackteamwork"></v-radio></v-flex>      
         <v-flex xs3>
           <p>Team Work</p>
         </v-flex>
@@ -378,12 +379,12 @@
         <v-flex xs3>
           <p style="text-align:right">Fluid Roles</p>
         </v-flex>
-        <v-flex xs1><v-radio value="1" v-model="feedbackroles"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="2" v-model="feedbackroles"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="3" v-model="feedbackroles"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="4" v-model="feedbackroles"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="5" v-model="feedbackroles"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="6" v-model="feedbackroles"></v-radio></v-flex>      
+        <v-flex xs1><v-radio value=1 v-model="feedbackroles"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=2 v-model="feedbackroles"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=3 v-model="feedbackroles"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=4 v-model="feedbackroles"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=5 v-model="feedbackroles"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=6 v-model="feedbackroles"></v-radio></v-flex>      
         <v-flex xs3>
           <p>Fixed Roles</p>
         </v-flex>
@@ -393,12 +394,12 @@
         <v-flex xs3>
           <p style="text-align:right">Processes</p>
         </v-flex>
-        <v-flex xs1><v-radio value="1" v-model="feedbackpragmatism"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="2" v-model="feedbackpragmatism"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="3" v-model="feedbackpragmatism"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="4" v-model="feedbackpragmatism"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="5" v-model="feedbackpragmatism"></v-radio></v-flex>
-        <v-flex xs1><v-radio value="6" v-model="feedbackpragmatism"></v-radio></v-flex>      
+        <v-flex xs1><v-radio value=1 v-model="feedbackpragmatism"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=2 v-model="feedbackpragmatism"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=3 v-model="feedbackpragmatism"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=4 v-model="feedbackpragmatism"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=5 v-model="feedbackpragmatism"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=6 v-model="feedbackpragmatism"></v-radio></v-flex>      
         <v-flex xs3>
           <p>Pragmatism</p>
         </v-flex>
@@ -407,7 +408,7 @@
         </v-flex>
       </v-layout>
 
-      <p style="text-align:justify; margin-top:5vw">Please provide up to three additional preferences that are important for you in the workplace. This will help to make your workplace better and also supports us to further improve our product.</p>
+      <p style="text-align:justify; margin-top:5vw">If you want, provide up to three additional factors that are important for you in the workplace. This will help to make your workplace better and also supports us to further improve our product.</p>
       <v-layout>
         <v-flex xs4>
             <v-text-field
@@ -500,7 +501,8 @@ export default {
       blockchain: null,
       firstname: null,
       lastname: null,
-      disciplineitems: ['Consulting','Company Building','Venture Capital','Hardware Technology','Software Technology','e-commerce','Healthcare','Medicine','Sports','Architecture','Food','Media','Transportation','Music','Art','Tourism','Education','Marketing','Recruiting','Social Media','Social Networks','Production','Logistics','Accounting and Finance','Sales Tools','Social Science','Math','Physics','Chemistry','Psychology','International Relationships','Governmental Institutions','Politics','Trade','Languages','Writing','Literature','Culture Science','Philosophy','History'],
+      disciplineitems1: ['Consulting','Company Building','Venture Capital','Hardware Technology','Software Technology','e-commerce','Healthcare','Medicine','Sports','Architecture','Food','Media','Transportation','Music','Art','Tourism','Education','Marketing','Recruiting','Social Media','Social Networks','Production','Logistics','Accounting and Finance','Sales Tools','Social Science','Math','Physics','Chemistry','Psychology','International Relationships','Governmental Institutions','Politics','Trade','Languages','Writing','Literature','Culture Science','Philosophy','History'],
+      disciplineitems2: ['','Consulting','Company Building','Venture Capital','Hardware Technology','Software Technology','e-commerce','Healthcare','Medicine','Sports','Architecture','Food','Media','Transportation','Music','Art','Tourism','Education','Marketing','Recruiting','Social Media','Social Networks','Production','Logistics','Accounting and Finance','Sales Tools','Social Science','Math','Physics','Chemistry','Psychology','International Relationships','Governmental Institutions','Politics','Trade','Languages','Writing','Literature','Culture Science','Philosophy','History'],
     }
   },
   created () {

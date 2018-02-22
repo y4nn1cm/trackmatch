@@ -80,8 +80,8 @@
       { title: 'Home', path: '/home', icon: 'home' },
       { title: 'Edit Profile', path: '/details', icon: 'face' },
       { title: 'Find Jobs', path: '/jobmatches', icon: 'check_circle' },
-      { title: 'Create Employee Search', path: '/employeesearch', icon: 'find_in_page' },
-      { title: 'Your Employee Searches', path: '/searchlist', icon: 'list' },
+      { title: 'Create Position', path: '/employeesearch', icon: 'find_in_page' },
+      { title: 'Your Open Positions', path: '/searchlist', icon: 'list' },
       { title: 'Find Employees', path: '/candidates', icon: 'perm_identity' }
           ]
         } else {

@@ -1,6 +1,6 @@
 <template>
 <v-app>
-  <p v-if="nocompany">Before creating an Employee Search, please fill out your profile and provide which company you are working for.</p>
+  <p v-if="nocompany">Before creating a position, please fill out your profile and provide which company you are working for.</p>
   <div v-else>
   <h3 style="text-align:center">It's time to find new team members for {{forcompany}}</h3>
   <div class="line" style="margin-top:5%"></div>
@@ -34,14 +34,14 @@
     <h4>What areas is your company active in?</h4> 
         <v-select id=discipline1
           label="Discipline or Industry"
-          :items="disciplines"
+          :items="disciplines1"
           v-model="area1"
           class="input-group--focused"
           required>
         </v-select>
         <v-select id=discipline2
           label="Discipline or Industry"
-          :items="disciplines"
+          :items="disciplines2"
           v-model="area2"
           class="input-group--focused"
           required>
@@ -53,6 +53,15 @@
         id="description"
         type="description"
         v-model="description"
+        style="margin-top:0; border:0; font-size:10%"
+        required>
+      </v-text-field>
+      <v-text-field
+        name="purpose"
+        label="Describe this jobs purpose for the company"
+        id="purpose"
+        type="purpose"
+        v-model="purpose"
         style="margin-top:0; border:0; font-size:10%"
         required>
       </v-text-field>
@@ -185,6 +194,101 @@
         </v-flex>
       </v-layout>
     </div>
+    <div style="text-align:left" v-if="describeculture">
+      <p style="margin-top:5vw; text-align:justify">Please outline your companies workplace environment. You can do so by using the following seven categories.<span style="font-weight:500">required!</span></p>
+        <v-layout row wrap align-center>
+        <v-flex xs3>
+          <p style="text-align:right">Strong Leadership</p>
+        </v-flex>
+        <v-flex xs1><v-radio value=1 v-model="leadership"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=2 v-model="leadership"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=3 v-model="leadership"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=4 v-model="leadership"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=5 v-model="leadership"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=6 v-model="leadership"></v-radio></v-flex>      
+        <v-flex xs3>
+          <p>Loose Leadership</p>
+        </v-flex>
+
+        <v-flex xs3>
+          <p style="text-align:right">Monetary Benefits</p>
+        </v-flex>
+        <v-flex xs1><v-radio value=1 v-model="moneysatisfaction"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=2 v-model="moneysatisfaction"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=3 v-model="moneysatisfaction"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=4 v-model="moneysatisfaction"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=5 v-model="moneysatisfaction"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=6 v-model="moneysatisfaction"></v-radio></v-flex>      
+        <v-flex xs3>
+          <p>Job Satisfaction</p>
+        </v-flex>
+
+        <v-flex xs3>
+          <p style="text-align:right">Freedom</p>
+        </v-flex>
+        <v-flex xs1><v-radio value=1 v-model="freedom"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=2 v-model="freedom"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=3 v-model="freedom"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=4 v-model="freedom"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=5 v-model="freedom"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=6 v-model="freedom"></v-radio></v-flex>      
+        <v-flex xs3>
+          <p>Guidelines</p>
+        </v-flex>
+
+        <v-flex xs3>
+          <p style="text-align:right">Relaxed Athmosphere</p>
+        </v-flex>
+        <v-flex xs1><v-radio value=1 v-model="athmosphere"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=2 v-model="athmosphere"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=3 v-model="athmosphere"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=4 v-model="athmosphere"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=5 v-model="athmosphere"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=6 v-model="athmosphere"></v-radio></v-flex>      
+        <v-flex xs3>
+          <p>Professional Athmosphere</p>
+        </v-flex>
+        
+        <v-flex xs3>
+          <p style="text-align:right">Sole Work</p>
+        </v-flex>
+        <v-flex xs1><v-radio value=1 v-model="teamwork"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=2 v-model="teamwork"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=3 v-model="teamwork"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=4 v-model="teamwork"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=5 v-model="teamwork"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=6 v-model="teamwork"></v-radio></v-flex>      
+        <v-flex xs3>
+          <p>Team Work</p>
+        </v-flex>
+
+        <v-flex xs3>
+          <p style="text-align:right">Fluid Roles</p>
+        </v-flex>
+        <v-flex xs1><v-radio value=1 v-model="roles"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=2 v-model="roles"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=3 v-model="roles"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=4 v-model="roles"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=5 v-model="roles"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=6 v-model="roles"></v-radio></v-flex>      
+        <v-flex xs3>
+          <p>Fixed Roles</p>
+        </v-flex>
+        
+        <v-flex xs3>
+          <p style="text-align:right">Processes</p>
+        </v-flex>
+        <v-flex xs1><v-radio value=1 v-model="pragmatism"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=2 v-model="pragmatism"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=3 v-model="pragmatism"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=4 v-model="pragmatism"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=5 v-model="pragmatism"></v-radio></v-flex>
+        <v-flex xs1><v-radio value=6 v-model="pragmatism"></v-radio></v-flex>      
+        <v-flex xs3>
+          <p>Pragmatism</p>
+        </v-flex>
+      </v-layout>
+    </div>
     <v-btn style="margin-top:10vw" primary type="submit">Create Employee Search</v-btn>
     </div>
     </form>
@@ -200,12 +304,20 @@ export default {
   data () {
     return {
     nocompany: true,
+    describeculture: true,
     vision: '',
     describestrengths: true,
     selectemployees: false, 
     forcompany: null,
     description: '',
     experience: null,
+    leadership: null,
+    athmosphere: null,
+    roles: null,
+    moneysatisfaction: null,
+    freedom: null,
+    teamwork: null,
+    pragmatism: null,
     phone: null,
     email: null,
     area1: null,
@@ -216,7 +328,8 @@ export default {
     toselect: true,
     select: false,
     employeeselection:[],
-    disciplines: ['Consulting','Company Building','Venture Capital','Hardware Technology','Software Technology','e-commerce','Healthcare','Medicine','Sports','Architecture','Food','Media','Transportation','Music','Art','Tourism','Education','Marketing','Recruiting','Social Media','Social Networks','Production','Logistics','Accounting and Finance','Sales Tools','Social Science','Math','Physics','Chemistry','Psychology','International Relationships','Governmental Institutions','Politics','Trade','Languages','Writing','Literature','Culture Science','Philosophy','History'],
+    disciplines1: ['Consulting','Company Building','Venture Capital','Hardware Technology','Software Technology','e-commerce','Healthcare','Medicine','Sports','Architecture','Food','Media','Transportation','Music','Art','Tourism','Education','Marketing','Recruiting','Social Media','Social Networks','Production','Logistics','Accounting and Finance','Sales Tools','Social Science','Math','Physics','Chemistry','Psychology','International Relationships','Governmental Institutions','Politics','Trade','Languages','Writing','Literature','Culture Science','Philosophy','History'],
+    disciplines2: ['','Consulting','Company Building','Venture Capital','Hardware Technology','Software Technology','e-commerce','Healthcare','Medicine','Sports','Architecture','Food','Media','Transportation','Music','Art','Tourism','Education','Marketing','Recruiting','Social Media','Social Networks','Production','Logistics','Accounting and Finance','Sales Tools','Social Science','Math','Physics','Chemistry','Psychology','International Relationships','Governmental Institutions','Politics','Trade','Languages','Writing','Literature','Culture Science','Philosophy','History'],
     employees:[],
     pointsleft: 18,
     adaptability: 0,
@@ -255,6 +368,13 @@ export default {
         this.area2 = doc.data().area2
         this.logourl = doc.data().logo
         this.vision = doc.data().vision
+        this.pragmatism = doc.data().pragmatism
+        this.roles = doc.data().roles
+        this.freedom = doc.data().freedom
+        this.moneysatisfaction = doc.data().moneysatisfaction
+        this.athmosphere = doc.data().athmosphere
+        this.teamwork = doc.data().teamwork
+        this.leadership = doc.data().leadership
         })
     }))
   },
@@ -360,12 +480,12 @@ methods:
     },
 
     createEmployeeSearch: function (event) {
-      if (this.pointsleft < 1){
+      if (this.pointsleft < 1 && this.leadership > 0 && this.athmosphere > 0 && this.roles > 0 && this.moneysatisfaction > 0 && this.freedom > 0 && this.teamwork > 0 && this.pragmatism > 0){
       this.$store.dispatch('createEmployeeSearch', {selectemployees: this.selectemployees,rolemodels: this.employeeselection, adaptability: this.adaptability, perseverence: this.perseverence, detailorientation: this.detailorientation, customerorientation: this.customerorientation, goalorientation: this.goalorientation, collaboration: this.collaboration, experiencelevels: this.experience, product: this.product,
       design: this.design, business: this.business, operations:  this.operations,
-      software: this.software, ai: this.ai, vrar: this.vrar, blockchain: this.blockchain, company: this.forcompany, logo: this.logourl, website: this.website, jobad: this.jobad, area1: this.area1, area2: this.area2, description: this.description, phone: this.phone, email: this.email, vision: this.vision, purpose: this.purpose
+      software: this.software, ai: this.ai, vrar: this.vrar, blockchain: this.blockchain, company: this.forcompany, logo: this.logourl, website: this.website, jobad: this.jobad, area1: this.area1, area2: this.area2, description: this.description, phone: this.phone, email: this.email, vision: this.vision, purpose: this.purpose, pragmatism: this.pragmatism, roles: this.roles, freedom: this.freedom, moneysatisfaction: this.moneysatisfaction, athmosphere: this.athmosphere, teamwork: this.teamwork, leadership: this.leadership
       })
-      this.$store.dispatch('createCompanyDetails', {company: this.forcompany, logo: this.logourl, website: this.website, area1: this.area1, area2: this.area2, vision: this.vision
+      this.$store.dispatch('createCompanyDetails', {company: this.forcompany, logo: this.logourl, website: this.website, area1: this.area1, area2: this.area2, vision: this.vision, pragmatism: this.pragmatism, roles: this.roles, freedom: this.freedom, moneysatisfaction: this.moneysatisfaction, athmosphere: this.athmosphere, teamwork: this.teamwork, leadership: this.leadership
       })
       this.$store.dispatch('openSite', {target: '/searchlist'})
       } 

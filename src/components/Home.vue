@@ -3,9 +3,9 @@
     <h3>It's great that you are here!</h3>
     <p class="body-2">First, we have to ask you to fill out your profile...</p>
     <p class="blocktext" v-if="this.searchjob">...to help you <span class="body-2">finding a new job</span>. Afterwards you can navigate to the "Find Jobs" section and check out your matching job offers.</p>
-    <p class="blocktext" v-if="this.helphiring">...to help you <span class="body-2">hiring new employees</span>. Afterwards you can navigate to the "Create Employee Search" section to create a Job offer or to the "Find Employees" section and check out jobseekers directly.</p>
+    <p class="blocktext" v-if="this.helphiring">...to help you <span class="body-2">hiring new employees</span>. Then you can go to the "Create Employee Search" section and create a position. Job seekers will now see this position. Afterwards you can also check out job seekers that match your open positions in the "Find Employees" section.</p>
     <p class="blocktext" v-if="this.givefeedback">...to help you <span class="body-2">creating better company culture</span>. You can give insights about your desired work environment and feedback about the actual work environment you are working in. Your input is only visible as an aggregated and anonymized feedback for the whole company, so that all employees can improve on the company culture together</p>
-    <v-btn class="teal" @click="this.$store.dispatch('openSite', {target: '/start'})">Edit Profile now</v-btn>
+    <v-btn class="teal" @click="openDetails">Edit Profile now</v-btn>
   </v-app>
 </template>
 
@@ -44,6 +44,9 @@ export default {
   methods:
 
   {
+    openDetails(){
+      this.$store.dispatch('openSite', {target: '/details'})
+    }
   }      
 }
 </script>
