@@ -16,7 +16,7 @@
     <p class="blocktext" v-if="this.helphiring">...to help you <span class="body-2">hiring new employees</span>. Afterwards you can create open positions and check out candidates.</p>
     <p class="blocktext" v-if="this.givefeedback">...to help you <span class="body-2">creating a better company culture</span>. You can give insights about your desired work environment and feedback about the actual work environment you are working in. Your input is only visible as an aggregated and anonymized feedback for the whole company, so that all employees can improve on the company culture together</p>
     </div>
-    <v-btn class="teal" @click="openDetails">Edit Profile now</v-btn>
+    <v-btn class="teal" style="color:white" @click="openDetails">Edit Profile now</v-btn>
     
 
     

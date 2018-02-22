@@ -19,13 +19,12 @@
           Experience in years: <span class="title">{{job.experience}}</span></p>
       </v-flex>
       <v-flex xs4>
-        <p class="body-2" style="margin-top:3vw; margin-bottom:1vw; padding:0; text-align:right"> Strengths match:</p>
-        <p class="body-2" style="margin-top:1.5vw; margin-bottom:0; padding:0; text-align:right"> Culture fit:</p>
+        <p class="body-2" style="margin-top:3vw; margin-bottom:1vw; padding:0; text-align:right">Culture fit: </p>
+        <p class="body-2" style="margin-top:1.5vw; margin-bottom:0; padding:0; text-align:right">Strengths fit:</p>
         </v-flex>
         <v-flex xs2>
-          <p class=title style="margin-top:2.5vw; margin-bottom:1vw; padding:0; text-align:left;"> 
-            {{job.strengthsfit}}%</p>
-        <p class=title style="margin-top:1.8vw; margin-bottom:0; padding:0; text-align:left"> {{job.culturefit}}%</p>
+          <p class=title style="margin-top:2.5vw; margin-bottom:1vw; padding:0; text-align:left;"> {{job.culturefit}}%</p>
+        <p class=title style="margin-top:1.8vw; margin-bottom:0; padding:0; text-align:left"> {{job.strengthsfit}}%</p>
         </v-flex>
         
         <!--

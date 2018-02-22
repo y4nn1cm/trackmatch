@@ -22,7 +22,7 @@
     </v-navigation-drawer>
 
     <v-toolbar fixed>
-      <span class="hidden-sm-and-up">
+      <span class="hidden-lg-and-up">
         <v-toolbar-side-icon @click.stop="sidebar = !sidebar">
         </v-toolbar-side-icon>
       </span>
@@ -35,7 +35,8 @@
         </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-toolbar-items class="hidden-xs-only">
+      
+      <v-toolbar-items class="hidden-md-and-down">
         <v-btn
           flat
           v-for="item in menuItems"

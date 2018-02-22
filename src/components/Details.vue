@@ -8,13 +8,13 @@
       <form @submit.prevent="pictureUpload">
         <v-text-field 
           name="imageurl"
-          label="Paste link to image here"
+          label="PASTE LINK TO IMAGE HERE"
           id="imageurl"
           type="imageurl"
           v-model="imageurl"
           style= "margin-bottom:0; padding-bottom:0">
         </v-text-field>
-          <v-btn primary class="button" type="submit" style="margin-top:0; padding-top:0">upload</v-btn>
+          <v-btn primary class="button" type="submit" style="margin-top:0; padding-top:0">submit</v-btn>
         </form>
         </div>
         <img :src="profilepicture" class="profile-picture">
@@ -436,7 +436,7 @@
           </v-flex>
       </v-layout>
       <div class=text-xs-center>
-      <v-btn @click="transferData" primary type="submit">save</v-btn>
+      <v-btn @click="transferData" class="teal" style="color:white" type="submit">save</v-btn>
       </div>
   </v-app>
 </template>

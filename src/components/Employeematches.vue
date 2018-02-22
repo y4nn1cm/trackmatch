@@ -1,9 +1,14 @@
 <template>
   <div>
-    <h3 style="text-align:center">Click on the job ad you want to find candidates for</h3>
-    <div class="line" style="margin-top:4vw; margin-bottom:4vw"></div>
+    <h3 v-if="select" style="text-align:center">Click on the job you want to find candidates for</h3>
+    <div @click="select=true" v-else style="text-align:center">
+    <h3 style="text-align:center; margin-bottom:0">Candidates for</h3>
+    <p class="title" style="margin-top:0">{{description}}</p>
+    <p>click to go back to job postings</p>
+    </div>
     <p style="text-align:center" v-if="searchentries">Please create an open position to find employees.</p>
-    <v-layout row wrap v-for="item in searchitems" :key="item.description">
+    <v-layout v-if="select" row wrap v-for="item in searchitems" :key="item.description">
+      <div class="line" style="margin-top:6vw; margin-bottom:2vw"></div>
       <v-flex xs2 @click="getCandidates(item)">
         <img class="employee-picture" style="margin-top:3vw" :src="item.logo">
       </v-flex>
@@ -32,13 +37,13 @@
           Experience in years: <span class="title">{{candidate.experience}}</span></p>
       </v-flex>
      <v-flex xs4>
-        <p class="body-2" style="margin-top:3vw; margin-bottom:1vw; padding:0; text-align:right"> Strengths match:</p>
-        <p class="body-2" style="margin-top:1.5vw; margin-bottom:0; padding:0; text-align:right;"> Culture fit:</p>
+        <p class="body-2" style="margin-top:3vw; margin-bottom:1vw; padding:0; text-align:right"> Culture fit:</p>
+        <p class="body-2" style="margin-top:1.5vw; margin-bottom:0; padding:0; text-align:right;"> Strengths fit:</p>
         </v-flex>
         <v-flex xs2>
           <p class=title style="margin-top:2.5vw; margin-bottom:1vw; padding:0; text-align:left;"> 
-            {{candidate.strengthsfit}}%</p>
-        <p class=title style="margin-top:1.8vw; margin-bottom:0; padding:0; text-align:left"> {{candidate.culturefit}}%</p>
+            {{candidate.culturefit}}%</p>
+        <p class=title style="margin-top:1.8vw; margin-bottom:0; padding:0; text-align:left"> {{candidate.strengthsfit}}%</p>
         </v-flex>
       <v-flex xs12>
         <div class="fineline"></div>
@@ -59,6 +64,7 @@ import uniqBy from 'lodash/uniqBy'
 export default {
     data (){
       return {
+        select: true,
         activities: [],
         company: null,
         background1: null,
@@ -106,6 +112,7 @@ export default {
         culturefit: 0,
         searchitems:[],
         searchentries: true,
+        description: null,
       }
     },
 
@@ -380,6 +387,9 @@ methods: {
         this.candidates.push(data)
         })
     })))
+    this.select = false
+    this.description = item.description
+    window.scrollTo(0, 0)
   },
   calculateStrengthsFit(doc){
       this.adaptabilityfit = Math.abs(this.adaptability-doc.data().adaptability)
