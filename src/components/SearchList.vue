@@ -6,17 +6,25 @@
       <v-flex xs2>
         <img class="employee-picture" :src="job.logo">
       </v-flex>
-      <v-flex class="body-2" xs10><p style="margin-top:0; margin-bottom:0.5vw; margin-left:0; padding:0">{{job.description}}</p>
-      <p style="margin-top:0; margin-bottom:0; margin-left:0; padding:0">In: {{job.background1}} / {{job.background2}}
+      <v-flex xs10><p class="title" style="margin-top:1.5vw; margin-bottom:1vw; margin-left:0; padding:0">{{job.description}}</p>
+      <p style="margin-top:0; margin-bottom:0; margin-left:0; padding:0"><a target="_blank" :href="job.jobad">See job ad</a>
       </p>
       </v-flex>
-      <v-flex>
-        <p style="font-weight:500; margin-top:1.5vw; margin-bottom:1vw; padding:0">{{job.company}}</p>  
-        <a :href="job.website">{{job.website}}</a><br>
-        <a :href="job.jobad">See job ad</a>
+      <v-flex xs12>
+        <p style="margin-top:2vw; margin-bottom:0; padding:0; font-weight:600">Job purpose:</p>
+        <p style="text-align:justify; margin-bottom:0; padding:0">{{job.purpose}}</p>
+      </v-flex>
+      <v-flex xs6>
         <p style="font-weight:500; margin-top:1.5vw; margin-bottom:0; padding:0">Contact:</p>
         <p style="margin-top:0; margin-bottom:0; padding:0">{{job.phone}}</p>  
         <p style="margin-top:0; margin-bottom:0; padding:0">{{job.email}}</p>
+        <div v-if="neutral" style="text-align:left">
+        <v-btn primary class="button" @click="neutral = !neutral" style="margin:0; margin-top:5vw; padding:0">Delete Jobsearch</v-btn>
+        </div>
+        <div v-else style="text-align:left"> 
+        <v-btn primary @click="deleteJobsearch(job.description)" style="margin:0; padding:0; margin-top:5vw; width:12vw">Confirm</v-btn><br>
+        <v-btn primary @click="neutral = !neutral" style="margin:0; margin-top:4vw; padding:0; width:12vw">Cancel</v-btn>
+        </div>
       </v-flex>
       <v-flex xs6>
         <p style="font-weight:500; margin-top:1.5vw; margin-bottom:1vw; padding:0; text-align:right">Ideal Candidate Profile:</p>
@@ -28,21 +36,7 @@
         <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Collaboration: {{job.collaboration}}</p>
         <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Goalorientation: {{job.goalorientation}}</p>  
       </v-flex>
-      <v-flex xs12>
-        <p style="margin-top:0.5vw; margin-bottom:0; padding:0" class="body-2">Job purpose</p>
-        <p style="text-align:justify; margin-bottom:0; padding:0">{{job.purpose}}</p>
-      </v-flex>
-      <v-flex xs12 v-if="neutral">
-      <div style="text-align:center">
-      <v-btn primary class="button" @click="neutral = !neutral" style="margin:4vw; padding-top:0">Delete Jobsearch</v-btn>
-      </div>
-      </v-flex>
-      <v-flex xs12 v-else>
-      <div style="text-align:center"> 
-      <v-btn primary @click="deleteJobsearch(job.description)" style="margin:4vw; padding-top:0; width:12vw">Confirm</v-btn>
-      <v-btn primary @click="neutral = !neutral" style="margin:4vw; padding-top:0; width:12vw">Cancel</v-btn>
-      </div>
-      </v-flex>
+      
       <div class="line" style="margin-top:4vw"></div>
     </v-layout>
   </div>
@@ -133,7 +127,7 @@ export default {
         this.jobs.push(data)
         })
     }));
-
+        this.neutral=true
         }
     }
 }
