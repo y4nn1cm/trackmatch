@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 style="text-align:center">Job offerings in Munich for you</h3>
+    <h3 style="text-align:center">Your Matching Jobs in Munich</h3>
     <div class="line" style="margin-top:4vw"></div>
     <v-layout align-top style="margin-top:6vw" v-for="job in getJobs" :key="job.description" row wrap>
       <v-flex xs2>

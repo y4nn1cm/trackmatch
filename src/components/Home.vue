@@ -27,7 +27,7 @@
             <v-btn @click="togglejobsearch" v-bind:class="{primary: searchjob}" class="select" id=jobsearch>Exploring Job Opportunities</v-btn>
           </v-flex>
           <v-flex xs12>
-          <v-btn @click="togglehelphiring" v-bind:class="{primary: helphiring}" class="select" id=hiring>Building a great team</v-btn>
+          <v-btn @click="togglebuildteam" v-bind:class="{primary: helphiring}" class="select" id=hiring>Building a great team</v-btn>
           </v-flex>
           <!--
           <v-flex xs12>
@@ -91,10 +91,12 @@ export default {
 
     togglejobsearch: function (event) {
       this.searchjob = !this.searchjob
+      this.$store.dispatch('editGoals', {givefeedback: this.givefeedback, helphiring: this.helphiring, searchjob: this.searchjob, findevents: this.findevents, findcoach: this.findcoach})
     },
 
-    togglehelphiring: function (event) {
+    togglebuildteam: function (event) {
       this.helphiring = !this.helphiring
+      this.$store.dispatch('editGoals', {givefeedback: this.givefeedback, helphiring: this.helphiring, searchjob: this.searchjob, findevents: this.findevents, findcoach: this.findcoach})
     },
 
     togglefeedback: function (event) {
@@ -111,7 +113,9 @@ export default {
 
     editGoals: function (event) {
       this.$store.dispatch('editGoals', {givefeedback: this.givefeedback, helphiring: this.helphiring, searchjob: this.searchjob, findevents: this.findevents, findcoach: this.findcoach})
+      if (this.searchjob==true || this.helphiring==true){
       this.$store.dispatch('openSite', {target: '/start'})
+      }
     }
   }
 }
