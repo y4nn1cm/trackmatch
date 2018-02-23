@@ -78,6 +78,21 @@
         </v-card-text>
       </v-card>
     </v-expansion-panel-content>
+    <v-expansion-panel-content>
+      <div style="font-weight:500" slot="header">Application contact</div>
+      <v-card>
+        <v-card-text>
+          <p style="font-weight:500; margin-top:1vw; margin-bottom:1vw; padding:0">
+        {{job.name}}
+      </p>
+        <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">
+        <a :href="`mailto:${job.email}`" style="font-weight:400">{{job.email}}</a>
+      </p> 
+          <p style="font-weight:400; margin-top:0; margin-bottom:0; padding:0">
+         <a :href="`tel:${job.email}`" style="font-weight:400">{{job.phone}}</a></p>
+         </v-card-text>
+      </v-card>
+    </v-expansion-panel-content>
   </v-expansion-panel>
         <v-btn primary class="button" @click="giveLike(job)" style="margin:5vw; margin-left:0; padding:0">Like position</v-btn>
       </v-flex>

@@ -18,6 +18,7 @@ export const actions = {
     firestore.collection('EmployeeSearches').doc(payload.description).set({
       phone: payload.phone,
       email: payload.email,
+      name: payload.name,
       selectemployees: payload.selectemployees,
       rolemodels: payload.rolemodels,
       adaptability: payload.adaptability,

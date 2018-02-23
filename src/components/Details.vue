@@ -140,7 +140,7 @@
         required>
         </v-text-field>
         <p class="title">Strenghts</p>
-        <p>Please distribute 18 points on the following 6 categories according to your own priorities: <span style="font-weight:500">required!</span></p>
+        <p>Please distribute 18 points on the following 6 strengths according to your own priorities: <span style="font-weight:500">required!</span></p>
         <p>Points left: {{pointsleft}}</p>
         <v-layout row wrap align-baseline>
         <v-flex xs2>

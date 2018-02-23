@@ -30,22 +30,49 @@
               type="vision"
               v-model="vision"
               required>
-        </v-text-field>
-    <h4>What areas is your company active in?</h4> 
+        </v-text-field> 
         <v-select id=discipline1
-          label="Discipline or Industry"
+          label="Company industry / market"
           :items="disciplines1"
           v-model="area1"
           class="input-group--focused"
           required>
         </v-select>
         <v-select id=discipline2
-          label="Discipline or Industry"
+          label="Second industry / market"
           :items="disciplines2"
           v-model="area2"
           class="input-group--focused"
           required>
         </v-select>
+        <h4 style="font-weight:500">Job contact</h4>
+        <v-text-field
+        name="name"
+        label="Contact name for applications"
+        id="name"
+        type="name"
+        v-model="name"
+        style="margin-top:0; border:0; font-size:10%"
+        required>
+      </v-text-field>
+      <v-text-field
+        name="email"
+        label="Contact mail for applications"
+        id="email"
+        type="email"
+        v-model="email"
+        style="margin-top:0; border:0; font-size:10%"
+        required>
+      </v-text-field>
+      <v-text-field
+        name="phone"
+        label="Contact number for applications"
+        id="phone"
+        type="phone"
+        v-model="phone"
+        style="margin-top:0; border:0; font-size:10%"
+        required>
+      </v-text-field>
     <h4 style="font-weight:500">Let's describe your Job search</h4>
       <v-text-field
         name="description"
@@ -66,32 +93,24 @@
         required>
       </v-text-field>
       <v-text-field
-        name="email"
-        label="Contact mail for this job"
-        id="email"
-        type="email"
-        v-model="email"
-        style="margin-top:0; border:0; font-size:10%"
-        required>
-      </v-text-field>
-      <v-text-field
-        name="phone"
-        label="Contact number for this job"
-        id="phone"
-        type="phone"
-        v-model="phone"
-        style="margin-top:0; border:0; font-size:10%"
-        required>
-      </v-text-field>
-      <v-text-field
       name="jobad"
       label="Paste link to job ad or carreer page"
       id="jobas"
       type="jobad"
       v-model="jobad">
     </v-text-field>
-    <h4>What experience level(s) are you looking for?</h4>
-      <v-text-field
+    <h4 style="font-weight:500">Who are you looking for?</h4>
+        <p class="body-2">Business and Product Experts</p>
+        <v-checkbox style="margin:0%; padding:0" label="Product Management and Conceptualization" v-model="product" value=true></v-checkbox>
+        <v-checkbox style="margin:0%; padding:0" label="Design and User Experience" v-model="design" value=true></v-checkbox>
+        <v-checkbox style="margin:0%; padding:0" label="Operations / Finance" v-model="operations" value=true></v-checkbox>
+        <v-checkbox style="margin:0%; padding:0" label="Business Development / Marketing" v-model="business" value=true></v-checkbox>
+        <p class="body-2">Technology Heroes</p>
+        <v-checkbox style="margin:0%; padding:0" label="Software / Web Development" v-model="software" value=true></v-checkbox>
+        <v-checkbox style="margin:0%; padding:0" label="Virtual / Augmented Reality" v-model="vrar" value=true></v-checkbox>
+        <v-checkbox style="margin:0%; padding:0" label="Artificial Intelligence" v-model="ai" value=true></v-checkbox>
+        <v-checkbox style="margin:0%; padding:0" label="Blockchain" v-model="blockchain" value=true></v-checkbox>
+        <v-text-field
         name="experience"
         label="Experience in years"
         id="experience"
@@ -100,24 +119,11 @@
         style="margin-top:0; border:0; font-size:10%"
         required>
       </v-text-field>
-        <div class="line"></div>
-        <h4>What areas are you looking for?</h4>
-        <p class="body-2">Business and Product</p>
-        <v-checkbox style="margin:0%; padding:0" label="Product Management and Conceptualization" v-model="product" value=true></v-checkbox>
-        <v-checkbox style="margin:0%; padding:0" label="Design and User Experience" v-model="design" value=true></v-checkbox>
-        <v-checkbox style="margin:0%; padding:0" label="Operations / Finance" v-model="operations" value=true></v-checkbox>
-        <v-checkbox style="margin:0%; padding:0" label="Business Development / Marketing" v-model="business" value=true></v-checkbox>
-        <p class="body-2">Technology</p>
-        <v-checkbox style="margin:0%; padding:0" label="Software / Web Development" v-model="software" value=true></v-checkbox>
-        <v-checkbox style="margin:0%; padding:0" label="Virtual / Augmented Reality" v-model="vrar" value=true></v-checkbox>
-        <v-checkbox style="margin:0%; padding:0" label="Artificial Intelligence" v-model="ai" value=true></v-checkbox>
-        <v-checkbox style="margin:0%; padding:0" label="Blockchain" v-model="blockchain" value=true></v-checkbox>
-        <div class="line" style="margin-top:5%"></div>
     <div class="text-xs-center">
     <!--  
     <p v-if="selectemployees" style="margin-top:5vw; text-align:justify">We select potential applicants based on their fit to your company culture and their strengths. We account for Adaptability, Goal-Orientation, Perseverence, Customer-Orientation, Collaboration and Detail-Orientation. Please choose from your current employees which ones are most suitable for the job based on these strengths.</p>
     -->
-    <p v-if="describestrengths" style="margin-top:5vw; text-align:justify">We select potential applicants based on their fit to your company culture and their strengths. We account for Adaptability, Goal-Orientation, Perseverence, Customer-Orientation, Collaboration and Detail-Orientation. Please describe with the following template which profile is most suitable for the job.</p>
+    <p v-if="describestrengths" style="margin-top:5vw; text-align:justify">We recommend applicants based on their strengths and fit with your company culture. Please describe with the following template which profile is most suitable for the job.</p>
     <!--
     <p v-if="selectemployees" @click="selectemployees=false; describestrengths=true" style='text-align:left; margin-bottom:0px; font-size:2.5vw'>Alternatively, click to choose employees to serve as role models</p>
     <p v-if="describestrengths" @click="selectemployees=true; describestrengths=false" style='text-align:left; margin-bottom:0px; font-size:2.5vw'>Define attributes manually instead</p>
@@ -130,7 +136,7 @@
     </v-layout>
     -->
     <div style="text-align:left" v-if="describestrengths">
-      <p style="margin-top:5vw">Please distribute 18 points on the following 6 categories according to your own priorities: <span style="font-weight:500">required!</span></p>
+      <p style="margin-top:5vw">Distribute 18 points on the following 6 strengths according to your own priorities: <span style="font-weight:500">required!</span></p>
         <p>Points left: {{pointsleft}}</p>
         <v-layout row wrap align-baseline> 
         <v-flex xs2>
@@ -195,7 +201,7 @@
       </v-layout>
     </div>
     <div style="text-align:left" v-if="describeculture">
-      <p style="margin-top:5vw; text-align:justify">Please outline your companies workplace environment. You can do so by using the following seven categories: <span style="font-weight:500">required!</span></p>
+      <p style="margin-top:7vw; text-align:justify">Please outline your companies work environment. You can do so by using the following seven categories: <span style="font-weight:500">required!</span></p>
         <v-layout row wrap align-center>
         <v-flex xs3>
           <p style="text-align:right">Strong Leadership</p>
@@ -304,6 +310,7 @@ export default {
   data () {
     return {
     nocompany: true,
+    name: null,
     describeculture: true,
     vision: '',
     describestrengths: true,
@@ -360,6 +367,7 @@ export default {
         this.forcompany = doc.data().company
         this.phone = doc.data().phone
         this.email = doc.data().email
+        this.name = doc.data().firstname +" "+ doc.data().lastname,
         this.nocompany = false
         this.ID = doc.data().ID
         }
@@ -384,6 +392,7 @@ export default {
 
 methods:
  {
+   /* Relevant for choosing employees instead of specifying job themself
   continuePress: function (event) {
       firestore.collection('Users').where('company', '==', this.forcompany).get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
@@ -398,6 +407,7 @@ methods:
     })
     this.toselect = false
     },
+    */
      plusCollaboration () {
       if (this.pointsleft > 0 && this.collaboration < 6){
         this.pointsleft-=1
@@ -486,7 +496,7 @@ methods:
       if (this.pointsleft < 1 && this.leadership > 0 && this.athmosphere > 0 && this.roles > 0 && this.moneysatisfaction > 0 && this.freedom > 0 && this.teamwork > 0 && this.pragmatism > 0){
       this.$store.dispatch('createEmployeeSearch', {selectemployees: this.selectemployees,rolemodels: this.employeeselection, adaptability: this.adaptability, perseverence: this.perseverence, detailorientation: this.detailorientation, customerorientation: this.customerorientation, goalorientation: this.goalorientation, collaboration: this.collaboration, experiencelevels: this.experience, product: this.product,
       design: this.design, business: this.business, operations:  this.operations,
-      software: this.software, ai: this.ai, vrar: this.vrar, blockchain: this.blockchain, company: this.forcompany, logo: this.logourl, website: this.website, jobad: this.jobad, area1: this.area1, area2: this.area2, description: this.description, phone: this.phone, email: this.email, vision: this.vision, purpose: this.purpose, pragmatism: this.pragmatism, roles: this.roles, freedom: this.freedom, moneysatisfaction: this.moneysatisfaction, athmosphere: this.athmosphere, teamwork: this.teamwork, leadership: this.leadership, advocats: this.advocats
+      software: this.software, ai: this.ai, vrar: this.vrar, blockchain: this.blockchain, company: this.forcompany, logo: this.logourl, website: this.website, jobad: this.jobad, area1: this.area1, area2: this.area2, description: this.description, phone: this.phone, email: this.email, vision: this.vision, purpose: this.purpose, pragmatism: this.pragmatism, roles: this.roles, freedom: this.freedom, moneysatisfaction: this.moneysatisfaction, athmosphere: this.athmosphere, teamwork: this.teamwork, leadership: this.leadership, advocats: this.advocats, name: this.name
       })
       this.$store.dispatch('createCompanyDetails', {company: this.forcompany, logo: this.logourl, website: this.website, area1: this.area1, area2: this.area2, vision: this.vision, pragmatism: this.pragmatism, roles: this.roles, freedom: this.freedom, moneysatisfaction: this.moneysatisfaction, athmosphere: this.athmosphere, teamwork: this.teamwork, leadership: this.leadership
       })
