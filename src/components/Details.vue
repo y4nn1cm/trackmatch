@@ -21,18 +21,18 @@
         </div>
       <p class="body-2" style="text-align:center; color:#42b983">On this page we will ask you for some information. Based on your answers we are able to help reaching the goals you told us about.</p>
       <v-text-field
-        name="vision"
-        label="What is your personal vision at work"
-        id="vision"
-        type="vision"
-        v-model="vision"
+        name="linkedin"
+        label="Your linkedIN or Xing profile"
+        id="linkedin"
+        type="linkedin"
+        v-model="linkedin"
         style="margin-top:0; border:0; font-size:10%"
         required>
       </v-text-field>
       <div v-if="searchjob">
       <v-text-field
         name="goal"
-        label="What do you want to achieve at your next job?"
+        label="Your next job goal"
         id="goal"
         type="goal"
         v-model="goal"
@@ -41,38 +41,38 @@
       </v-text-field>
       <v-text-field
         name="company"
-        label="Do you work at a company at the moment?"
+        label="Your current employer"
         id="company"
         type="company"
         v-model="company"
-        style="margin-top:0; border:0; font-size:10%"
-        required>
-      </v-text-field>
-      <v-text-field
-        name="linkedin"
-        label="Please share your linkedIN or Xing profile"
-        id="linkedin"
-        type="linkedin"
-        v-model="linkedin"
         style="margin-top:0; border:0; font-size:10%"
         required>
       </v-text-field>
       </div>
       <div v-else>
-      <h4 style="margin-bottom:0">Which company do you work at?</h4>
+      <h4 style="margin-bottom:0">Your current job</h4>
       <v-text-field
         name="company"
-        label="Type in the company"
+        label="Company name"
         id="company"
         type="company"
         v-model="company"
         style="margin-top:0; border:0; font-size:10%"
         required>
       </v-text-field>
+      <v-text-field
+        name="goal"
+        label="Why do you love your work?"
+        id="goal"
+        type="goal"
+        v-model="goal"
+        style="margin-top:0; border:0; font-size:10%"
+        required="">
+      </v-text-field>
       </div>
       <v-text-field
         name="mail"
-        label="Please provide your contact mail"
+        label="Your contact mail"
         id="mail"
         type="mail"
         v-model="email"
@@ -81,14 +81,14 @@
       </v-text-field>
       <v-text-field
         name="phone"
-        label="Please provide your contact number"
+        label="Your contact number"
         id="phone"
         type="phone"
         v-model="phone"
         style="margin-top:0; border:0; font-size:10%">
       </v-text-field>
     
-      <h4>Your workexperience</h4>
+      <h4>Your work experience</h4>
       <v-text-field
         name="experience"
         label="Experience in years (number only)"
@@ -98,7 +98,7 @@
         required
         style="margin-top:0; border:0; font-size:10%">
       </v-text-field>
-      <h4>What are your areas of expertise?</h4> 
+      <h4>Your areas of expertise?</h4> 
         <v-select id=discipline1
           label="Discipline or Industry"
           :items="disciplineitems1"
@@ -127,15 +127,22 @@
         <v-checkbox style="margin:0%; padding:0" label="Artificial Intelligence" v-model="ai" value=true></v-checkbox>
         <v-checkbox style="margin:0%; padding:0" label="Blockchain" v-model="blockchain" value=true></v-checkbox>
         <div class="line" style="margin-top:5%"></div>
-        <h4>Please tell us about yourself</h4>
-        <p style="margin-bottom:0px; text-align:justify"> For our recommendations, please provide some information about yourself. Please answer truthfully, our matching is not based on certain requirements but on how compatible job searchers are with companies, and without your manager ever knowing any scores.
+        <h4>About yourself</h4>
+        <p style="margin-bottom:4vw; text-align:justify"> Please provide some information about yourself. Our matching is not based on fixed requirements but on how compatible candidates are with employees.
         </p>
-        <p class="caption">(We promise and are legally bind to never share the information with any third party!)
-        </p>
+        <v-text-field
+        name="vision"
+        label="Your personal vision at work"
+        id="vision"
+        type="vision"
+        v-model="vision"
+        style="margin-top:0; border:0; font-size:10%"
+        required>
+        </v-text-field>
         <p class="title">Strenghts</p>
         <p>Please distribute 18 points on the following 6 categories according to your own priorities: <span style="font-weight:500">required!</span></p>
         <p>Points left: {{pointsleft}}</p>
-        <v-layout row wrap align-baseline> 
+        <v-layout row wrap align-baseline>
         <v-flex xs2>
           <v-btn @click="minusAdaptability" style="min-width:0">-</v-btn>
         </v-flex>
@@ -198,7 +205,7 @@
       </v-layout>
       <div class="line" style="margin-top:5%"></div>
       <p class="title">Your ideal work environment</p>  
-      <p style="text-align:justify">Please outline your personal preferences when it comes to your job and workplace environment. You can do so by using the following seven categories and the free text possibility.</p>
+      <p style="text-align:justify">Please outline your personal preferences when it comes to your workplace. You can do so by using the following seven categories:</p>
       <v-layout row wrap align-center v-if="feedback===false">
         <v-flex xs3>
           <p style="text-align:right">Strong Leadership</p>
@@ -692,7 +699,7 @@ export default {
       lastname: this.lastname
       })
       }
-      this.$store.dispatch('openSite', {target: '/home'})
+      this.$store.dispatch('openSite', {target: '/start'})
       }
     },
 

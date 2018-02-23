@@ -1,27 +1,44 @@
 <template>
-  <v-app style="text-align:center">
+  <v-app>
+    <div class="center">
+      <h2 style="margin-bottom:5%; margin-top:5%; font-family:merriweather">trackmatch</h2>
+      <div class="line"></div>
+      <div v-if="profilepicture === 'https://www.fing.edu.uy/inco/grupos/gsi/img/placeholder.png'">
+      
+      <form @submit.prevent="pictureUpload">
+        <v-text-field 
+          name="imageurl"
+          label="PASTE LINK TO IMAGE HERE"
+          id="imageurl"
+          type="imageurl"
+          v-model="imageurl"
+          style= "margin-bottom:0; padding-bottom:0">
+        </v-text-field>
+          <v-btn primary class="button" type="submit" style="margin-top:0; padding-top:0">submit</v-btn>
+        </form>
+        </div>
+        <img :src="profilepicture" class="profile-picture"> 
+        <h2>Hello {{ user }}</h2>
+
+        <h3>What can we help you with?</h3>
     
-    <div v-if="this.pragmatism>0">
-      <h3>Great! Your profile is filled out!</h3>
-    <p class="body-2">You can now use our app to help you...</p>
-    <p class="blocktext" v-if="this.searchjob"><span class="body-2">Finding a new job:</span><br>Navigate to the <span class="body-2">»Find Jobs«</span> section and check out your matching job offers.</p>
-    <p class="blocktext" v-if="this.helphiring"><span class="body-2">Hiring new employees:</span><br>First navigate to the <span class="body-2">»Create Position«</span> section and create a job posting. Job seekers will now see this position. Afterwards you can also go to the <span class="body-2">»Find Employees«</span> section to contact candidates yourself.</p>
-    <p class="blocktext" v-if="this.givefeedback"><span class="body-2">Creating a better company culture:</span><br>unfortunately this feature is not fully implemented yet, but we are doing our best to deliver it as soon as possible. For now, your input is already valuable to create better job postings, so it was definitely worth giving it.</p>
-    </div>
-
-    <div v-else>
-    <h3>It's great that you are here!</h3>
-    <p class="body-2">First, we have to ask you to fill out your profile...</p>
-    <p class="blocktext" v-if="this.searchjob">...to help you <span class="body-2">finding a new job</span>. Afterwards you can check out your matching job offers.</p>
-    <p class="blocktext" v-if="this.helphiring">...to help you <span class="body-2">hiring new employees</span>. Afterwards you can create open positions and check out candidates.</p>
-    <p class="blocktext" v-if="this.givefeedback">...to help you <span class="body-2">creating a better company culture</span>. You can give insights about your desired work environment and feedback about the actual work environment you are working in. Your input is only visible as an aggregated and anonymized feedback for the whole company, so that all employees can improve on the company culture together</p>
-    </div>
-    <v-btn class="teal" style="color:white" @click="openDetails">Edit Profile now</v-btn>
-    
-
-    
-
-
+        <v-layout style=margin-top:5vw row wrap> 
+          <v-flex xs12>
+            <v-btn @click="togglejobsearch" v-bind:class="{primary: searchjob}" class="select" id=jobsearch>Exploring Job Opportunities</v-btn>
+          </v-flex>
+          <v-flex xs12>
+          <v-btn @click="togglehelphiring" v-bind:class="{primary: helphiring}" class="select" id=hiring>Building a great team</v-btn>
+          </v-flex>
+          <!--
+          <v-flex xs12>
+          <v-btn @click="togglefeedback" v-bind:class="{primary: givefeedback}" class="select" id=feedback>We want the perfect company culture</v-btn>
+          </v-flex>
+          -->
+          <v-flex class="text-xs-center" style="margin-top:4%">
+            <v-btn class="teal" style="color:white" @click="editGoals">Let's go</v-btn>
+          </v-flex>
+        </v-layout>
+      </div>
   </v-app>
 </template>
 
@@ -38,9 +55,9 @@ export default {
       helphiring: false,
       findevents: false,
       findcoach: false,
+      imageurl: '',
       user: '',
-      experience: null,
-      pragmatism: null,
+      editpicture: false
     }
   },
   created () {
@@ -54,19 +71,51 @@ export default {
         this.givefeedback = doc.data().givefeedback
         this.findevents = doc.data().findevents
         this.findcoach = doc.data().findcoach
-        this.experience = doc.data().experience
-        this.pragmatism = doc.data().pragmatism
       })
     })
   },
   methods:
 
   {
-    openDetails(){
-      this.$store.dispatch('openSite', {target: '/details'})
+    pictureUpload () {
+      if (this.imageurl.length > 10) {
+        this.editpicture = false
+        this.$store.dispatch('pictureUpload', {imageurl: this.imageurl})
+        firestore.collection('Users').where('ID', '==', firebase.auth().currentUser.uid).get().then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            this.profilepicture = doc.data().profilepicture
+          })
+        })
+      }
+    },
+
+    togglejobsearch: function (event) {
+      this.searchjob = !this.searchjob
+    },
+
+    togglehelphiring: function (event) {
+      this.helphiring = !this.helphiring
+    },
+
+    togglefeedback: function (event) {
+      this.givefeedback = !this.givefeedback
+    },
+
+    toggleevent: function (event) {
+      this.findevents = !this.findevents
+    },
+
+    togglecoach: function (event) {
+      this.findcoach = !this.findcoach
+    },
+
+    editGoals: function (event) {
+      this.$store.dispatch('editGoals', {givefeedback: this.givefeedback, helphiring: this.helphiring, searchjob: this.searchjob, findevents: this.findevents, findcoach: this.findcoach})
+      this.$store.dispatch('openSite', {target: '/start'})
     }
-  }      
+  }
 }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -79,11 +128,6 @@ export default {
   border-radius: 50%;
   object-fit:cover;
   margin:6vw;
-}
-
-.blocktext {
-    text-align:justify;
-    margin-bottom:5vw;
 }
 
 #imageurl {

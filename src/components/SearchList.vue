@@ -19,11 +19,13 @@
         <p style="margin-top:0; margin-bottom:0; padding:0">{{job.phone}}</p>  
         <p style="margin-top:0; margin-bottom:0; padding:0">{{job.email}}</p>
         <div v-if="neutral" style="text-align:left">
-        <v-btn primary class="button" @click="neutral = !neutral" style="margin:0; margin-top:5vw; padding:0">Delete Jobsearch</v-btn>
+        <v-btn primary v-if="checkAdvocacy(job.advocates)" class="button" @click="removeAdvocacy(job)" style="margin:0; margin-top:5vw; padding:0">Remove advocacy</v-btn>
+        <v-btn primary v-else class="button" @click="becomeAdvocate(job)" style="margin:0; margin-top:5vw; padding:0">Become advocate</v-btn>
+        <v-btn class="teal" style="margin:0; margin-top:5vw; padding:0; color:white" @click="neutral = !neutral">Delete Jobsearch</v-btn>
         </div>
         <div v-else style="text-align:left"> 
-        <v-btn primary @click="deleteJobsearch(job.description)" style="margin:0; padding:0; margin-top:5vw; width:12vw">Confirm</v-btn><br>
-        <v-btn primary @click="neutral = !neutral" style="margin:0; margin-top:4vw; padding:0; width:12vw">Cancel</v-btn>
+        <v-btn class="teal" @click="deleteJobsearch(job.description)" style="margin:0; padding:0; margin-top:5vw; width:12vw; color:white">Confirm</v-btn><br>
+        <v-btn class="teal" @click="neutral = !neutral" style="margin:0; margin-top:5vw; padding:0; width:12vw; color:white">Cancel</v-btn>
         </div>
       </v-flex>
       <v-flex xs6>
@@ -53,6 +55,18 @@ export default {
             jobs:[],
             company: null,
             neutral: true,
+            ID: null,
+            advocate:{
+            ID: '',
+            phone: '',
+            email: '',
+            linkedin: '',
+            image: '',
+            job:'',
+            vision:'',
+            firstname:'',
+            lastname:''
+            }
         }
     },
 
@@ -61,6 +75,26 @@ export default {
     firestore.collection('Users').where('ID', '==', firebase.auth().currentUser.uid).get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
           this.company = doc.data().company
+          this.ID = doc.data().ID
+          /*
+          this.phone = doc.data().phone
+          this.email = doc.data().email
+          this.linkedin = doc.data().linkedin
+          this.image = doc.data().profilepicture
+          this.job = doc.data().goal
+          this.vision = doc.data().vision
+          */
+          this.advocate = {
+          ID: doc.data().ID,
+          phone: doc.data().phone,
+          email: doc.data().email,
+          linkedin: doc.data().linkedin,
+          image: doc.data().profilepicture,
+          job: doc.data().goal,
+          vision: doc.data().vision,
+          firstname: doc.data().firstname,
+          lastname: doc.data().lastname
+        } 
     })
     }).then(() => firestore.collection('EmployeeSearches').where('company', '==', this.company).get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
@@ -82,7 +116,8 @@ export default {
         phone: doc.data().phone,
         vision: doc.data().vision,
         experience: doc.data().experiencelevels,
-        purpose: doc.data().purpose
+        purpose: doc.data().purpose,
+        advocates: doc.data().advocates
         }
         this.jobs.push(data)
         })
@@ -95,6 +130,82 @@ export default {
     }
   },
     methods: {
+        becomeAdvocate: function (job) {
+          job.advocates.push(this.advocate)
+          this.$store.dispatch('updateAdvocacy', {search: job.description, advocates: job.advocates}).then(function() {
+            console.log("You successfully became an advocate!");
+            }).catch(function(error) {
+            console.error("Error adding advocacy: ", error); 
+        }).then(() => firestore.collection('EmployeeSearches').where('company', '==', this.company).get().then(querySnapshot => {
+        this.jobs = []    
+        querySnapshot.forEach(doc => {
+        let data = {
+        company: doc.data().company,
+        website: doc.data().website,
+        background1: doc.data().area1,
+        background2: doc.data().area2,
+        logo: doc.data().logo,
+        jobad: doc.data().jobad,
+        description: doc.data().description,
+        adaptability: doc.data().adaptability,
+        perseverence: doc.data().perseverence,
+        collaboration: doc.data().collaboration,
+        goalorientation: doc.data().goalorientation,
+        customerorientation: doc.data().customerorientation,
+        detailorientation: doc.data().detailorientation,
+        email: doc.data().email,
+        phone: doc.data().phone,
+        vision: doc.data().vision,
+        experience: doc.data().experiencelevels,
+        purpose: doc.data().purpose,
+        advocates: doc.data().advocates
+        }
+        this.jobs.push(data)
+        })
+    }));
+        this.neutral=true
+        },
+
+        removeAdvocacy: function (job) {
+          job.advocates.splice(job.advocates.indexOf(this.ID), 1)
+          this.$store.dispatch('updateAdvocacy', {search: job.description, advocates: job.advocates}).then(function() {
+            console.log("Advocacy removed");
+            }).catch(function(error) {
+            console.error("Error removing advocacy: ", error); 
+        }).then(() => firestore.collection('EmployeeSearches').where('company', '==', this.company).get().then(querySnapshot => {
+        this.jobs = []    
+        querySnapshot.forEach(doc => {
+        let data = {
+        company: doc.data().company,
+        website: doc.data().website,
+        background1: doc.data().area1,
+        background2: doc.data().area2,
+        logo: doc.data().logo,
+        jobad: doc.data().jobad,
+        description: doc.data().description,
+        adaptability: doc.data().adaptability,
+        perseverence: doc.data().perseverence,
+        collaboration: doc.data().collaboration,
+        goalorientation: doc.data().goalorientation,
+        customerorientation: doc.data().customerorientation,
+        detailorientation: doc.data().detailorientation,
+        email: doc.data().email,
+        phone: doc.data().phone,
+        vision: doc.data().vision,
+        experience: doc.data().experiencelevels,
+        purpose: doc.data().purpose,
+        advocates: doc.data().advocates
+        }
+        this.jobs.push(data)
+        })
+    }));
+        this.neutral=true
+        },
+        
+        checkAdvocacy (advocates) {
+          return advocates.some(advocates => (advocates.ID === this.ID))
+        },
+
         deleteJobsearch: function (desc){
             this.$store.dispatch('deleteDocument', {document: desc, collection: 'EmployeeSearches',
       }).then(function() {
@@ -122,7 +233,8 @@ export default {
         phone: doc.data().phone,
         vision: doc.data().vision,
         experience: doc.data().experiencelevels,
-        purpose: doc.data().purpose
+        purpose: doc.data().purpose,
+        advocates: doc.data().advocates
         }
         this.jobs.push(data)
         })

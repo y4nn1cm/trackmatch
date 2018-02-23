@@ -27,7 +27,8 @@
         </v-toolbar-side-icon>
       </span>
       <v-toolbar-title>
-        <router-link v-if="isAuthenticated" to="/start" tag="span" style="cursor: pointer; font-family:merriweather">
+       
+        <router-link v-if="isAuthenticated" to="/home" tag="span" style="cursor: pointer; font-family:merriweather">
           {{ appTitle }}
         </router-link>
         <router-link v-else to="/" tag="span" style="cursor: pointer; font-family:merriweather">
@@ -77,7 +78,6 @@
       menuItems () {
         if (this.isAuthenticated) {
           return [
-      { title: 'Start', path: '/start', icon: 'grade' },
       { title: 'Home', path: '/home', icon: 'home' },
       { title: 'Edit Profile', path: '/details', icon: 'face' },
       { title: 'Find Jobs', path: '/jobmatches', icon: 'check_circle' },

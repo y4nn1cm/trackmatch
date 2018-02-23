@@ -5,7 +5,7 @@ import router from '@/router'
 export const actions = {
   autoSignIn ({commit}, payload) {
     commit('setUser', payload)
-    router.push('/start')
+    router.push('/home')
   },
 
   pictureUpload ({commit}, payload) {
@@ -50,8 +50,15 @@ export const actions = {
       moneysatisfaction: payload.moneysatisfaction, 
       athmosphere: payload.athmosphere, 
       teamwork: payload.teamwork, 
-      leadership: payload.leadership
+      leadership: payload.leadership,
+      advocates: payload.advocates
     }).then(() => { console.log('Job Search has been created') })
+  },
+
+  updateAdvocacy ({commit}, payload) {
+    firestore.collection('EmployeeSearches').doc(payload.search).set({
+      advocates: payload.advocates
+    }, { merge: true }).then(() => { console.log('Advocacy has been updated') })
   },
 
   createCompanyDetails ({commit}, payload) {
@@ -192,7 +199,7 @@ export const actions = {
       commit('setUser', firebaseUser)
       commit('setLoading', false)
       commit('setError', null)
-      router.push('/start')
+      router.push('/home')
       // Extend User Signup by firstname and lastname and save it together with e-mail in database
       firestore.collection('Users').doc(firebase.auth().currentUser.uid).set({
         ID: firebase.auth().currentUser.uid,
@@ -224,7 +231,7 @@ export const actions = {
       commit('setUser', firebaseUser)
       commit('setLoading', false)
       commit('setError', null)
-      router.push('/start')
+      router.push('/home')
     })
     .catch(error => {
       commit('setError', error.message)

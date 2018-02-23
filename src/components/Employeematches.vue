@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h3 v-if="select" style="text-align:center">Click on the job you want to find candidates for</h3>
-    <div @click="select=true" v-else style="text-align:center">
+    <h3 v-if="select" style="text-align:center">Click on the job you want to see candidates for</h3>
+    <div @click="select=true; candidates = []" v-else style="text-align:center">
     <h3 style="text-align:center; margin-bottom:0">Candidates for</h3>
     <p class="title" style="margin-top:0">{{description}}</p>
     <p>click to go back to job postings</p>
     </div>
-    <p style="text-align:center" v-if="searchentries">Please create an open position to find employees.</p>
+    <p style="text-align:center" v-if="searchentries">Please create a position to find employees.</p>
     <v-layout v-if="select" row wrap v-for="item in searchitems" :key="item.description">
       <div class="line" style="margin-top:6vw; margin-bottom:2vw"></div>
       <v-flex xs2 @click="getCandidates(item)">
@@ -24,12 +24,12 @@
       <v-flex xs2>
         <img class="employee-picture" :src="candidate.image">
       </v-flex>
-      <v-flex class="body-2" xs10><p style="margin-top:0; margin-bottom:0.5vw; margin-left:0; padding:0">{{candidate.firstname}} {{candidate.lastname}} - matching score: <span style="font-weight:600; font-size:4vw">{{candidate.fit}}%</span></p>
+      <v-flex class="body-2" xs10><p style="margin-top:1vw; margin-bottom:0.5vw; margin-left:0; padding:0">{{candidate.firstname}} {{candidate.lastname}} <!-- - matching score: <span style="font-weight:600; font-size:4vw">{{candidate.fit}}%</span> --></p>
       <p style="margin-top:0; margin-bottom:0; margin-left:0; padding:0">{{candidate.background1}} / {{candidate.background2}}
       </p>
       </v-flex>
       <v-flex xs12>
-        <p style="margin-top:1vw; margin-bottom:0; padding:0" class="body-2">Job Goal:</p>
+        <p style="margin-top:2vw; margin-bottom:0; padding:0" class="body-2">Job Goal:</p>
         <p style="text-align:justify; margin-bottom:0; padding:0">{{candidate.goal}}</p>
       </v-flex>
       <v-flex xs6>
@@ -46,11 +46,31 @@
         <p class=title style="margin-top:1.8vw; margin-bottom:0; padding:0; text-align:left"> {{candidate.strengthsfit}}%</p>
         </v-flex>
       <v-flex xs12>
-        <div class="fineline"></div>
-        <p style="margin-top:0; margin-bottom:0; padding:0" class="body-2">Vision</p>
-        <p style="text-align:justify; margin-bottom:0; padding:0">{{candidate.vision}}</p>
-        <p style="font-weight:500; margin-top:1.5vw; margin-bottom:0; padding:0">Contact: </p>
-        <p style="font-weight:400; margin-top:0.5vw; margin-bottom:0; padding:0"><a target="_blank" :href="candidate.linkedin" style="font-weight:400"> See profile</a> / {{candidate.email}} / {{candidate.phone}}</p>
+        <v-expansion-panel style="margin-top:4vw" expand>
+          <v-expansion-panel-content>
+      <div style="font-weight:500" slot="header">Vision at work</div>
+      <v-card>
+        <v-card-text>{{candidate.vision}}</v-card-text>
+      </v-card>
+    </v-expansion-panel-content>
+    <v-expansion-panel-content>
+      <div style="font-weight:500" slot="header">Contact</div>
+      <v-card>
+      <v-card-text>
+      <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">
+        <a target="_blank" :href="candidate.linkedin" style="font-weight:400"> {{candidate.linkedin}}</a>
+      </p>
+      <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">
+        <a :href="`mailto:${candidate.email}`" style="font-weight:400">{{candidate.email}}</a>
+      </p>  
+      <p style="font-weight:400; margin-top:0; margin-bottom:0; padding:0">
+         <a :href="`tel:${candidate.email}`" style="font-weight:400">{{candidate.phone}}</a>
+      </p>    
+      </v-card-text>
+      </v-card>
+    </v-expansion-panel-content>
+  </v-expansion-panel>
+  <v-btn primary class="button" @click="giveLike(job)" style="margin-top:5vw; margin-left:0; padding:0">Like Candidate</v-btn>
       </v-flex>
     </v-layout>
   </div>
@@ -124,13 +144,6 @@ export default {
        })
     }).then(() => firestore.collection('EmployeeSearches').where('company', '==',this.company).get()).then(querySnapshot => {
       querySnapshot.forEach(doc => {
-          this.leadership = doc.data().leadership,
-          this.moneysatisfaction = doc.data().moneysatisfaction,
-          this.freedom = doc.data().freedom,
-          this.roles = doc.data().roles,
-          this.teamwork = doc.data().teamwork,
-          this.athmosphere = doc.data().athmosphere,
-          this.pragmatism = doc.data().pragmatism,
           this.searchentries = false
           let data = {
             description : doc.data().description,
@@ -155,6 +168,13 @@ methods: {
     this.candidates = []
     firestore.collection('EmployeeSearches').where('description', '==', item.description).get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
+        this.leadership = doc.data().leadership,
+        this.moneysatisfaction = doc.data().moneysatisfaction,
+        this.freedom = doc.data().freedom,
+        this.roles = doc.data().roles,
+        this.teamwork = doc.data().teamwork,
+        this.athmosphere = doc.data().athmosphere,
+        this.pragmatism = doc.data().pragmatism,
         this.adaptability=doc.data().adaptability,
         this.collaboration=doc.data().collaboration,
         this.perseverence=doc.data().perseverence,

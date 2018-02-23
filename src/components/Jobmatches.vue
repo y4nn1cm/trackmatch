@@ -24,7 +24,7 @@
         </v-flex>
         <v-flex xs2>
           <p class=title style="margin-top:2.5vw; margin-bottom:1vw; padding:0; text-align:left;"> {{job.culturefit}}%</p>
-        <p class=title style="margin-top:1.8vw; margin-bottom:0; padding:0; text-align:left"> {{job.strengthsfit}}%</p>
+        <p class=title style="margin-top:1.8vw; margin-bottom:5vw; padding:0; text-align:left"> {{job.strengthsfit}}%</p>
         </v-flex>
         
         <!--
@@ -37,11 +37,49 @@
         -->
 
       <v-flex xs12>
+        <!--
         <div class="fineline"></div>
         <p style="margin-top:0; margin-bottom:0; padding:0; font-weight:600"> Company vision</p>
-        <p style="text-align:justify; margin-bottom:0; padding:0">{{job.vision}}</p>
+        <p style="text-align:justify; margin-bottom:5vw; padding:0">{{job.vision}}</p>
+        
         <p style="font-weight:500; margin-top:1.5vw; margin-bottom:0; padding:0">Contact:</p>
         <p style="font-weight:400; margin-top:0.5vw; margin-bottom:0; padding:0">{{job.email}} / {{job.phone}}</p>
+        -->
+        <v-expansion-panel expand>
+          <v-expansion-panel-content>
+      <div style="font-weight:500" slot="header">Company Vision</div>
+      <v-card>
+        <v-card-text>{{job.vision}}</v-card-text>
+      </v-card>
+    </v-expansion-panel-content>
+    <v-expansion-panel-content>
+      <div style="font-weight:500" slot="header">See Job Representatives</div>
+      <v-card v-for="advocate in job.advocates" :key="advocate.ID">
+        <v-card-text>
+         <v-layout row wrap>
+           <v-flex xs4>
+             <img class="advocate-picture" :src="advocate.image">
+           </v-flex>
+           <v-flex xs8>
+          <p style="font-weight:500; margin-top:1vw; margin-bottom:1vw; padding:0">
+        {{advocate.firstname}} {{advocate.lastname}}
+      </p>
+          <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">
+        <a target="_blank" :href="advocate.linkedin" style="font-weight:400">Professional social media profile</a>
+      </p>
+          <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">
+        <a :href="`mailto:${advocate.email}`" style="font-weight:400">{{advocate.email}}</a>
+      </p> 
+          <p style="font-weight:400; margin-top:0; margin-bottom:0; padding:0">
+         <a :href="`tel:${advocate.email}`" style="font-weight:400">{{advocate.phone}}</a>
+      </p> 
+      </v-flex>
+      </v-layout>
+        </v-card-text>
+      </v-card>
+    </v-expansion-panel-content>
+  </v-expansion-panel>
+        <v-btn primary class="button" @click="giveLike(job)" style="margin:5vw; margin-left:0; padding:0">Like position</v-btn>
       </v-flex>
       
       <div class="line" style="margin-top:4vw"></div>
@@ -154,17 +192,12 @@ export default {
         logo: doc.data().logo,
         jobad: doc.data().jobad,
         description: doc.data().description,
-        adaptability: doc.data().adaptability,
-        perseverence: doc.data().perseverence,
-        collaboration: doc.data().collaboration,
-        goalorientation: doc.data().goalorientation,
-        customerorientation: doc.data().customerorientation,
-        detailorientation: doc.data().detailorientation,
         email: doc.data().email,
         phone: doc.data().phone,
         vision: doc.data().vision,
         experience: doc.data().experiencelevels,
         purpose : doc.data().purpose,
+        advocates : doc.data().advocates,
         strengthsfit: this.calculateStrengthsFit(doc),
         culturefit: this.calculateCultureFit(doc),
         fit: (this.strengthsfit+this.culturefit)/2
@@ -182,17 +215,12 @@ export default {
         background1 : doc.data().area1,
         background2 : doc.data().area2,
         description : doc.data().description,
-        adaptability : doc.data().adaptability,
-        perseverence : doc.data().perseverence,
-        collaboration : doc.data().collaboration,
-        goalorientation : doc.data().goalorientation,
-        customerorientation : doc.data().customerorientation,
-        detailorientation : doc.data().detailorientation,
         email: doc.data().email,
         phone: doc.data().phone,
         vision: doc.data().vision,
         experience: doc.data().experiencelevels,
         purpose : doc.data().purpose,
+        advocates : doc.data().advocates,
         strengthsfit: this.calculateStrengthsFit(doc),
         culturefit: this.calculateCultureFit(doc),
         fit: (this.strengthsfit+this.culturefit)/2
@@ -210,17 +238,12 @@ export default {
         background1 : doc.data().area1,
         background2 : doc.data().area2,
         description : doc.data().description,
-        adaptability : doc.data().adaptability,
-        perseverence : doc.data().perseverence,
-        collaboration : doc.data().collaboration,
-        goalorientation : doc.data().goalorientation,
-        customerorientation : doc.data().customerorientation,
-        detailorientation : doc.data().detailorientation,
         email: doc.data().email,
         phone: doc.data().phone,
         vision: doc.data().vision,
         experience: doc.data().experiencelevels,
         purpose : doc.data().purpose,
+        advocates : doc.data().advocates,
         strengthsfit: this.calculateStrengthsFit(doc),
         culturefit: this.calculateCultureFit(doc),
         fit: (this.strengthsfit+this.culturefit)/2
@@ -238,17 +261,12 @@ export default {
         background1 : doc.data().area1,
         background2 : doc.data().area2,
         description : doc.data().description,
-        adaptability : doc.data().adaptability,
-        perseverence : doc.data().perseverence,
-        collaboration : doc.data().collaboration,
-        goalorientation : doc.data().goalorientation,
-        customerorientation : doc.data().customerorientation,
-        detailorientation : doc.data().detailorientation,
         email: doc.data().email,
         phone: doc.data().phone,
         vision: doc.data().vision,
         experience: doc.data().experiencelevels,
         purpose : doc.data().purpose,
+        advocates : doc.data().advocates,
         strengthsfit: this.calculateStrengthsFit(doc),
         culturefit: this.calculateCultureFit(doc),
         fit: (this.strengthsfit+this.culturefit)/2
@@ -266,17 +284,12 @@ export default {
         background1 : doc.data().area1,
         background2 : doc.data().area2,
         description : doc.data().description,
-        adaptability : doc.data().adaptability,
-        perseverence : doc.data().perseverence,
-        collaboration : doc.data().collaboration,
-        goalorientation : doc.data().goalorientation,
-        customerorientation : doc.data().customerorientation,
-        detailorientation : doc.data().detailorientation,
         email: doc.data().email,
         phone: doc.data().phone,
         vision: doc.data().vision,
         experience: doc.data().experiencelevels,
         purpose : doc.data().purpose,
+        advocates : doc.data().advocates,
         strengthsfit: this.calculateStrengthsFit(doc),
         culturefit: this.calculateCultureFit(doc),
         fit: (this.strengthsfit+this.culturefit)/2
@@ -294,17 +307,12 @@ export default {
         background1 : doc.data().area1,
         background2 : doc.data().area2,
         description : doc.data().description,
-        adaptability : doc.data().adaptability,
-        perseverence : doc.data().perseverence,
-        collaboration : doc.data().collaboration,
-        goalorientation : doc.data().goalorientation,
-        customerorientation : doc.data().customerorientation,
-        detailorientation : doc.data().detailorientation,
         email: doc.data().email,
         phone: doc.data().phone,
         vision: doc.data().vision,
         experience: doc.data().experiencelevels,
         purpose : doc.data().purpose,
+        advocates : doc.data().advocates,
         strengthsfit: this.calculateStrengthsFit(doc),
         culturefit: this.calculateCultureFit(doc),
         fit: (this.strengthsfit+this.culturefit)/2
@@ -322,17 +330,12 @@ export default {
         background1 : doc.data().area1,
         background2 : doc.data().area2,
         description : doc.data().description,
-        adaptability : doc.data().adaptability,
-        perseverence : doc.data().perseverence,
-        collaboration : doc.data().collaboration,
-        goalorientation : doc.data().goalorientation,
-        customerorientation : doc.data().customerorientation,
-        detailorientation : doc.data().detailorientation,
         email: doc.data().email,
         phone: doc.data().phone,
         vision: doc.data().vision,
         experience: doc.data().experiencelevels,
         purpose : doc.data().purpose,
+        advocates : doc.data().advocates,
         strengthsfit: this.calculateStrengthsFit(doc),
         culturefit: this.calculateCultureFit(doc),
         fit: (this.strengthsfit+this.culturefit)/2
@@ -350,18 +353,13 @@ export default {
         background1 : doc.data().area1,
         background2 : doc.data().area2,
         description : doc.data().description,
-        adaptability : doc.data().adaptability,
-        perseverence : doc.data().perseverence,
-        collaboration : doc.data().collaboration,
-        goalorientation : doc.data().goalorientation,
-        customerorientation : doc.data().customerorientation,
-        detailorientation : doc.data().detailorientation,
         email: doc.data().email,
         phone: doc.data().phone,
         vision: doc.data().vision,
         experience: doc.data().experiencelevels,
         purpose : doc.data().purpose,
         strengthsfit: this.calculateStrengthsFit(doc),
+        advocates: this.data().advocates,
         culturefit: this.calculateCultureFit(doc),
         fit: (this.strengthsfit+this.culturefit)/2
         }
@@ -397,6 +395,10 @@ export default {
     }
   },
 
+  giveLike(job){
+
+  },
+
   computed:
   {
     getJobs (){
@@ -413,6 +415,13 @@ export default {
 .employee-picture {
   width:10vw;
   height:10vw;
+  border-radius: 10%;
+  object-fit:cover;
+  margin-top:1vw;
+}
+.advocate-picture {
+  width:22vw;
+  height:22vw;
   border-radius: 10%;
   object-fit:cover;
   margin-top:1vw;
