@@ -52,7 +52,7 @@ export const actions = {
       athmosphere: payload.athmosphere, 
       teamwork: payload.teamwork, 
       leadership: payload.leadership,
-      advocates: payload.advocates
+      advocates: []
     }).then(() => { console.log('Job Search has been created') })
   },
 
@@ -94,6 +94,9 @@ export const actions = {
     firestore.collection('Users').doc(firebase.auth().currentUser.uid).set({
       experience: payload.experience,
       vision: payload.vision,
+      helphiring: payload.helphiring,
+      searchjob: payload.searchjob,
+      worklove: payload.worklove,
       goal: payload.goal,
       phone: payload.phone,
       email: payload.email,
@@ -208,8 +211,9 @@ export const actions = {
         profilepicture: 'https://www.fing.edu.uy/inco/grupos/gsi/img/placeholder.png',
         lastname: payload.lastname,
         email: payload.email,
-        searchjob: false,
-        helphiring: false,
+        reason: payload.reason,
+        searchjob: payload.searchjob,
+        helphiring: payload.helphiring,
         findevents: false,
         findcoach: false,
         givefeedback: false,

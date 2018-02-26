@@ -57,6 +57,8 @@
               :rules="[comparePasswords]"
               ></v-text-field>
           </v-flex>
+          <v-flex><v-radio style="margin-bottom:0; padding:0" label="I want to explore job opportunities" value="jobs" v-model="reason"></v-radio></v-flex>
+        <v-flex><v-radio style="margin-top:0; padding:0" label="Our company is hiring" value="employees" v-model="reason"></v-radio></v-flex>
           <v-flex class="text-xs-center" mt-5>
             <v-btn primary type="submit">Sign Up</v-btn>
           </v-flex>
@@ -75,6 +77,7 @@ export default {
       passwordConfirm: '',
       firstname: '',
       lastname: '',
+      reason:'',
       alert: false
     }
   },
@@ -91,10 +94,18 @@ export default {
   },
   methods: {
     userSignUp () {
-      if (this.comparePasswords !== true) {
+      if (this.reason == "jobs"){
+        this.searchjob = true
+        this.helphiring = false
+      }
+      if (this.reason == "employees"){
+        this.searchjob = true
+        this.helphiring = false
+      }
+      if (this.comparePasswords !== true || this.reason == '') {
         return
       }
-      this.$store.dispatch('userSignUp', { email: this.email, password: this.password, firstname: this.firstname, lastname: this.lastname })
+      this.$store.dispatch('userSignUp', { email: this.email, password: this.password, firstname: this.firstname, lastname: this.lastname, reason: this.reason, searchjob: this.searchjob, helphiring: this.helphiring })
     }
   },
   watch: {

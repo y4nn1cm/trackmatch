@@ -65,7 +65,9 @@ export default {
             job:'',
             vision:'',
             firstname:'',
-            lastname:''
+            lastname:'',
+            goal:'',
+            worklove:'',
             }
         }
     },
@@ -92,6 +94,8 @@ export default {
           image: doc.data().profilepicture,
           job: doc.data().goal,
           vision: doc.data().vision,
+          goal: doc.data().goal,
+          worklove: doc.data().worklove,
           firstname: doc.data().firstname,
           lastname: doc.data().lastname
         } 

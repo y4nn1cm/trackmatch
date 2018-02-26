@@ -336,8 +336,8 @@ export default {
     select: false,
     ID: null,
     employeeselection:[],
-    disciplines1: ['Consulting','Company Building','Venture Capital','Hardware Technology','Software Technology','e-commerce','Healthcare','Medicine','Sports','Architecture','Food','Media','Transportation','Music','Art','Tourism','Education','Marketing','Recruiting','Social Media','Social Networks','Production','Logistics','Accounting and Finance','Sales Tools','Social Science','Math','Physics','Chemistry','Psychology','International Relationships','Governmental Institutions','Politics','Trade','Languages','Writing','Literature','Culture Science','Philosophy','History'],
-    disciplines2: ['','Consulting','Company Building','Venture Capital','Hardware Technology','Software Technology','e-commerce','Healthcare','Medicine','Sports','Architecture','Food','Media','Transportation','Music','Art','Tourism','Education','Marketing','Recruiting','Social Media','Social Networks','Production','Logistics','Accounting and Finance','Sales Tools','Social Science','Math','Physics','Chemistry','Psychology','International Relationships','Governmental Institutions','Politics','Trade','Languages','Writing','Literature','Culture Science','Philosophy','History'],
+    disciplines1: ['Consulting','Company Building','Venture Capital','Hardware Technology','Software Technology','e-commerce','Healthcare','Medicine','Sports','Architecture','Food','Media','Transportation','Music','Art','Tourism','Education','Marketing','Recruiting','Social Media','Social Networks','Production','Logistics','Accounting and Finance','Sales Tools','Social Science','Math','Physics','Chemistry','Psychology','International Relationships','Governmental Institutions','Politics','Trade','Languages','Writing','Literature','Culture Science','Philosophy','History', 'write other here'],
+    disciplines2: ['','Consulting','Company Building','Venture Capital','Hardware Technology','Software Technology','e-commerce','Healthcare','Medicine','Sports','Architecture','Food','Media','Transportation','Music','Art','Tourism','Education','Marketing','Recruiting','Social Media','Social Networks','Production','Logistics','Accounting and Finance','Sales Tools','Social Science','Math','Physics','Chemistry','Psychology','International Relationships','Governmental Institutions','Politics','Trade','Languages','Writing','Literature','Culture Science','Philosophy','History', 'write other here'],
     employees:[],
     pointsleft: 18,
     adaptability: 0,
@@ -355,7 +355,6 @@ export default {
     vrar: null,
     blockchain: null,
     purpose: null,
-    advocats: [this.ID],
     }
   },  
   created () {
@@ -496,7 +495,7 @@ methods:
       if (this.pointsleft < 1 && this.leadership > 0 && this.athmosphere > 0 && this.roles > 0 && this.moneysatisfaction > 0 && this.freedom > 0 && this.teamwork > 0 && this.pragmatism > 0){
       this.$store.dispatch('createEmployeeSearch', {selectemployees: this.selectemployees,rolemodels: this.employeeselection, adaptability: this.adaptability, perseverence: this.perseverence, detailorientation: this.detailorientation, customerorientation: this.customerorientation, goalorientation: this.goalorientation, collaboration: this.collaboration, experiencelevels: this.experience, product: this.product,
       design: this.design, business: this.business, operations:  this.operations,
-      software: this.software, ai: this.ai, vrar: this.vrar, blockchain: this.blockchain, company: this.forcompany, logo: this.logourl, website: this.website, jobad: this.jobad, area1: this.area1, area2: this.area2, description: this.description, phone: this.phone, email: this.email, vision: this.vision, purpose: this.purpose, pragmatism: this.pragmatism, roles: this.roles, freedom: this.freedom, moneysatisfaction: this.moneysatisfaction, athmosphere: this.athmosphere, teamwork: this.teamwork, leadership: this.leadership, advocats: this.advocats, name: this.name
+      software: this.software, ai: this.ai, vrar: this.vrar, blockchain: this.blockchain, company: this.forcompany, logo: this.logourl, website: this.website, jobad: this.jobad, area1: this.area1, area2: this.area2, description: this.description, phone: this.phone, email: this.email, vision: this.vision, purpose: this.purpose, pragmatism: this.pragmatism, roles: this.roles, freedom: this.freedom, moneysatisfaction: this.moneysatisfaction, athmosphere: this.athmosphere, teamwork: this.teamwork, leadership: this.leadership, name: this.name
       })
       this.$store.dispatch('createCompanyDetails', {company: this.forcompany, logo: this.logourl, website: this.website, area1: this.area1, area2: this.area2, vision: this.vision, pragmatism: this.pragmatism, roles: this.roles, freedom: this.freedom, moneysatisfaction: this.moneysatisfaction, athmosphere: this.athmosphere, teamwork: this.teamwork, leadership: this.leadership
       })

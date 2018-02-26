@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 style="text-align:center">Your Matching Jobs in Munich</h3>
+    <h3 style="text-align:center">Your Job Matches in Munich</h3>
     <div class="line" style="margin-top:4vw"></div>
     <v-layout align-top style="margin-top:6vw" v-for="job in getJobs" :key="job.description" row wrap>
       <v-flex xs2>
@@ -65,7 +65,7 @@
         {{advocate.firstname}} {{advocate.lastname}}
       </p>
           <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">
-        <a target="_blank" :href="advocate.linkedin" style="font-weight:400">Professional social media profile</a>
+        <a target="_blank" :href="advocate.linkedin" style="font-weight:400">LinkedIn / Xing</a>
       </p>
           <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">
         <a :href="`mailto:${advocate.email}`" style="font-weight:400">{{advocate.email}}</a>
@@ -74,7 +74,14 @@
          <a :href="`tel:${advocate.email}`" style="font-weight:400">{{advocate.phone}}</a>
       </p> 
       </v-flex>
+      <v-flex>
+        <p style="font-weight:500; margin-top:2.5vw; margin-bottom:0vw; padding:0">My current job goal:</p>
+        <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">{{advocate.goal}}</p>
+        <p style="font-weight:500; margin-top:2.5vw; margin-bottom:0vw; padding:0">Why do I love my Job:</p>
+        <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">{{advocate.worklove}}</p>
+      </v-flex>
       </v-layout>
+      <div class=line style="margin-top:2vw"></div>
         </v-card-text>
       </v-card>
     </v-expansion-panel-content>
@@ -82,7 +89,7 @@
       <div style="font-weight:500" slot="header">Application contact</div>
       <v-card>
         <v-card-text>
-          <p style="font-weight:500; margin-top:1vw; margin-bottom:1vw; padding:0">
+          <p style="font-weight:500; margin-top:0; margin-bottom:1vw; padding:0">
         {{job.name}}
       </p>
         <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">
@@ -435,8 +442,8 @@ export default {
   margin-top:1vw;
 }
 .advocate-picture {
-  width:22vw;
-  height:22vw;
+  width:23vw;
+  height:23vw;
   border-radius: 10%;
   object-fit:cover;
   margin-top:1vw;

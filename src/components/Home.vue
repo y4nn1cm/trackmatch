@@ -1,9 +1,12 @@
 <template>
   <v-app>
     <div class="center">
-      <h2 style="margin-bottom:5%; margin-top:5%; font-family:merriweather">trackmatch</h2>
-      <div class="line"></div>
-      <div v-if="profilepicture === 'https://www.fing.edu.uy/inco/grupos/gsi/img/placeholder.png'">
+        <img :src="profilepicture" class="profile-picture"> 
+        <div v-if="profilepicture === 'https://www.fing.edu.uy/inco/grupos/gsi/img/placeholder.png'">
+      
+       <p @click="editpicture=true" v-if="editpicture === false" style='text-align:center; font-size:2.5vw'>press to edit profile picture</p>
+      <div v-if="editpicture === true">
+      <a @click="editpicture=false"><p style='text-align:center; margin-bottom:0px; font-size:2.5vw;'>press to close</p></a>
       
       <form @submit.prevent="pictureUpload">
         <v-text-field 
@@ -17,25 +20,56 @@
           <v-btn primary class="button" type="submit" style="margin-top:0; padding-top:0">submit</v-btn>
         </form>
         </div>
-        <img :src="profilepicture" class="profile-picture"> 
+        </div>
         <h2>Hello {{ user }}</h2>
-
-        <h3>What can we help you with?</h3>
-    
+        
+        <h3>Great that you are here!</h3>
         <v-layout style=margin-top:5vw row wrap> 
+          <!--
           <v-flex xs12>
             <v-btn @click="togglejobsearch" v-bind:class="{primary: searchjob}" class="select" id=jobsearch>Exploring Job Opportunities</v-btn>
           </v-flex>
           <v-flex xs12>
-          <v-btn @click="togglebuildteam" v-bind:class="{primary: helphiring}" class="select" id=hiring>Building a great team</v-btn>
+          <v-btn @click="togglehiring" v-bind:class="{primary: helphiring}" class="select" id=hiring>Building a great team</v-btn>
           </v-flex>
-          <!--
           <v-flex xs12>
           <v-btn @click="togglefeedback" v-bind:class="{primary: givefeedback}" class="select" id=feedback>We want the perfect company culture</v-btn>
           </v-flex>
           -->
-          <v-flex class="text-xs-center" style="margin-top:4%">
-            <v-btn class="teal" style="color:white" @click="editGoals">Let's go</v-btn>
+          <v-flex class="text-xs-center">
+
+            <div v-if="searchjob">
+            <div v-if="ready!=0">
+            <v-btn class="teal select" @click="editProfile">First create your profile</v-btn>
+            <v-btn disabled @click="openSite('jobmatches')" class="teal select">See your job matches</v-btn>
+            </div>
+            <v-btn v-else @click="openSite('jobmatches')" class="teal select">See your job matches</v-btn>
+            </div>
+
+            <div v-else-if="helphiring">
+              <div v-if="ready!=0">
+                <v-btn class="teal select" @click="editProfile">First create your profile</v-btn>
+                <v-btn disabled @click="openSite('employeesearch')" class="teal select" style="color:white">create job posting</v-btn><br>
+                <v-btn disabled @click="openSite('candidates')" class="teal select">See your candidate matches</v-btn><br>
+                <v-btn disabled @click="openSite('searchlist')" class="teal select">Become a Job ambassador</v-btn>
+              </div>
+              <div v-else>
+                <div v-if="noentries">
+                  <v-btn @click="openSite('employeesearch')" class="teal select" style="color:white">Next, create a job posting</v-btn><br>
+                  <v-btn disabled @click="openSite('candidates')" class="teal select">See your candidate matches</v-btn><br>
+                  <v-btn disabled @click="openSite('searchlist')" class="teal select">Become Job ambassador</v-btn>
+                </div>
+                <div v-else>
+                  <v-btn @click="openSite('employeesearch')" class="teal select" style="color:white">create job posting</v-btn><br>
+                  <v-btn @click="openSite('candidates')" class="teal select">see your candidate matches</v-btn><br>
+                  <v-btn @click="openSite('searchlist')" class="teal select">Become Job ambassador</v-btn>
+                </div>
+              </div>
+            </div>
+            <div v-else>
+              <v-btn class="teal select" @click="togglejobsearch">I am open for a new job</v-btn><br>
+              <v-btn class="teal select" @click="togglehiring">our company is hiring</v-btn>
+            </div>
           </v-flex>
         </v-layout>
       </div>
@@ -50,14 +84,17 @@ export default {
   data () {
     return {
       profilepicture: '',
-      searchjob: false,
-      givefeedback: false,
-      helphiring: false,
-      findevents: false,
-      findcoach: false,
+      searchjob: null,
+      givefeedback: null,
+      helphiring: null,
+      findevents: null,
+      findcoach: null,
       imageurl: '',
       user: '',
-      editpicture: false
+      editpicture: false,
+      ready: null,
+      noentries: false,
+      company: null,
     }
   },
   created () {
@@ -65,15 +102,22 @@ export default {
     firestore.collection('Users').where('ID', '==', firebase.auth().currentUser.uid).get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
         this.user = doc.data().firstname
+        this.ready = doc.data().pointsleft
         this.profilepicture = doc.data().profilepicture
         this.searchjob = doc.data().searchjob
         this.helphiring = doc.data().helphiring
         this.givefeedback = doc.data().givefeedback
         this.findevents = doc.data().findevents
         this.findcoach = doc.data().findcoach
+        this.company = doc.data().company
       })
+    }).then(() => firestore.collection('EmployeeSearches').where('company', '==',this.company).get()).then(querySnapshot => {
+      querySnapshot.forEach(doc => {
+          this.noentries = false
+        })
     })
-  },
+},
+
   methods:
 
   {
@@ -88,17 +132,28 @@ export default {
         })
       }
     },
+    editProfile: function (event) {
+      {
+      this.$store.dispatch('openSite', {target: '/details'})
+      }
+    },
 
+    openSite: function (page) {
+      {
+      this.$store.dispatch('openSite', {target: page})
+      }
+    },
+  
     togglejobsearch: function (event) {
       this.searchjob = !this.searchjob
       this.$store.dispatch('editGoals', {givefeedback: this.givefeedback, helphiring: this.helphiring, searchjob: this.searchjob, findevents: this.findevents, findcoach: this.findcoach})
     },
 
-    togglebuildteam: function (event) {
+    togglehiring: function (event) {
       this.helphiring = !this.helphiring
       this.$store.dispatch('editGoals', {givefeedback: this.givefeedback, helphiring: this.helphiring, searchjob: this.searchjob, findevents: this.findevents, findcoach: this.findcoach})
     },
-
+/*
     togglefeedback: function (event) {
       this.givefeedback = !this.givefeedback
     },
@@ -117,6 +172,7 @@ export default {
       this.$store.dispatch('openSite', {target: '/start'})
       }
     }
+    */
   }
 }
 
@@ -148,12 +204,13 @@ export default {
 }
 
 .select {
-  margin-top:2.5%;
-  margin-bottom:2.5%;
-  width:90%;
+  margin-top:2vw;
+  margin-bottom:2vw;
+  width:55vw;
   padding:0;
-  height:10vw;
+  height:9vw;
   text-align:center;
+  color: white;
 }
 
 .line {

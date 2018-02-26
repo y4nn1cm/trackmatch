@@ -1,9 +1,10 @@
 <template>
   <v-app>
     <div class="center">  
-    <p @click="editpicture=true" v-if="editpicture === false" style='text-align:left; margin-bottom:0px; font-size:2.5vw'>press to edit profile picture</p>
+        <img :src="profilepicture" class="profile-picture">
+        <p @click="editpicture=true" v-if="editpicture === false" style='text-align:center; font-size:2.5vw'>press to edit profile picture</p>
       <div v-if="editpicture === true">
-      <a @click="editpicture=false"><p style='text-align:left; margin-bottom:0px; font-size:2.5vw;'>press to close</p></a>
+      <a @click="editpicture=false"><p style='text-align:center; margin-bottom:0px; font-size:2.5vw;'>press to close</p></a>
       
       <form @submit.prevent="pictureUpload">
         <v-text-field 
@@ -14,69 +15,63 @@
           v-model="imageurl"
           style= "margin-bottom:0; padding-bottom:0">
         </v-text-field>
-          <v-btn primary class="button" type="submit" style="margin-top:0; padding-top:0">submit</v-btn>
+          <v-btn primary class="button" type="submit" style="margin-top:0; margin-bottom:5vw; padding-top:0">submit</v-btn>
         </form>
         </div>
-        <img :src="profilepicture" class="profile-picture">
         </div>
-      <p class="body-2" style="text-align:center; color:#42b983">On this page we will ask you for some information. Based on your answers we are able to help reaching the goals you told us about.</p>
+      <p class="body-2" style="text-align:jutify; color:#42b983">On this page we will ask you for some information. Based on your answers we are able to help reaching the goals you told us about.</p>
+      <v-switch style="padding:0; margin-top:5vw" :label="`I am open for a new Job`" v-model="searchjob"></v-switch>
+    <v-switch style="padding:0; margin-bottom:2vw" :label="`Our company is hiring`" v-model="helphiring"></v-switch>
       <v-text-field
         name="linkedin"
-        label="Your linkedIN or Xing profile"
+        label="LINK to linkedIn or Xing profile"
         id="linkedin"
         type="linkedin"
         v-model="linkedin"
-        style="margin-top:0; border:0; font-size:10%"
+        style="margin-top:0; border:0"
         required>
       </v-text-field>
-      <div v-if="searchjob">
-      <v-text-field
-        name="goal"
-        label="Your next job goal"
-        id="goal"
-        type="goal"
-        v-model="goal"
-        style="margin-top:0; border:0; font-size:10%"
-        required="">
+      <v-text-field v-if="searchjob"
+        name="company"
+        label="Your current employer (blocking job search)"
+        id="company"
+        type="company"
+        v-model="company"
+        style="margin-top:0; border:0">
       </v-text-field>
-      <v-text-field
+      <v-text-field v-else
         name="company"
         label="Your current employer"
         id="company"
         type="company"
         v-model="company"
-        style="margin-top:0; border:0; font-size:10%"
-        required>
+        style="margin-top:0; border:0">
       </v-text-field>
-      </div>
-      <div v-else>
-      <h4 style="margin-bottom:0">Your current job</h4>
-      <v-text-field
-        name="company"
-        label="Company name"
-        id="company"
-        type="company"
-        v-model="company"
-        style="margin-top:0; border:0; font-size:10%"
+      <v-text-field v-if="helphiring"
+        name="worklove"
+        label="Why do you love your job?"
+        id="worklove"
+        type="worklove"
+        v-model="worklove"
+        style="margin-top:0; border:0"
         required>
       </v-text-field>
       <v-text-field
         name="goal"
-        label="Why do you love your work?"
+        label="Your current job goal"
         id="goal"
         type="goal"
         v-model="goal"
-        style="margin-top:0; border:0; font-size:10%"
-        required="">
+        style="margin-top:0; border:0"
+        required>
       </v-text-field>
-      </div>
       <v-text-field
         name="mail"
         label="Your contact mail"
         id="mail"
         type="mail"
         v-model="email"
-        style="margin-top:0; border:0; font-size:10%"
+        style="margin-top:0; border:0"
         required>
       </v-text-field>
       <v-text-field
@@ -85,9 +80,8 @@
         id="phone"
         type="phone"
         v-model="phone"
-        style="margin-top:0; border:0; font-size:10%">
+        style="margin-top:0; border:0">
       </v-text-field>
-    
       <h4>Your work experience</h4>
       <v-text-field
         name="experience"
@@ -103,6 +97,8 @@
           label="Discipline or Industry"
           :items="disciplineitems1"
           v-model="background1"
+          item-value="text"
+          editable
           class="input-group--focused"
           required>
         </v-select>
@@ -110,8 +106,10 @@
           label="Discipline or Industry"
           :items="disciplineitems2"
           v-model="background2"
+          item-value="text"
           class="input-group--focused"
           required
+          editable
           >
         </v-select>
     <div class="line" style="margin-top:5%"></div>
@@ -130,15 +128,6 @@
         <h4>About yourself</h4>
         <p style="margin-bottom:4vw; text-align:justify"> Please provide some information about yourself. Our matching is not based on fixed requirements but on how compatible candidates are with employees.
         </p>
-        <v-text-field
-        name="vision"
-        label="Your personal vision at work"
-        id="vision"
-        type="vision"
-        v-model="vision"
-        style="margin-top:0; border:0; font-size:10%"
-        required>
-        </v-text-field>
         <p class="title">Strenghts</p>
         <p>Please distribute 18 points on the following 6 strengths according to your own priorities: <span style="font-weight:500">required!</span></p>
         <p>Points left: {{pointsleft}}</p>
@@ -210,12 +199,12 @@
         <v-flex xs3>
           <p style="text-align:right">Strong Leadership</p>
         </v-flex>
-        <v-flex xs1><v-radio value=1 v-model="leadership"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=2 v-model="leadership"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=3 v-model="leadership"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=4 v-model="leadership"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=5 v-model="leadership"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=6 v-model="leadership"></v-radio></v-flex>      
+        <v-flex xs1><v-radio value="1" v-model="leadership"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="2" v-model="leadership"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="3" v-model="leadership"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="4" v-model="leadership"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="5" v-model="leadership"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="6" v-model="leadership"></v-radio></v-flex>      
         <v-flex xs3>
           <p>Loose Leadership</p>
         </v-flex>
@@ -223,12 +212,12 @@
         <v-flex xs3>
           <p style="text-align:right">Monetary Benefits</p>
         </v-flex>
-        <v-flex xs1><v-radio value=1 v-model="moneysatisfaction"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=2 v-model="moneysatisfaction"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=3 v-model="moneysatisfaction"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=4 v-model="moneysatisfaction"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=5 v-model="moneysatisfaction"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=6 v-model="moneysatisfaction"></v-radio></v-flex>      
+        <v-flex xs1><v-radio value="1" v-model="moneysatisfaction"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="2" v-model="moneysatisfaction"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="3" v-model="moneysatisfaction"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="4" v-model="moneysatisfaction"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="5" v-model="moneysatisfaction"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="6" v-model="moneysatisfaction"></v-radio></v-flex>      
         <v-flex xs3>
           <p>Job Satisfaction</p>
         </v-flex>
@@ -236,12 +225,12 @@
         <v-flex xs3>
           <p style="text-align:right">Freedom</p>
         </v-flex>
-        <v-flex xs1><v-radio value=1 v-model="freedom"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=2 v-model="freedom"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=3 v-model="freedom"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=4 v-model="freedom"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=5 v-model="freedom"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=6 v-model="freedom"></v-radio></v-flex>      
+        <v-flex xs1><v-radio value="1" v-model="freedom"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="2" v-model="freedom"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="3" v-model="freedom"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="4" v-model="freedom"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="5" v-model="freedom"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="6" v-model="freedom"></v-radio></v-flex>      
         <v-flex xs3>
           <p>Guidelines</p>
         </v-flex>
@@ -249,12 +238,12 @@
         <v-flex xs3>
           <p style="text-align:right">Relaxed Athmosphere</p>
         </v-flex>
-        <v-flex xs1><v-radio value=1 v-model="athmosphere"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=2 v-model="athmosphere"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=3 v-model="athmosphere"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=4 v-model="athmosphere"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=5 v-model="athmosphere"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=6 v-model="athmosphere"></v-radio></v-flex>      
+        <v-flex xs1><v-radio value="1" v-model="athmosphere"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="2" v-model="athmosphere"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="3" v-model="athmosphere"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="4" v-model="athmosphere"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="5" v-model="athmosphere"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="6" v-model="athmosphere"></v-radio></v-flex>      
         <v-flex xs3>
           <p>Professional Athmosphere</p>
         </v-flex>
@@ -262,12 +251,12 @@
         <v-flex xs3>
           <p style="text-align:right">Sole Work</p>
         </v-flex>
-        <v-flex xs1><v-radio value=1 v-model="teamwork"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=2 v-model="teamwork"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=3 v-model="teamwork"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=4 v-model="teamwork"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=5 v-model="teamwork"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=6 v-model="teamwork"></v-radio></v-flex>      
+        <v-flex xs1><v-radio value="1" v-model="teamwork"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="2" v-model="teamwork"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="3" v-model="teamwork"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="4" v-model="teamwork"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="5" v-model="teamwork"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="6" v-model="teamwork"></v-radio></v-flex>      
         <v-flex xs3>
           <p>Team Work</p>
         </v-flex>
@@ -275,12 +264,12 @@
         <v-flex xs3>
           <p style="text-align:right">Fluid Roles</p>
         </v-flex>
-        <v-flex xs1><v-radio value=1 v-model="roles"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=2 v-model="roles"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=3 v-model="roles"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=4 v-model="roles"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=5 v-model="roles"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=6 v-model="roles"></v-radio></v-flex>      
+        <v-flex xs1><v-radio value="1" v-model="roles"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="2" v-model="roles"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="3" v-model="roles"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="4" v-model="roles"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="5" v-model="roles"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="6" v-model="roles"></v-radio></v-flex>      
         <v-flex xs3>
           <p>Fixed Roles</p>
         </v-flex>
@@ -288,16 +277,17 @@
         <v-flex xs3>
           <p style="text-align:right">Processes</p>
         </v-flex>
-        <v-flex xs1><v-radio value=1 v-model="pragmatism"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=2 v-model="pragmatism"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=3 v-model="pragmatism"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=4 v-model="pragmatism"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=5 v-model="pragmatism"></v-radio></v-flex>
-        <v-flex xs1><v-radio value=6 v-model="pragmatism"></v-radio></v-flex>      
+        <v-flex xs1><v-radio value="1" v-model="pragmatism"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="2" v-model="pragmatism"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="3" v-model="pragmatism"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="4" v-model="pragmatism"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="5" v-model="pragmatism"></v-radio></v-flex>
+        <v-flex xs1><v-radio value="6" v-model="pragmatism"></v-radio></v-flex>      
         <v-flex xs3>
           <p>Pragmatism</p>
         </v-flex>
       </v-layout>
+      <!--
       <v-btn v-if="givefeedback" style="margin-bottom:6vw; min-width:0" @click='feedback=!feedback' v-bind:class="{primary: feedback}">Give Feedback now</v-btn>
       
       <v-layout row wrap align-center v-if="feedback===true">
@@ -414,33 +404,17 @@
           <p class=body-2>Please outline how you actually see your work environment in comparison to your selected ideal state. (scroll up)</p>
         </v-flex>
       </v-layout>
-
-      <p style="text-align:justify; margin-top:5vw">If you want, please provide up to three additional factors that are important for you in your job.</p>
+      -->
+      <p style="text-align:justify; margin-top:5vw">If you want, you can use this free text field to talk about other factors that are important for you in your job.</p>
       <v-layout>
-        <v-flex xs4>
-            <v-text-field
-              name="factor1"
-              label="Factor 1"
-              id="factor1"
-              v-model="factor1">
-            </v-text-field>
-            </v-flex>
-            <v-flex xs4>
-            <v-text-field
-              name="factor2"
-              label="Factor 2"
-              id="factor1"
-              v-model="factor2">
-            </v-text-field>
-            </v-flex>
-            <v-flex xs4>
-            <v-text-field
-              name="factor3"
-              label="Factor 3"
-              id="factor1"
-              v-model="factor3">
-            </v-text-field>
-          </v-flex>
+        <v-flex xs12>
+          <v-text-field
+            name="factor1"
+            label="Additional factors at work"
+            id="factor1"
+            v-model="factor1">
+          </v-text-field>
+        </v-flex>
       </v-layout>
       <div class=text-xs-center>
       <v-btn @click="transferData" class="teal" style="color:white" type="submit">save</v-btn>
@@ -508,8 +482,9 @@ export default {
       blockchain: null,
       firstname: null,
       lastname: null,
-      disciplineitems1: ['Consulting','Company Building','Venture Capital','Hardware Technology','Software Technology','e-commerce','Healthcare','Medicine','Sports','Architecture','Food','Media','Transportation','Music','Art','Tourism','Education','Marketing','Recruiting','Social Media','Social Networks','Production','Logistics','Accounting and Finance','Sales Tools','Social Science','Math','Physics','Chemistry','Psychology','International Relationships','Governmental Institutions','Politics','Trade','Languages','Writing','Literature','Culture Science','Philosophy','History'],
-      disciplineitems2: ['','Consulting','Company Building','Venture Capital','Hardware Technology','Software Technology','e-commerce','Healthcare','Medicine','Sports','Architecture','Food','Media','Transportation','Music','Art','Tourism','Education','Marketing','Recruiting','Social Media','Social Networks','Production','Logistics','Accounting and Finance','Sales Tools','Social Science','Math','Physics','Chemistry','Psychology','International Relationships','Governmental Institutions','Politics','Trade','Languages','Writing','Literature','Culture Science','Philosophy','History'],
+      worklove: null,
+      disciplineitems1: ['Consulting','Company Building','Venture Capital','Hardware Technology','Software Technology','e-commerce','Healthcare','Medicine','Sports','Architecture','Food','Media','Transportation','Music','Art','Tourism','Education','Marketing','Recruiting','Social Media','Social Networks','Production','Logistics','Accounting and Finance','Sales Tools','Social Science','Math','Physics','Chemistry','Psychology','International Relationships','Governmental Institutions','Politics','Trade','Languages','Writing','Literature','Culture Science','Philosophy','History', 'write other here'],
+      disciplineitems2: ['','Consulting','Company Building','Venture Capital','Hardware Technology','Software Technology','e-commerce','Healthcare','Medicine','Sports','Architecture','Food','Media','Transportation','Music','Art','Tourism','Education','Marketing','Recruiting','Social Media','Social Networks','Production','Logistics','Accounting and Finance','Sales Tools','Social Science','Math','Physics','Chemistry','Psychology','International Relationships','Governmental Institutions','Politics','Trade','Languages','Writing','Literature','Culture Science','Philosophy','History','write other here'],
     }
   },
   created () {
@@ -521,6 +496,7 @@ export default {
         {
         this.phone = doc.data().phone,
         this.vision = doc.data().vision,
+        this.worklove = doc.data().worklove,
         this.goal = doc.data().goal,
         this.linkedin = doc.data().linkedin,
         this.email = doc.data().email,
@@ -613,11 +589,14 @@ export default {
       if(this.pointsleft<1){
       this.$store.dispatch('editDetails', {
       vision: this.vision,
-      goal: this.goal,  
+      goal: this.goal,
+      helphiring: this.helphiring,
+      searchjob: this.searchjob,
+      worklove: this.worklove,
       product : this.product,
       design : this.design,
       business : this.business,
-      operations :  this.operations,
+      operations : this.operations,
       software : this.software,
       ai : this.ai,
       vrar : this.vrar,
@@ -699,7 +678,7 @@ export default {
       lastname: this.lastname
       })
       }
-      this.$store.dispatch('openSite', {target: '/start'})
+      this.$store.dispatch('openSite', {target: '/home'})
       }
     },
 
