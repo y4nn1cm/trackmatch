@@ -60,7 +60,7 @@
           <v-flex><v-radio style="margin-bottom:0; padding:0" label="I want to explore job opportunities" value="jobs" v-model="reason"></v-radio></v-flex>
         <v-flex><v-radio style="margin-top:0; padding:0" label="Our company is hiring" value="employees" v-model="reason"></v-radio></v-flex>
           <v-flex class="text-xs-center" mt-5>
-            <v-btn primary type="submit">Sign Up</v-btn>
+            <v-btn primary type="submit">Sign me Up</v-btn>
           </v-flex>
         </v-layout>
       </form>

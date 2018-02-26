@@ -139,49 +139,6 @@ export const actions = {
     }, { merge: true }).then(() => { console.log('Details have been saved') })
   },
 
-  createCandidate ({commit}, payload) {
-    firestore.collection('Candidates').doc(firebase.auth().currentUser.uid).set({
-      ID: firebase.auth().currentUser.uid,
-      experience: payload.experience,
-      vision: payload.vision,
-      profilepicture: payload.profilepicture,
-      goal: payload.goal,
-      phone: payload.phone,
-      email: payload.email,
-      linkedin: payload.linkedin,
-      background1: payload.background1,
-      background2: payload.background2,
-      adaptability: payload.adaptability,
-      goalorientation: payload.goalorientation,
-      detailorientation: payload.detailorientation,
-      customerorientation: payload.customerorientation,
-      perseverence: payload.perseverence,
-      collaboration: payload.collaboration,
-      leadership: payload.leadership,
-      athmosphere: payload.athmosphere,
-      roles: payload.roles,
-      moneysatisfaction: payload.moneysatisfaction,
-      freedom: payload.freedom,
-      teamwork: payload.teamwork,
-      pragmatism: payload.pragmatism,
-      factor1: payload.factor1,
-      factor2: payload.factor2,
-      factor3: payload.factor3,
-      product: payload.product,
-      design: payload.design,
-      business: payload.business,
-      operations:  payload.operations,
-      software: payload.software,
-      ai: payload.ai,
-      vrar: payload.vrar,
-      blockchain: payload.blockchain,
-      pointsleft: payload.pointsleft,
-      company: payload.company,
-      firstname: payload.firstname,
-      lastname: payload.lastname
-    }, { merge: true }).then(() => { console.log('Candidate has been saved') })
-  },
-
   editGoals ({commit}, payload) {
     firestore.collection('Users').doc(firebase.auth().currentUser.uid).set({
       givefeedback: payload.givefeedback,
@@ -208,7 +165,7 @@ export const actions = {
       firestore.collection('Users').doc(firebase.auth().currentUser.uid).set({
         ID: firebase.auth().currentUser.uid,
         firstname: payload.firstname,
-        profilepicture: 'https://www.fing.edu.uy/inco/grupos/gsi/img/placeholder.png',
+        profilepicture: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCmabCGq2mC6eLOAHLuIHI30k837EGKTzQB7wLe8DNRIIqaR0b',
         lastname: payload.lastname,
         email: payload.email,
         reason: payload.reason,

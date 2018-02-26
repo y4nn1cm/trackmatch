@@ -97,8 +97,7 @@
           label="Discipline or Industry"
           :items="disciplineitems1"
           v-model="background1"
-          item-value="text"
-          editable
+          segmented
           class="input-group--focused"
           required>
         </v-select>
@@ -106,10 +105,9 @@
           label="Discipline or Industry"
           :items="disciplineitems2"
           v-model="background2"
-          item-value="text"
           class="input-group--focused"
           required
-          editable
+          segmented
           >
         </v-select>
     <div class="line" style="margin-top:5%"></div>
@@ -483,8 +481,8 @@ export default {
       firstname: null,
       lastname: null,
       worklove: null,
-      disciplineitems1: ['Consulting','Company Building','Venture Capital','Hardware Technology','Software Technology','e-commerce','Healthcare','Medicine','Sports','Architecture','Food','Media','Transportation','Music','Art','Tourism','Education','Marketing','Recruiting','Social Media','Social Networks','Production','Logistics','Accounting and Finance','Sales Tools','Social Science','Math','Physics','Chemistry','Psychology','International Relationships','Governmental Institutions','Politics','Trade','Languages','Writing','Literature','Culture Science','Philosophy','History', 'write other here'],
-      disciplineitems2: ['','Consulting','Company Building','Venture Capital','Hardware Technology','Software Technology','e-commerce','Healthcare','Medicine','Sports','Architecture','Food','Media','Transportation','Music','Art','Tourism','Education','Marketing','Recruiting','Social Media','Social Networks','Production','Logistics','Accounting and Finance','Sales Tools','Social Science','Math','Physics','Chemistry','Psychology','International Relationships','Governmental Institutions','Politics','Trade','Languages','Writing','Literature','Culture Science','Philosophy','History','write other here'],
+      disciplineitems1: ['Consulting','Company Building','Venture Capital','Hardware Technology','Software Technology','e-commerce','Healthcare','Medicine','Sports','Architecture','Food','Media','Transportation','Music','Art','Tourism','Education','Marketing','Recruiting','Social Media','Social Networks','Production','Logistics','Accounting and Finance','Sales Tools','Social Science','Math','Physics','Chemistry','Psychology','International Relationships','Governmental Institutions','Politics','Trade','Languages','Writing','Literature','Culture Science','Philosophy','History'],
+      disciplineitems2: ['','Consulting','Company Building','Venture Capital','Hardware Technology','Software Technology','e-commerce','Healthcare','Medicine','Sports','Architecture','Food','Media','Transportation','Music','Art','Tourism','Education','Marketing','Recruiting','Social Media','Social Networks','Production','Logistics','Accounting and Finance','Sales Tools','Social Science','Math','Physics','Chemistry','Psychology','International Relationships','Governmental Institutions','Politics','Trade','Languages','Writing','Literature','Culture Science','Philosophy','History'],
     }
   },
   created () {
@@ -635,48 +633,6 @@ export default {
       })
       if (this.company.length > 1){
       this.$store.dispatch('createCompany', {company: this.company})
-      }
-      if (this.searchjob === true)
-      {
-      this.$store.dispatch('createCandidate',{
-      vision: this.vision,
-      goal: this.goal,  
-      product : this.product,
-      design : this.design,
-      business : this.business,
-      operations :  this.operations,
-      software : this.software,
-      ai : this.ai,
-      vrar : this.vrar,
-      blockchain : this.blockchain,
-      experience : this.experience,
-      background1 : this.background1,
-      background2 : this.background2,
-      adaptability : this.adaptability,
-      goalorientation : this.goalorientation,
-      detailorientation : this.detailorientation,
-      customerorientation : this.customerorientation,
-      perseverence : this.perseverence,
-      collaboration : this.collaboration,
-      leadership : this.leadership,
-      athmosphere : this.athmosphere,
-      roles : this.roles,
-      moneysatisfaction : this.moneysatisfaction,
-      freedom : this.freedom,
-      teamwork : this.teamwork,
-      pragmatism : this.pragmatism,
-      factor1 : this.factor1,
-      factor2 : this.factor2,
-      factor3 : this.factor3,
-      pointsleft : this.pointsleft,
-      company : this.company,
-      phone: this.phone,
-      email: this.email,
-      linkedin: this.linkedin,
-      profilepicture: this.profilepicture,
-      firstname: this.firstname,
-      lastname: this.lastname
-      })
       }
       this.$store.dispatch('openSite', {target: '/home'})
       }

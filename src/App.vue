@@ -96,10 +96,10 @@ import firestore from './main'
             return [
       { title: 'Home', path: '/home', icon: 'home' },
       { title: 'Edit Profile', path: '/details', icon: 'face' },
-      { title: 'Find Jobs', path: '/jobmatches', icon: 'check_circle' },
+      { title: 'Job Matches', path: '/jobmatches', icon: 'check_circle' },
       { title: 'Create Position', path: '/employeesearch', icon: 'find_in_page' },
-      { title: 'Your Open Positions', path: '/searchlist', icon: 'list' },
-      { title: 'Find Employees', path: '/candidates', icon: 'perm_identity' }
+      { title: 'Open Positions', path: '/searchlist', icon: 'list' },
+      { title: 'Candidate Matches', path: '/candidates', icon: 'perm_identity' }
           ]
           }
 
@@ -107,7 +107,7 @@ import firestore from './main'
             return [
       { title: 'Home', path: '/home', icon: 'home' },
       { title: 'Edit Profile', path: '/details', icon: 'face' },
-      { title: 'Find Jobs', path: '/jobmatches', icon: 'check_circle' },
+      { title: 'Job Matches', path: '/jobmatches', icon: 'check_circle' },
           ]
           }
 
@@ -117,8 +117,8 @@ import firestore from './main'
       { title: 'Edit Profile', path: '/details', icon: 'face' },
       { title: 'Browse Job Postings', path: '/jobmatches', icon: 'check_circle' },
       { title: 'Create Position', path: '/employeesearch', icon: 'find_in_page' },
-      { title: 'Your Open Positions', path: '/searchlist', icon: 'list' },
-      { title: 'Find Employees', path: '/candidates', icon: 'perm_identity' }
+      { title: 'Open Positions', path: '/searchlist', icon: 'list' },
+      { title: 'Candidate Matches', path: '/candidates', icon: 'perm_identity' }
           ]
           }
 

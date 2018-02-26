@@ -24,8 +24,8 @@
       <v-flex xs2>
         <img class="employee-picture" :src="candidate.image">
       </v-flex>
-      <v-flex class="body-2" xs10><p style="margin-top:1vw; margin-bottom:0.5vw; margin-left:0; padding:0">{{candidate.firstname}} {{candidate.lastname}} <!-- - matching score: <span style="font-weight:600; font-size:4vw">{{candidate.fit}}%</span> --></p>
-      <p style="margin-top:0; margin-bottom:0; margin-left:0; padding:0">{{candidate.background1}} / {{candidate.background2}}
+      <v-flex xs10><p class="title" style="margin-top:0; margin-bottom:0; margin-left:0; padding:0">{{candidate.firstname}} {{candidate.lastname}} <!-- - matching score: <span style="font-weight:600; font-size:4vw">{{candidate.fit}}%</span> --></p>
+      <p class="body-2" style="margin-top:1vw; margin-bottom:0; margin-left:0; padding:0">{{candidate.background1}} / {{candidate.background2}}
       </p>
       </v-flex>
       <v-flex xs6>
@@ -37,9 +37,9 @@
         <p class="body-2" style="margin-top:1.5vw; margin-bottom:0; padding:0; text-align:right;"> Strengths fit:</p>
         </v-flex>
         <v-flex xs2>
-          <p class=title style="margin-top:2.5vw; margin-bottom:1vw; padding:0; text-align:left;"> 
+          <p class=title style="margin-top:2.5vw; margin-bottom:1vw; padding:0; text-align:left; color:rgb(34, 120, 207)"> 
             {{candidate.culturefit}}%</p>
-        <p class=title style="margin-top:1.8vw; margin-bottom:0; padding:0; text-align:left"> {{candidate.strengthsfit}}%</p>
+        <p class=title style="margin-top:1.8vw; margin-bottom:0; padding:0; text-align:left; color:rgb(34, 120, 207)"> {{candidate.strengthsfit}}%</p>
         </v-flex>
       <v-flex xs12>
         <v-expansion-panel style="margin-top:4vw" expand>
@@ -178,7 +178,7 @@ methods: {
         this.detailorientation=doc.data().detailorientation,
         this.goalorientation=doc.data().goalorientation
         })
-    }).then(() => firestore.collection('Candidates').where('design', '==', item.design).get().then(querySnapshot => {
+    }).then(() => firestore.collection('Users').where('design', '==', item.design).where('searchjob', '==', true).get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
         let data = {
         image: doc.data().profilepicture,
@@ -206,7 +206,7 @@ methods: {
         }
         this.candidates.push(data)
         })
-    }).then(() => firestore.collection('Candidates').where('product', '==', item.product).get().then(querySnapshot => {
+    }).then(() => firestore.collection('Users').where('product', '==', item.product).where('searchjob', '==', true).get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
         let data = {
         image: doc.data().profilepicture,
@@ -234,7 +234,7 @@ methods: {
         }
         this.candidates.push(data)
         })
-    })).then(() => firestore.collection('Candidates').where('business', '==', item.business).get().then(querySnapshot => {
+    })).then(() => firestore.collection('Users').where('business', '==', item.business).where('searchjob', '==', true).get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
         let data = {
         image: doc.data().profilepicture,
@@ -262,7 +262,7 @@ methods: {
         }
         this.candidates.push(data)
         })
-    })).then(() => firestore.collection('Candidates').where('operations', '==', item.operations).get().then(querySnapshot => {
+    })).then(() => firestore.collection('Users').where('operations', '==', item.operations).where('searchjob', '==', true).get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
         let data = {
         image: doc.data().profilepicture,
@@ -290,7 +290,7 @@ methods: {
         }
         this.candidates.push(data)
         })
-    })).then(() => firestore.collection('Candidates').where('software', '==', item.software).get().then(querySnapshot => {
+    })).then(() => firestore.collection('Users').where('software', '==', item.software).where('searchjob', '==', true).get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
         let data = {
         image: doc.data().profilepicture,
@@ -318,7 +318,7 @@ methods: {
         }
         this.candidates.push(data)
         })
-    })).then(() => firestore.collection('Candidates').where('ai', '==', item.ai).get().then(querySnapshot => {
+    })).then(() => firestore.collection('Users').where('ai', '==', item.ai).where('searchjob', '==', true).get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
         let data = {
         image: doc.data().profilepicture,
@@ -346,7 +346,7 @@ methods: {
         }
         this.candidates.push(data)
         })
-    })).then(() => firestore.collection('Candidates').where('vrar', '==', item.vrar).get().then(querySnapshot => {
+    })).then(() => firestore.collection('Users').where('vrar', '==', item.vrar).where('searchjob', '==', true).get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
         let data = {
         image: doc.data().profilepicture,
@@ -374,7 +374,7 @@ methods: {
         }
         this.candidates.push(data)
         })
-    })).then(() => firestore.collection('Candidates').where('blockchain', '==', item.blockchain).get().then(querySnapshot => {
+    })).then(() => firestore.collection('Users').where('blockchain', '==', item.blockchain).where('searchjob', '==', true).get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
         let data = {
         image: doc.data().profilepicture,
@@ -451,7 +451,6 @@ methods: {
   height:10vw;
   border-radius: 10%;
   object-fit:cover;
-  margin-top:1vw;
 }
 .line {
   position: relative;

@@ -1,8 +1,8 @@
 <template>
   <v-app>
     <div class="center">
-        <img :src="profilepicture" class="profile-picture"> 
-        <div v-if="profilepicture === 'https://www.fing.edu.uy/inco/grupos/gsi/img/placeholder.png'">
+        <img @click="editpicture=!editpicture" :src="profilepicture" class="profile-picture"> 
+        <div v-if="profilepicture === 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCmabCGq2mC6eLOAHLuIHI30k837EGKTzQB7wLe8DNRIIqaR0b'">
       
        <p @click="editpicture=true" v-if="editpicture === false" style='text-align:center; font-size:2.5vw'>press to edit profile picture</p>
       <div v-if="editpicture === true">
@@ -40,28 +40,28 @@
 
             <div v-if="searchjob">
             <div v-if="ready!=0">
-            <v-btn class="teal select" @click="editProfile">First create your profile</v-btn>
-            <v-btn disabled @click="openSite('jobmatches')" class="teal select">See your job matches</v-btn>
+            <v-btn class="teal select" @click="editProfile">First create my profile</v-btn>
+            <v-btn disabled @click="openSite('jobmatches')" class="teal select">my job matches</v-btn>
             </div>
-            <v-btn v-else @click="openSite('jobmatches')" class="teal select">See your job matches</v-btn>
+            <v-btn v-else @click="openSite('jobmatches')" class="teal select">my job matches</v-btn>
             </div>
 
             <div v-else-if="helphiring">
               <div v-if="ready!=0">
-                <v-btn class="teal select" @click="editProfile">First create your profile</v-btn>
-                <v-btn disabled @click="openSite('employeesearch')" class="teal select" style="color:white">create job posting</v-btn><br>
-                <v-btn disabled @click="openSite('candidates')" class="teal select">See your candidate matches</v-btn><br>
+                <v-btn class="teal select" @click="editProfile">First create my profile</v-btn>
+                <v-btn disabled @click="openSite('employeesearch')" class="teal select" style="color:white">create position</v-btn><br>
+                <v-btn disabled @click="openSite('candidates')" class="teal select">my candidate matches</v-btn><br>
                 <v-btn disabled @click="openSite('searchlist')" class="teal select">Become a Job ambassador</v-btn>
               </div>
               <div v-else>
                 <div v-if="noentries">
-                  <v-btn @click="openSite('employeesearch')" class="teal select" style="color:white">Next, create a job posting</v-btn><br>
-                  <v-btn disabled @click="openSite('candidates')" class="teal select">See your candidate matches</v-btn><br>
+                  <v-btn @click="openSite('employeesearch')" class="teal select" style="color:white">Next, create a position</v-btn><br>
+                  <v-btn disabled @click="openSite('candidates')" class="teal select">my candidate matches</v-btn><br>
                   <v-btn disabled @click="openSite('searchlist')" class="teal select">Become Job ambassador</v-btn>
                 </div>
                 <div v-else>
-                  <v-btn @click="openSite('employeesearch')" class="teal select" style="color:white">create job posting</v-btn><br>
-                  <v-btn @click="openSite('candidates')" class="teal select">see your candidate matches</v-btn><br>
+                  <v-btn @click="openSite('employeesearch')" class="teal select" style="color:white">create a position</v-btn><br>
+                  <v-btn @click="openSite('candidates')" class="teal select">my candidate matches</v-btn><br>
                   <v-btn @click="openSite('searchlist')" class="teal select">Become Job ambassador</v-btn>
                 </div>
               </div>
@@ -83,7 +83,7 @@ export default {
 
   data () {
     return {
-      profilepicture: '',
+      profilepicture: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCmabCGq2mC6eLOAHLuIHI30k837EGKTzQB7wLe8DNRIIqaR0b',
       searchjob: null,
       givefeedback: null,
       helphiring: null,

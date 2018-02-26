@@ -1,7 +1,7 @@
 <template>
   <v-layout column>
     <v-flex xs12 class="text-xs-center" mt-5>
-      <h3>Sign In</h3>
+      <h3>Log In</h3>
     </v-flex>
     <v-flex xs12 sm6 offset-sm3 mt-3>
       <form @submit.prevent="userSignIn">
@@ -30,7 +30,7 @@
               required></v-text-field>
           </v-flex>
           <v-flex class="text-xs-center" mt-5>
-            <v-btn primary type="submit">Sign In</v-btn>
+            <v-btn primary type="submit">login</v-btn>
           </v-flex>
         </v-layout>
       </form>
