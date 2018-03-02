@@ -10,17 +10,15 @@
       </blockquote>
     </v-flex>
     <v-flex class="text-xs-center" mt-5>
-      <v-btn primary to="/signup">sign me up</v-btn>
+      <v-btn class="teal" style="color:white" to="/signup">sign me up</v-btn>
       <v-btn to="/signin">login</v-btn>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-export default {
-}
+export default {};
 </script>
 <style>
-@import url('https://fonts.googleapis.com/css?family=Merriweather');
-
+@import url("https://fonts.googleapis.com/css?family=Merriweather");
 </style>

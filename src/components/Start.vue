@@ -26,64 +26,65 @@
 </template>
 
 <script>
-import firebase from 'firebase'
-import firestore from '../main'
+import firebase from "firebase";
+import firestore from "../main";
 export default {
-
-  data () {
+  data() {
     return {
-      profilepicture: '',
+      profilepicture: "",
       searchjob: false,
       givefeedback: false,
       helphiring: false,
       findevents: false,
       findcoach: false,
-      user: '',
+      user: "",
       experience: null,
-      pragmatism: null,
-    }
+      pragmatism: null
+    };
   },
-  created () {
-    window.scrollTo(0, 0)
-    firestore.collection('Users').where('ID', '==', firebase.auth().currentUser.uid).get().then(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        this.user = doc.data().firstname
-        this.profilepicture = doc.data().profilepicture
-        this.searchjob = doc.data().searchjob
-        this.helphiring = doc.data().helphiring
-        this.givefeedback = doc.data().givefeedback
-        this.findevents = doc.data().findevents
-        this.findcoach = doc.data().findcoach
-        this.experience = doc.data().experience
-        this.pragmatism = doc.data().pragmatism
-      })
-    })
+  created() {
+    window.scrollTo(0, 0);
+    firestore
+      .collection("Users")
+      .where("ID", "==", firebase.auth().currentUser.uid)
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          this.user = doc.data().firstname;
+          this.profilepicture = doc.data().profilepicture;
+          this.searchjob = doc.data().searchjob;
+          this.helphiring = doc.data().helphiring;
+          this.givefeedback = doc.data().givefeedback;
+          this.findevents = doc.data().findevents;
+          this.findcoach = doc.data().findcoach;
+          this.experience = doc.data().experience;
+          this.pragmatism = doc.data().pragmatism;
+        });
+      });
   },
-  methods:
-
-  {
-    openDetails(){
-      this.$store.dispatch('openSite', {target: '/details'})
+  methods: {
+    openDetails() {
+      this.$store.dispatch("openSite", { target: "/details" });
     }
-  }      
-}
+  }
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-@import url('https://fonts.googleapis.com/css?family=Merriweather');
+@import url("https://fonts.googleapis.com/css?family=Merriweather");
 
 .profile-picture {
-  width:30vw;
-  height:30vw;
+  width: 30vw;
+  height: 30vw;
   border-radius: 50%;
-  object-fit:cover;
-  margin:6vw;
+  object-fit: cover;
+  margin: 6vw;
 }
 
 .blocktext {
-    text-align:justify;
-    margin-bottom:5vw;
+  text-align: justify;
+  margin-bottom: 5vw;
 }
 
 #imageurl {
@@ -96,30 +97,31 @@ export default {
   text-align: center;
   box-sizing: border-box;
   width: 100%;
-  height:100%;
+  height: 100%;
 }
 
 .select {
-  margin-top:2.5%;
-  margin-bottom:2.5%;
-  width:90%;
-  padding:0;
-  height:10vw;
-  text-align:center;
+  margin-top: 2.5%;
+  margin-bottom: 2.5%;
+  width: 90%;
+  padding: 0;
+  height: 10vw;
+  text-align: center;
 }
 
 .line {
   position: relative;
   width: 100%;
-  margin-top:5%;
-  margin-bottom:5%;
+  margin-top: 5%;
+  margin-bottom: 5%;
   height: 1px;
-  background: #DDD;
+  background: #ddd;
   border-radius: 10%;
   line-height: 0px;
 }
 
-h1, h2 {
+h1,
+h2 {
   font-weight: normal;
 }
 ul {

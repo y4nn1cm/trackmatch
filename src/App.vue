@@ -1,5 +1,5 @@
 <template>
-  <v-app @click="loadMenu()">
+  <v-app>
     
     <v-navigation-drawer temporary v-model="sidebar">
       <v-list>
@@ -22,21 +22,21 @@
     </v-navigation-drawer>
 
     <v-toolbar fixed>
-      <span class="hidden-lg-and-up">
-        <v-toolbar-side-icon @click.stop="sidebar = !sidebar">
+      <span class="hidden-md-and-up">
+        <v-toolbar-side-icon @click.stop="loadMenu(), sidebar = !sidebar">
         </v-toolbar-side-icon>
       </span>
       <v-toolbar-title>
-        <router-link v-if="isAuthenticated" to="/home" tag="span" style="cursor: pointer; font-family:merriweather">
+        <router-link class="hidden-xs-only" v-if="isAuthenticated" to="/home" tag="span" style="cursor: pointer; font-family:merriweather; color: teal">
           {{ appTitle }}
         </router-link>
-        <router-link v-else to="/" tag="span" style="cursor: pointer; font-family:merriweather">
+        <router-link class="hidden-xs-only" v-else to="/" tag="span" style="cursor: pointer; font-family:merriweather; color: teal">
           {{ appTitle }}
         </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       
-      <v-toolbar-items class="hidden-md-and-down">
+      <v-toolbar-items class="hidden-sm-and-down">
         <v-btn
           flat
           v-for="item in menuItems"
@@ -96,9 +96,9 @@ import firestore from './main'
             return [
       { title: 'Home', path: '/home', icon: 'home' },
       { title: 'Edit Profile', path: '/details', icon: 'face' },
-      { title: 'Job Matches', path: '/jobmatches', icon: 'check_circle' },
+      { title: 'My Job Matches', path: '/jobmatches', icon: 'check_circle' },
       { title: 'Create Position', path: '/employeesearch', icon: 'find_in_page' },
-      { title: 'Open Positions', path: '/searchlist', icon: 'list' },
+      { title: 'Our Open Positions', path: '/searchlist', icon: 'list' },
       { title: 'Candidate Matches', path: '/candidates', icon: 'perm_identity' }
           ]
           }
@@ -107,7 +107,7 @@ import firestore from './main'
             return [
       { title: 'Home', path: '/home', icon: 'home' },
       { title: 'Edit Profile', path: '/details', icon: 'face' },
-      { title: 'Job Matches', path: '/jobmatches', icon: 'check_circle' },
+      { title: 'My Job Matches', path: '/jobmatches', icon: 'check_circle' },
           ]
           }
 
@@ -117,7 +117,7 @@ import firestore from './main'
       { title: 'Edit Profile', path: '/details', icon: 'face' },
       { title: 'Browse Job Postings', path: '/jobmatches', icon: 'check_circle' },
       { title: 'Create Position', path: '/employeesearch', icon: 'find_in_page' },
-      { title: 'Open Positions', path: '/searchlist', icon: 'list' },
+      { title: 'Our Open Positions', path: '/searchlist', icon: 'list' },
       { title: 'Candidate Matches', path: '/candidates', icon: 'perm_identity' }
           ]
           }

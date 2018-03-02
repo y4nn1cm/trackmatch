@@ -30,7 +30,7 @@
               required></v-text-field>
           </v-flex>
           <v-flex class="text-xs-center" mt-5>
-            <v-btn primary type="submit">login</v-btn>
+            <v-btn class="teal select" style="color:white" type="submit">login</v-btn>
           </v-flex>
         </v-layout>
       </form>
@@ -40,38 +40,41 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
       alert: false
-    }
+    };
   },
 
   computed: {
-    error () {
-      return this.$store.getters.getError
+    error() {
+      return this.$store.getters.getError;
     },
-    loading () {
-      return this.$store.getters.getLoading
+    loading() {
+      return this.$store.getters.getLoading;
     }
   },
   watch: {
-    error (value) {
+    error(value) {
       if (value) {
-        this.alert = true
+        this.alert = true;
       }
     },
-    alert (value) {
+    alert(value) {
       if (!value) {
-        this.$store.dispatch('setError', false)
+        this.$store.dispatch("setError", false);
       }
     }
   },
   methods: {
-    userSignIn () {
-      this.$store.dispatch('userSignIn', {email: this.email, password: this.password})
+    userSignIn() {
+      this.$store.dispatch("userSignIn", {
+        email: this.email,
+        password: this.password
+      });
     }
   }
-}
+};
 </script>

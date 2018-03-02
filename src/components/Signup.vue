@@ -57,10 +57,10 @@
               :rules="[comparePasswords]"
               ></v-text-field>
           </v-flex>
-          <v-flex><v-radio style="margin-bottom:0; padding:0" label="I want to explore job opportunities" value="jobs" v-model="reason"></v-radio></v-flex>
+          <v-flex><v-radio style="margin-bottom:0; padding:0" label="I am exploring job opportunities" value="jobs" v-model="reason"></v-radio></v-flex>
         <v-flex><v-radio style="margin-top:0; padding:0" label="Our company is hiring" value="employees" v-model="reason"></v-radio></v-flex>
           <v-flex class="text-xs-center" mt-5>
-            <v-btn primary type="submit">Sign me Up</v-btn>
+            <v-btn class="teal select" style="color:white" type="submit">Sign me Up</v-btn>
           </v-flex>
         </v-layout>
       </form>
@@ -70,55 +70,65 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      email: '',
-      password: '',
-      passwordConfirm: '',
-      firstname: '',
-      lastname: '',
-      reason:'',
+      email: "",
+      password: "",
+      passwordConfirm: "",
+      firstname: "",
+      lastname: "",
+      reason: "",
       alert: false
-    }
+    };
   },
   computed: {
-    comparePasswords () {
-      return this.password === this.passwordConfirm ? true : 'Passwords don\'t match'
+    comparePasswords() {
+      return this.password === this.passwordConfirm
+        ? true
+        : "Passwords don't match";
     },
-    error () {
-      return this.$store.getters.getError
+    error() {
+      return this.$store.getters.getError;
     },
-    loading () {
-      return this.$store.getters.getLoading
+    loading() {
+      return this.$store.getters.getLoading;
     }
   },
   methods: {
-    userSignUp () {
-      if (this.reason == "jobs"){
-        this.searchjob = true
-        this.helphiring = false
+    userSignUp() {
+      if (this.reason == "jobs") {
+        this.searchjob = true;
+        this.helphiring = false;
       }
-      if (this.reason == "employees"){
-        this.searchjob = true
-        this.helphiring = false
+      if (this.reason == "employees") {
+        this.searchjob = true;
+        this.helphiring = false;
       }
-      if (this.comparePasswords !== true || this.reason == '') {
-        return
+      if (this.comparePasswords !== true || this.reason == "") {
+        return;
       }
-      this.$store.dispatch('userSignUp', { email: this.email, password: this.password, firstname: this.firstname, lastname: this.lastname, reason: this.reason, searchjob: this.searchjob, helphiring: this.helphiring })
+      this.$store.dispatch("userSignUp", {
+        email: this.email,
+        password: this.password,
+        firstname: this.firstname,
+        lastname: this.lastname,
+        reason: this.reason,
+        searchjob: this.searchjob,
+        helphiring: this.helphiring
+      });
     }
   },
   watch: {
-    error (value) {
+    error(value) {
       if (value) {
-        this.alert = true
+        this.alert = true;
       }
     },
-    alert (value) {
+    alert(value) {
       if (!value) {
-        this.$store.dispatch('setError', null)
+        this.$store.dispatch("setError", null);
       }
     }
   }
-}
+};
 </script>

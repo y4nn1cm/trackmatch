@@ -1,10 +1,10 @@
 <template>
   <div>
     <h3 v-if="select" style="text-align:center">Click on the job you want to see candidates for</h3>
-    <div v-else @click="select=true; candidates = []" style="text-align:center">
+    <div v-else style="text-align:center">
     <h3 style="text-align:center; margin-bottom:0">Candidates for</h3>
     <p class="title" style="margin-top:0">{{description}}</p>
-    <p>click to go back to job postings</p>
+    <v-btn class="teal select" style="color:white" @click="select=true; candidates = []">Back to Job postings</v-btn>
     </div>
     <p style="text-align:center" v-if="noentries">Please create a position to find employees.</p>
     <v-layout v-if="select" row wrap v-for="item in searchitems" :key="item.description">
@@ -61,89 +61,100 @@
       </p>  
       <p style="font-weight:400; margin-top:0; margin-bottom:0; padding:0">
          <a :href="`tel:${candidate.email}`" style="font-weight:400">{{candidate.phone}}</a>
-      </p>    
+      </p>
       </v-card-text>
       </v-card>
     </v-expansion-panel-content>
   </v-expansion-panel>
-  <v-btn primary class="button" @click="giveLike(job)" style="margin-top:5vw; margin-left:0; padding:0">Like Candidate</v-btn>
+  <v-btn class="button teal" @click="giveLike(job)" style="margin-top:5vw; margin-left:0; padding:0; color:white">Like Candidate</v-btn>
       </v-flex>
     </v-layout>
   </div>
 </template>
 
 <script>
-import firebase from 'firebase'
-import firestore from '../main'
-import uniqBy from 'lodash/uniqBy'
+import firebase from "firebase";
+import firestore from "../main";
+import uniqBy from "lodash/uniqBy";
 
 export default {
-    data (){
-      return {
-        select: true,
-        activities: [],
-        company: null,
-        background1: null,
-        experience: null,
-        background2: null,
-        adaptability: null,
-        perseverence: null,
-        collaboration: null,
-        goalorientation: null,
-        detailorientation: null,
-        customerorientation: null,
-        product: null,
-        design: null,
-        business: null,
-        operations: null,
-        software: null,
-        ai: null,
-        vrar: null,
-        blockchain: null,
-        leadership: null,
-        athmosphere: null,
-        roles: null,
-        moneysatisfaction: null,
-        freedom: null,
-        teamwork: null,
-        pragmatism: null,
-        candidates: [],
-        uniquecandidates: [],
-        email: null,
-        phone: null,
-        adaptabilityfit: 0,
-        perseverencefit: 0,
-        collaborationfit: 0,
-        goalorientationfit: 0,
-        customerorientationfit: 0,
-        detailorientationfit: 0,
-        pragmatismfit: 0,
-        teamworkfit: 0,
-        athmospherefit: 0,
-        moneysatisfactionfit: 0,
-        leadershipfit: 0,
-        rolesfit: 0,
-        freedomfit: 0,
-        strengthsfit: 0,
-        culturefit: 0,
-        searchitems:[],
-        noentries: true,
-        description: null,
-      }
-    },
+  data() {
+    return {
+      select: true,
+      activities: [],
+      company: null,
+      background1: null,
+      experience: null,
+      background2: null,
+      adaptability: null,
+      perseverence: null,
+      collaboration: null,
+      goalorientation: null,
+      detailorientation: null,
+      customerorientation: null,
+      product: null,
+      design: null,
+      business: null,
+      operations: null,
+      software: null,
+      ai: null,
+      vrar: null,
+      blockchain: null,
+      leadership: null,
+      athmosphere: null,
+      roles: null,
+      moneysatisfaction: null,
+      freedom: null,
+      teamwork: null,
+      pragmatism: null,
+      candidates: [],
+      uniquecandidates: [],
+      email: null,
+      phone: null,
+      adaptabilityfit: 0,
+      perseverencefit: 0,
+      collaborationfit: 0,
+      goalorientationfit: 0,
+      customerorientationfit: 0,
+      detailorientationfit: 0,
+      pragmatismfit: 0,
+      teamworkfit: 0,
+      athmospherefit: 0,
+      moneysatisfactionfit: 0,
+      leadershipfit: 0,
+      rolesfit: 0,
+      freedomfit: 0,
+      strengthsfit: 0,
+      culturefit: 0,
+      searchitems: [],
+      noentries: true,
+      description: null
+    };
+  },
 
-    created () {
-    window.scrollTo(0, 0)
-    firestore.collection('Users').where('ID', '==', firebase.auth().currentUser.uid).get().then(querySnapshot => {
-      querySnapshot.forEach(doc => {
-       this.company = doc.data().company
-       })
-    }).then(() => firestore.collection('EmployeeSearches').where('company', '==',this.company).get()).then(querySnapshot => {
-      querySnapshot.forEach(doc => {
-          this.noentries = false
+  created() {
+    window.scrollTo(0, 0);
+    firestore
+      .collection("Users")
+      .where("ID", "==", firebase.auth().currentUser.uid)
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          this.company = doc.data().company;
+        });
+      })
+      .then(() =>
+        firestore
+          .collection("EmployeeSearches")
+          .where("company", "==", this.company)
+          .get()
+      )
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          this.noentries = false;
           let data = {
-            description : doc.data().description,
-            purpose : doc.data().purpose,
+            description: doc.data().description,
+            purpose: doc.data().purpose,
             logo: doc.data().logo,
             design: doc.data().logo,
             business: doc.data().business,
@@ -153,318 +164,425 @@ export default {
             vrar: doc.data().vrar,
             blockchain: doc.data().blockchain,
             ai: doc.data().ai
-          }
-          this.searchitems.push(data)
-        })
-    })
-},
-
-methods: {
-    getCandidates (item) {
-    this.candidates = []
-    firestore.collection('EmployeeSearches').where('description', '==', item.description).get().then(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        this.leadership = doc.data().leadership,
-        this.moneysatisfaction = doc.data().moneysatisfaction,
-        this.freedom = doc.data().freedom,
-        this.roles = doc.data().roles,
-        this.teamwork = doc.data().teamwork,
-        this.athmosphere = doc.data().athmosphere,
-        this.pragmatism = doc.data().pragmatism,
-        this.adaptability=doc.data().adaptability,
-        this.collaboration=doc.data().collaboration,
-        this.perseverence=doc.data().perseverence,
-        this.customerorientation=doc.data().customerorientation,
-        this.detailorientation=doc.data().detailorientation,
-        this.goalorientation=doc.data().goalorientation
-        })
-    }).then(() => firestore.collection('Users').where('design', '==', item.design).where('searchjob', '==', true).get().then(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        let data = {
-        image: doc.data().profilepicture,
-        description : doc.data().description,
-        adaptability : doc.data().adaptability,
-        perseverence : doc.data().perseverence,
-        collaboration : doc.data().collaboration,
-        goalorientation : doc.data().goalorientation,
-        customerorientation : doc.data().customerorientation,
-        detailorientation : doc.data().detailorientation,
-        email: doc.data().email,
-        phone: doc.data().phone,
-        vision: doc.data().vision,
-        experience: doc.data().experience,
-        firstname: doc.data().firstname,
-        lastname: doc.data().lastname,
-        background1: doc.data().background1,
-        background2: doc.data().background2,
-        goal: doc.data().goal,
-        linkedin: doc.data().linkedin,
-        ID: doc.data().ID,
-        strengthsfit: this.calculateStrengthsFit(doc),
-        culturefit: this.calculateCultureFit(doc),
-        fit: (this.strengthsfit+this.culturefit)/2
-        }
-        this.candidates.push(data)
-        })
-    }).then(() => firestore.collection('Users').where('product', '==', item.product).where('searchjob', '==', true).get().then(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        let data = {
-        image: doc.data().profilepicture,
-        description : doc.data().description,
-        adaptability : doc.data().adaptability,
-        perseverence : doc.data().perseverence,
-        collaboration : doc.data().collaboration,
-        goalorientation : doc.data().goalorientation,
-        customerorientation : doc.data().customerorientation,
-        detailorientation : doc.data().detailorientation,
-        email: doc.data().email,
-        phone: doc.data().phone,
-        vision: doc.data().vision,
-        experience: doc.data().experience,
-        firstname: doc.data().firstname,
-        lastname: doc.data().lastname,
-        background1: doc.data().background1,
-        background2: doc.data().background2,
-        goal: doc.data().goal,
-        linkedin: doc.data().linkedin,
-        ID: doc.data().ID,
-        strengthsfit: this.calculateStrengthsFit(doc),
-        culturefit: this.calculateCultureFit(doc),
-        fit: (this.strengthsfit+this.culturefit)/2
-        }
-        this.candidates.push(data)
-        })
-    })).then(() => firestore.collection('Users').where('business', '==', item.business).where('searchjob', '==', true).get().then(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        let data = {
-        image: doc.data().profilepicture,
-        description : doc.data().description,
-        adaptability : doc.data().adaptability,
-        perseverence : doc.data().perseverence,
-        collaboration : doc.data().collaboration,
-        goalorientation : doc.data().goalorientation,
-        customerorientation : doc.data().customerorientation,
-        detailorientation : doc.data().detailorientation,
-        email: doc.data().email,
-        phone: doc.data().phone,
-        vision: doc.data().vision,
-        experience: doc.data().experience,
-        firstname: doc.data().firstname,
-        lastname: doc.data().lastname,
-        background1: doc.data().background1,
-        background2: doc.data().background2,
-        goal: doc.data().goal,
-        linkedin: doc.data().linkedin,
-        ID: doc.data().ID,
-        strengthsfit: this.calculateStrengthsFit(doc),
-        culturefit: this.calculateCultureFit(doc),
-        fit: (this.strengthsfit+this.culturefit)/2
-        }
-        this.candidates.push(data)
-        })
-    })).then(() => firestore.collection('Users').where('operations', '==', item.operations).where('searchjob', '==', true).get().then(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        let data = {
-        image: doc.data().profilepicture,
-        description : doc.data().description,
-        adaptability : doc.data().adaptability,
-        perseverence : doc.data().perseverence,
-        collaboration : doc.data().collaboration,
-        goalorientation : doc.data().goalorientation,
-        customerorientation : doc.data().customerorientation,
-        detailorientation : doc.data().detailorientation,
-        email: doc.data().email,
-        phone: doc.data().phone,
-        vision: doc.data().vision,
-        experience: doc.data().experience,
-        firstname: doc.data().firstname,
-        lastname: doc.data().lastname,
-        background1: doc.data().background1,
-        background2: doc.data().background2,
-        goal: doc.data().goal,
-        linkedin: doc.data().linkedin,
-        ID: doc.data().ID,
-        strengthsfit: this.calculateStrengthsFit(doc),
-        culturefit: this.calculateCultureFit(doc),
-        fit: (this.strengthsfit+this.culturefit)/2
-        }
-        this.candidates.push(data)
-        })
-    })).then(() => firestore.collection('Users').where('software', '==', item.software).where('searchjob', '==', true).get().then(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        let data = {
-        image: doc.data().profilepicture,
-        description : doc.data().description,
-        adaptability : doc.data().adaptability,
-        perseverence : doc.data().perseverence,
-        collaboration : doc.data().collaboration,
-        goalorientation : doc.data().goalorientation,
-        customerorientation : doc.data().customerorientation,
-        detailorientation : doc.data().detailorientation,
-        email: doc.data().email,
-        phone: doc.data().phone,
-        vision: doc.data().vision,
-        experience: doc.data().experience,
-        firstname: doc.data().firstname,
-        lastname: doc.data().lastname,
-        background1: doc.data().background1,
-        background2: doc.data().background2,
-        goal: doc.data().goal,
-        linkedin: doc.data().linkedin,
-        ID: doc.data().ID,
-        strengthsfit: this.calculateStrengthsFit(doc),
-        culturefit: this.calculateCultureFit(doc),
-        fit: (this.strengthsfit+this.culturefit)/2
-        }
-        this.candidates.push(data)
-        })
-    })).then(() => firestore.collection('Users').where('ai', '==', item.ai).where('searchjob', '==', true).get().then(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        let data = {
-        image: doc.data().profilepicture,
-        description : doc.data().description,
-        adaptability : doc.data().adaptability,
-        perseverence : doc.data().perseverence,
-        collaboration : doc.data().collaboration,
-        goalorientation : doc.data().goalorientation,
-        customerorientation : doc.data().customerorientation,
-        detailorientation : doc.data().detailorientation,
-        email: doc.data().email,
-        phone: doc.data().phone,
-        vision: doc.data().vision,
-        experience: doc.data().experience,
-        firstname: doc.data().firstname,
-        lastname: doc.data().lastname,
-        background1: doc.data().background1,
-        background2: doc.data().background2,
-        goal: doc.data().goal,
-        linkedin: doc.data().linkedin,
-        ID: doc.data().ID,
-        strengthsfit: this.calculateStrengthsFit(doc),
-        culturefit: this.calculateCultureFit(doc),
-        fit: (this.strengthsfit+this.culturefit)/2
-        }
-        this.candidates.push(data)
-        })
-    })).then(() => firestore.collection('Users').where('vrar', '==', item.vrar).where('searchjob', '==', true).get().then(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        let data = {
-        image: doc.data().profilepicture,
-        description : doc.data().description,
-        adaptability : doc.data().adaptability,
-        perseverence : doc.data().perseverence,
-        collaboration : doc.data().collaboration,
-        goalorientation : doc.data().goalorientation,
-        customerorientation : doc.data().customerorientation,
-        detailorientation : doc.data().detailorientation,
-        email: doc.data().email,
-        phone: doc.data().phone,
-        vision: doc.data().vision,
-        experience: doc.data().experience,
-        firstname: doc.data().firstname,
-        lastname: doc.data().lastname,
-        background1: doc.data().background1,
-        background2: doc.data().background2,
-        goal: doc.data().goal,
-        linkedin: doc.data().linkedin,
-        ID: doc.data().ID,
-        strengthsfit: this.calculateStrengthsFit(doc),
-        culturefit: this.calculateCultureFit(doc),
-        fit: (this.strengthsfit+this.culturefit)/2
-        }
-        this.candidates.push(data)
-        })
-    })).then(() => firestore.collection('Users').where('blockchain', '==', item.blockchain).where('searchjob', '==', true).get().then(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        let data = {
-        image: doc.data().profilepicture,
-        description : doc.data().description,
-        adaptability : doc.data().adaptability,
-        perseverence : doc.data().perseverence,
-        collaboration : doc.data().collaboration,
-        goalorientation : doc.data().goalorientation,
-        customerorientation : doc.data().customerorientation,
-        detailorientation : doc.data().detailorientation,
-        email: doc.data().email,
-        phone: doc.data().phone,
-        vision: doc.data().vision,
-        experience: doc.data().experience,
-        firstname: doc.data().firstname,
-        lastname: doc.data().lastname,
-        background1: doc.data().background1,
-        background2: doc.data().background2,
-        goal: doc.data().goal,
-        linkedin: doc.data().linkedin,
-        ID: doc.data().ID,
-        strengthsfit: this.calculateStrengthsFit(doc),
-        culturefit: this.calculateCultureFit(doc),
-        fit: (this.strengthsfit+this.culturefit)/2
-        }
-        this.candidates.push(data)
-        })
-    })))
-    this.select = false
-    this.description = item.description
-    window.scrollTo(0, 0)
+          };
+          this.searchitems.push(data);
+        });
+      });
   },
-  calculateStrengthsFit(doc){
-      this.adaptabilityfit = Math.abs(this.adaptability-doc.data().adaptability)
-      this.collaborationfit = Math.abs(this.collaboration-doc.data().collaboration)
-      this.perseverencefit = Math.abs(this.perseverence-doc.data().perseverence)
-      this.goalorientationfit = Math.abs(this.goalorientation-doc.data().goalorientation)
-      this.detailorientationfit = Math.abs(this.detailorientation-doc.data().detailorientation)
-      this.customerorientationfit = Math.abs(this.customerorientation-doc.data().customerorientation)
-      this.strengthsfit = 100-2.77*(this.adaptabilityfit+this.collaborationfit+this.perseverencefit+this.goalorientationfit+this.detailorientationfit+this.customerorientationfit)
-      this.strengthsfit = Math.floor(this.strengthsfit)
-      return this.strengthsfit
-    },
-    calculateCultureFit(doc){
-      this.pragmatismfit = Math.abs(this.pragmatism-doc.data().pragmatism)
-      this.leadershipfit = Math.abs(this.leadership-doc.data().leadership)
-      this.athmospherefit = Math.abs(this.athmosphere-doc.data().athmosphere)
-      this.rolesfit = Math.abs(this.roles-doc.data().roles)
-      this.moneysatisfactionfit = Math.abs(this.moneysatisfaction-doc.data().moneysatisfaction)
-      this.freedomfit = Math.abs(this.freedom-doc.data().freedom)
-      this.teamworkfit = Math.abs(this.teamwork-doc.data().teamwork)
-      this.culturefit = 100-2.85*(this.pragmatismfit+this.leadershipfit+this.athmospherefit+this.rolesfit+this.moneysatisfactionfit+this.freedomfit+this.teamworkfit)
-      this.culturefit = Math.floor(this.culturefit)
-      return this.culturefit
-    }
-},
 
-  computed:
-  {
-    getJobCandidates (){
-    this.uniquecandidates = uniqBy(this.candidates, 'ID')
-    this.uniquecandidates.sort(function(a, b){return b.fit - a.fit})
-    return this.uniquecandidates
+  methods: {
+    getCandidates(item) {
+      this.candidates = [];
+      firestore
+        .collection("EmployeeSearches")
+        .where("description", "==", item.description)
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            (this.leadership = doc.data().leadership),
+              (this.moneysatisfaction = doc.data().moneysatisfaction),
+              (this.freedom = doc.data().freedom),
+              (this.roles = doc.data().roles),
+              (this.teamwork = doc.data().teamwork),
+              (this.athmosphere = doc.data().athmosphere),
+              (this.pragmatism = doc.data().pragmatism),
+              (this.adaptability = doc.data().adaptability),
+              (this.collaboration = doc.data().collaboration),
+              (this.perseverence = doc.data().perseverence),
+              (this.customerorientation = doc.data().customerorientation),
+              (this.detailorientation = doc.data().detailorientation),
+              (this.goalorientation = doc.data().goalorientation);
+          });
+        })
+        .then(() =>
+          firestore
+            .collection("Users")
+            .where("design", "==", item.design)
+            .where("searchjob", "==", true)
+            .get()
+            .then(querySnapshot => {
+              querySnapshot.forEach(doc => {
+                let data = {
+                  image: doc.data().profilepicture,
+                  description: doc.data().description,
+                  adaptability: doc.data().adaptability,
+                  perseverence: doc.data().perseverence,
+                  collaboration: doc.data().collaboration,
+                  goalorientation: doc.data().goalorientation,
+                  customerorientation: doc.data().customerorientation,
+                  detailorientation: doc.data().detailorientation,
+                  email: doc.data().email,
+                  phone: doc.data().phone,
+                  vision: doc.data().vision,
+                  experience: doc.data().experience,
+                  firstname: doc.data().firstname,
+                  lastname: doc.data().lastname,
+                  background1: doc.data().background1,
+                  background2: doc.data().background2,
+                  goal: doc.data().goal,
+                  linkedin: doc.data().linkedin,
+                  ID: doc.data().ID,
+                  strengthsfit: this.calculateStrengthsFit(doc),
+                  culturefit: this.calculateCultureFit(doc),
+                  fit: (this.strengthsfit + this.culturefit) / 2
+                };
+                this.candidates.push(data);
+              });
+            })
+            .then(() =>
+              firestore
+                .collection("Users")
+                .where("product", "==", item.product)
+                .where("searchjob", "==", true)
+                .get()
+                .then(querySnapshot => {
+                  querySnapshot.forEach(doc => {
+                    let data = {
+                      image: doc.data().profilepicture,
+                      description: doc.data().description,
+                      adaptability: doc.data().adaptability,
+                      perseverence: doc.data().perseverence,
+                      collaboration: doc.data().collaboration,
+                      goalorientation: doc.data().goalorientation,
+                      customerorientation: doc.data().customerorientation,
+                      detailorientation: doc.data().detailorientation,
+                      email: doc.data().email,
+                      phone: doc.data().phone,
+                      vision: doc.data().vision,
+                      experience: doc.data().experience,
+                      firstname: doc.data().firstname,
+                      lastname: doc.data().lastname,
+                      background1: doc.data().background1,
+                      background2: doc.data().background2,
+                      goal: doc.data().goal,
+                      linkedin: doc.data().linkedin,
+                      ID: doc.data().ID,
+                      strengthsfit: this.calculateStrengthsFit(doc),
+                      culturefit: this.calculateCultureFit(doc),
+                      fit: (this.strengthsfit + this.culturefit) / 2
+                    };
+                    this.candidates.push(data);
+                  });
+                })
+            )
+            .then(() =>
+              firestore
+                .collection("Users")
+                .where("business", "==", item.business)
+                .where("searchjob", "==", true)
+                .get()
+                .then(querySnapshot => {
+                  querySnapshot.forEach(doc => {
+                    let data = {
+                      image: doc.data().profilepicture,
+                      description: doc.data().description,
+                      adaptability: doc.data().adaptability,
+                      perseverence: doc.data().perseverence,
+                      collaboration: doc.data().collaboration,
+                      goalorientation: doc.data().goalorientation,
+                      customerorientation: doc.data().customerorientation,
+                      detailorientation: doc.data().detailorientation,
+                      email: doc.data().email,
+                      phone: doc.data().phone,
+                      vision: doc.data().vision,
+                      experience: doc.data().experience,
+                      firstname: doc.data().firstname,
+                      lastname: doc.data().lastname,
+                      background1: doc.data().background1,
+                      background2: doc.data().background2,
+                      goal: doc.data().goal,
+                      linkedin: doc.data().linkedin,
+                      ID: doc.data().ID,
+                      strengthsfit: this.calculateStrengthsFit(doc),
+                      culturefit: this.calculateCultureFit(doc),
+                      fit: (this.strengthsfit + this.culturefit) / 2
+                    };
+                    this.candidates.push(data);
+                  });
+                })
+            )
+            .then(() =>
+              firestore
+                .collection("Users")
+                .where("operations", "==", item.operations)
+                .where("searchjob", "==", true)
+                .get()
+                .then(querySnapshot => {
+                  querySnapshot.forEach(doc => {
+                    let data = {
+                      image: doc.data().profilepicture,
+                      description: doc.data().description,
+                      adaptability: doc.data().adaptability,
+                      perseverence: doc.data().perseverence,
+                      collaboration: doc.data().collaboration,
+                      goalorientation: doc.data().goalorientation,
+                      customerorientation: doc.data().customerorientation,
+                      detailorientation: doc.data().detailorientation,
+                      email: doc.data().email,
+                      phone: doc.data().phone,
+                      vision: doc.data().vision,
+                      experience: doc.data().experience,
+                      firstname: doc.data().firstname,
+                      lastname: doc.data().lastname,
+                      background1: doc.data().background1,
+                      background2: doc.data().background2,
+                      goal: doc.data().goal,
+                      linkedin: doc.data().linkedin,
+                      ID: doc.data().ID,
+                      strengthsfit: this.calculateStrengthsFit(doc),
+                      culturefit: this.calculateCultureFit(doc),
+                      fit: (this.strengthsfit + this.culturefit) / 2
+                    };
+                    this.candidates.push(data);
+                  });
+                })
+            )
+            .then(() =>
+              firestore
+                .collection("Users")
+                .where("software", "==", item.software)
+                .where("searchjob", "==", true)
+                .get()
+                .then(querySnapshot => {
+                  querySnapshot.forEach(doc => {
+                    let data = {
+                      image: doc.data().profilepicture,
+                      description: doc.data().description,
+                      adaptability: doc.data().adaptability,
+                      perseverence: doc.data().perseverence,
+                      collaboration: doc.data().collaboration,
+                      goalorientation: doc.data().goalorientation,
+                      customerorientation: doc.data().customerorientation,
+                      detailorientation: doc.data().detailorientation,
+                      email: doc.data().email,
+                      phone: doc.data().phone,
+                      vision: doc.data().vision,
+                      experience: doc.data().experience,
+                      firstname: doc.data().firstname,
+                      lastname: doc.data().lastname,
+                      background1: doc.data().background1,
+                      background2: doc.data().background2,
+                      goal: doc.data().goal,
+                      linkedin: doc.data().linkedin,
+                      ID: doc.data().ID,
+                      strengthsfit: this.calculateStrengthsFit(doc),
+                      culturefit: this.calculateCultureFit(doc),
+                      fit: (this.strengthsfit + this.culturefit) / 2
+                    };
+                    this.candidates.push(data);
+                  });
+                })
+            )
+            .then(() =>
+              firestore
+                .collection("Users")
+                .where("ai", "==", item.ai)
+                .where("searchjob", "==", true)
+                .get()
+                .then(querySnapshot => {
+                  querySnapshot.forEach(doc => {
+                    let data = {
+                      image: doc.data().profilepicture,
+                      description: doc.data().description,
+                      adaptability: doc.data().adaptability,
+                      perseverence: doc.data().perseverence,
+                      collaboration: doc.data().collaboration,
+                      goalorientation: doc.data().goalorientation,
+                      customerorientation: doc.data().customerorientation,
+                      detailorientation: doc.data().detailorientation,
+                      email: doc.data().email,
+                      phone: doc.data().phone,
+                      vision: doc.data().vision,
+                      experience: doc.data().experience,
+                      firstname: doc.data().firstname,
+                      lastname: doc.data().lastname,
+                      background1: doc.data().background1,
+                      background2: doc.data().background2,
+                      goal: doc.data().goal,
+                      linkedin: doc.data().linkedin,
+                      ID: doc.data().ID,
+                      strengthsfit: this.calculateStrengthsFit(doc),
+                      culturefit: this.calculateCultureFit(doc),
+                      fit: (this.strengthsfit + this.culturefit) / 2
+                    };
+                    this.candidates.push(data);
+                  });
+                })
+            )
+            .then(() =>
+              firestore
+                .collection("Users")
+                .where("vrar", "==", item.vrar)
+                .where("searchjob", "==", true)
+                .get()
+                .then(querySnapshot => {
+                  querySnapshot.forEach(doc => {
+                    let data = {
+                      image: doc.data().profilepicture,
+                      description: doc.data().description,
+                      adaptability: doc.data().adaptability,
+                      perseverence: doc.data().perseverence,
+                      collaboration: doc.data().collaboration,
+                      goalorientation: doc.data().goalorientation,
+                      customerorientation: doc.data().customerorientation,
+                      detailorientation: doc.data().detailorientation,
+                      email: doc.data().email,
+                      phone: doc.data().phone,
+                      vision: doc.data().vision,
+                      experience: doc.data().experience,
+                      firstname: doc.data().firstname,
+                      lastname: doc.data().lastname,
+                      background1: doc.data().background1,
+                      background2: doc.data().background2,
+                      goal: doc.data().goal,
+                      linkedin: doc.data().linkedin,
+                      ID: doc.data().ID,
+                      strengthsfit: this.calculateStrengthsFit(doc),
+                      culturefit: this.calculateCultureFit(doc),
+                      fit: (this.strengthsfit + this.culturefit) / 2
+                    };
+                    this.candidates.push(data);
+                  });
+                })
+            )
+            .then(() =>
+              firestore
+                .collection("Users")
+                .where("blockchain", "==", item.blockchain)
+                .where("searchjob", "==", true)
+                .get()
+                .then(querySnapshot => {
+                  querySnapshot.forEach(doc => {
+                    let data = {
+                      image: doc.data().profilepicture,
+                      description: doc.data().description,
+                      adaptability: doc.data().adaptability,
+                      perseverence: doc.data().perseverence,
+                      collaboration: doc.data().collaboration,
+                      goalorientation: doc.data().goalorientation,
+                      customerorientation: doc.data().customerorientation,
+                      detailorientation: doc.data().detailorientation,
+                      email: doc.data().email,
+                      phone: doc.data().phone,
+                      vision: doc.data().vision,
+                      experience: doc.data().experience,
+                      firstname: doc.data().firstname,
+                      lastname: doc.data().lastname,
+                      background1: doc.data().background1,
+                      background2: doc.data().background2,
+                      goal: doc.data().goal,
+                      linkedin: doc.data().linkedin,
+                      ID: doc.data().ID,
+                      strengthsfit: this.calculateStrengthsFit(doc),
+                      culturefit: this.calculateCultureFit(doc),
+                      fit: (this.strengthsfit + this.culturefit) / 2
+                    };
+                    this.candidates.push(data);
+                  });
+                })
+            )
+        );
+      this.select = false;
+      this.description = item.description;
+      window.scrollTo(0, 0);
+    },
+    calculateStrengthsFit(doc) {
+      this.adaptabilityfit = Math.abs(
+        this.adaptability - doc.data().adaptability
+      );
+      this.collaborationfit = Math.abs(
+        this.collaboration - doc.data().collaboration
+      );
+      this.perseverencefit = Math.abs(
+        this.perseverence - doc.data().perseverence
+      );
+      this.goalorientationfit = Math.abs(
+        this.goalorientation - doc.data().goalorientation
+      );
+      this.detailorientationfit = Math.abs(
+        this.detailorientation - doc.data().detailorientation
+      );
+      this.customerorientationfit = Math.abs(
+        this.customerorientation - doc.data().customerorientation
+      );
+      this.strengthsfit =
+        100 -
+        2.77 *
+          (this.adaptabilityfit +
+            this.collaborationfit +
+            this.perseverencefit +
+            this.goalorientationfit +
+            this.detailorientationfit +
+            this.customerorientationfit);
+      this.strengthsfit = Math.floor(this.strengthsfit);
+      return this.strengthsfit;
+    },
+    calculateCultureFit(doc) {
+      this.pragmatismfit = Math.abs(this.pragmatism - doc.data().pragmatism);
+      this.leadershipfit = Math.abs(this.leadership - doc.data().leadership);
+      this.athmospherefit = Math.abs(this.athmosphere - doc.data().athmosphere);
+      this.rolesfit = Math.abs(this.roles - doc.data().roles);
+      this.moneysatisfactionfit = Math.abs(
+        this.moneysatisfaction - doc.data().moneysatisfaction
+      );
+      this.freedomfit = Math.abs(this.freedom - doc.data().freedom);
+      this.teamworkfit = Math.abs(this.teamwork - doc.data().teamwork);
+      this.culturefit =
+        100 -
+        2.85 *
+          (this.pragmatismfit +
+            this.leadershipfit +
+            this.athmospherefit +
+            this.rolesfit +
+            this.moneysatisfactionfit +
+            this.freedomfit +
+            this.teamworkfit);
+      this.culturefit = Math.floor(this.culturefit);
+      return this.culturefit;
+    }
+  },
+
+  computed: {
+    getJobCandidates() {
+      this.uniquecandidates = uniqBy(this.candidates, "ID");
+      this.uniquecandidates.sort(function(a, b) {
+        return b.fit - a.fit;
+      });
+      return this.uniquecandidates;
     }
   }
-}
-
+};
 </script>
 <style>
-@import url('https://fonts.googleapis.com/css?family=Merriweather');
+@import url("https://fonts.googleapis.com/css?family=Merriweather");
 
 .employee-picture {
-  width:10vw;
-  height:10vw;
+  width: 10vw;
+  height: 10vw;
   border-radius: 10%;
-  object-fit:cover;
+  object-fit: cover;
 }
 .line {
   position: relative;
   width: 100%;
   height: 1px;
-  background: #DDD;
+  background: #ddd;
   border-radius: 10%;
   line-height: 0px;
+}
+.select {
+  margin-top: 2vw;
+  margin-bottom: 2vw;
+  padding: 0;
+  height: 10vw;
+  text-align: center;
+  color: white;
 }
 .fineline {
   position: relative;
   width: 40%;
   height: 1px;
-  background: #DDD;
+  background: #ddd;
   border-radius: 10%;
   line-height: 0px;
   margin-top: 2.5vw;

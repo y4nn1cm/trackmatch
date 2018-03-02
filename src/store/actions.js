@@ -52,14 +52,21 @@ export const actions = {
       athmosphere: payload.athmosphere, 
       teamwork: payload.teamwork, 
       leadership: payload.leadership,
-      advocates: []
+      advocates: [],
+      userlikes: []
     }).then(() => { console.log('Job Search has been created') })
   },
 
   updateAdvocacy ({commit}, payload) {
-    firestore.collection('EmployeeSearches').doc(payload.search).set({
+    firestore.collection('EmployeeSearches').doc(payload.job).set({
       advocates: payload.advocates
     }, { merge: true }).then(() => { console.log('Advocacy has been updated') })
+  },
+
+  updateLike ({commit}, payload) {
+    firestore.collection('EmployeeSearches').doc(payload.job).set({
+      userlikes: payload.userlikes
+    }, { merge: true }).then(() => { console.log('Like has been updated') })
   },
 
   createCompanyDetails ({commit}, payload) {
@@ -93,7 +100,7 @@ export const actions = {
   editDetails ({commit}, payload) {
     firestore.collection('Users').doc(firebase.auth().currentUser.uid).set({
       experience: payload.experience,
-      vision: payload.vision,
+      //vision: payload.vision,
       helphiring: payload.helphiring,
       searchjob: payload.searchjob,
       worklove: payload.worklove,
@@ -124,8 +131,6 @@ export const actions = {
       feedbackteamwork: payload.feedbackteamwork,
       feedbackpragmatism: payload.feedbackpragmatism,
       factor1: payload.factor1,
-      factor2: payload.factor2,
-      factor3: payload.factor3,
       product: payload.product,
       design: payload.design,
       business: payload.business,
