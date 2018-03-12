@@ -15,7 +15,8 @@ export const actions = {
   },
 
   createEmployeeSearch ({commit}, payload) {
-    firestore.collection('EmployeeSearches').doc(payload.description).set({
+    firestore.collection('EmployeeSearches').doc(payload.ID).set({
+      ID: payload.ID,
       phone: payload.phone,
       email: payload.email,
       name: payload.name,
@@ -31,6 +32,8 @@ export const actions = {
       experiencelevels: payload.experiencelevels,
       product: payload.product,
       design: payload.design,
+      sales: payload.sales,
+      customer:payload.customer,
       business: payload.business,
       operations:  payload.operations,
       software: payload.software,
@@ -134,6 +137,8 @@ export const actions = {
       factor1: payload.factor1,
       product: payload.product,
       design: payload.design,
+      sales: payload.sales,
+      customer:payload.customer,
       business: payload.business,
       operations:  payload.operations,
       software: payload.software,

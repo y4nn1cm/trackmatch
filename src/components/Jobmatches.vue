@@ -14,7 +14,7 @@
       </p>
       <v-btn class="teal" style="color:white;" @click="editProfile">Update my profile</v-btn>
     </div>
-    <v-card v-for="job in getJobs" :key="job.description" style="margin-top:8vw; margin-left:0; margin-right:0; padding:1vw; padding-bottom:5vw">
+    <v-card v-for="job in getJobs" :key="job.ID" style="margin-top:8vw; margin-left:0; margin-right:0; padding:1vw; padding-bottom:5vw">
       <v-layout align-top style="margin-top:6vw; text-align:center; margin-right:2vw; margin-left:2vw" row wrap>
         <v-flex xs12>
           <img class="employee-picture" :src="job.logo">
@@ -163,6 +163,8 @@
         freedom: 0,
         product: false,
         design: false,
+        sales: false,
+        customer: false,
         business: false,
         operations: false,
         software: false,
@@ -238,6 +240,8 @@
             (this.operations = doc.data().operations),
             (this.software = doc.data().software),
             (this.ai = doc.data().ai),
+            (this.sales = doc.data().sales),
+            (this.customer = doc.data().customer),
             (this.vrar = doc.data().vrar),
             (this.blockchain = doc.data().blockchain);
             if (doc.data().whyme != null) {
@@ -344,7 +348,7 @@
               });
             })
           ).then(() => {
-            this.uniquejobs = uniqBy(this.jobs, "description")
+            this.uniquejobs = uniqBy(this.jobs, "ID")
           })
         );
     },
@@ -364,6 +368,26 @@
             firestore
             .collection("EmployeeSearches")
             .where("design", "==", this.design)
+            .get()
+            .then(querySnapshot => {
+              querySnapshot.forEach(doc => {
+                this.saveJob(doc);
+              });
+            })
+          ).then(() =>
+            firestore
+            .collection("EmployeeSearches")
+            .where("sales", "==", this.sales)
+            .get()
+            .then(querySnapshot => {
+              querySnapshot.forEach(doc => {
+                this.saveJob(doc);
+              });
+            })
+          ).then(() =>
+            firestore
+            .collection("EmployeeSearches")
+            .where("customer", "==", this.customer)
             .get()
             .then(querySnapshot => {
               querySnapshot.forEach(doc => {
@@ -425,6 +449,26 @@
                 this.saveJob(doc);
               });
             })
+          ).then(() =>
+            firestore
+            .collection("EmployeeSearches")
+            .where("sales", "==", this.sales)
+            .get()
+            .then(querySnapshot => {
+              querySnapshot.forEach(doc => {
+                this.saveJob(doc);
+              });
+            })
+          ).then(() =>
+            firestore
+            .collection("EmployeeSearches")
+            .where("customer", "==", this.customer)
+            .get()
+            .then(querySnapshot => {
+              querySnapshot.forEach(doc => {
+                this.saveJob(doc);
+              });
+            })
           )
           .then(() =>
             firestore
@@ -436,13 +480,14 @@
                 this.saveJob(doc);
               });
             }).then(() => {
-              this.uniquejobs = uniqBy(this.jobs, "description")
+              this.uniquejobs = uniqBy(this.jobs, "ID")
             })
           );
       },
   
       saveJob: function(doc) {
         let data = {
+          ID: doc.data().ID,
           description: doc.data().description,
           userlikes: doc.data().userlikes,
           likedbythisuser: this.checkLike(doc.data().userlikes),
@@ -509,6 +554,8 @@
           this.operations == false &&
           this.ai == false &&
           this.vrar == false &&
+          this.sales == false &&
+          this.customer == false &&
           this.software == false &&
           this.blockchain == false
         ) {
@@ -574,18 +621,18 @@
         job.userlikes.push(this.ID);
         this.$store.dispatch("updateLike", {
           userlikes: job.userlikes,
-          job: job.description
+          job: job.ID
         });
-        this.uniquejobs.find(item => (item.description == job.description)).likedbythisuser = true;
+        this.uniquejobs.find(item => (item.ID == job.ID)).likedbythisuser = true;
       },
   
       removeLike: function(job) {
         job.userlikes.splice(job.userlikes.indexOf(this.ID), 1);
         this.$store.dispatch("updateLike", {
           userlikes: job.userlikes,
-          job: job.description
+          job: job.ID
         });
-        this.uniquejobs.find(item => (item.description == job.description)).likedbythisuser = false;
+        this.uniquejobs.find(item => (item.ID == job.ID)).likedbythisuser = false;
       },
       checkLike(userlikes) {
         // return userlikes.some(userlikes => userlikes.ID === this.ID);

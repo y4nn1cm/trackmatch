@@ -2,7 +2,7 @@
   <div>
     <h3 style="text-align:center">Job offerings by {{this.company}}</h3>
     <div class="line" style="margin-top:4vw"></div>
-    <v-card v-for="job in getJobs" :key="job.description" style="margin-top:6vw; margin-left:0; margin-right:0; padding:3vw">
+    <v-card v-for="job in getJobs" :key="job.ID" style="margin-top:6vw; margin-left:0; margin-right:0; padding:3vw">
     <v-layout align-top style="margin-top:3vw" row wrap>
       <v-flex xs2>
         <img class="employee-picture" :src="job.logo">
@@ -89,7 +89,7 @@
           <v-btn class="select" style="margin-left:1vw; margin-right:0; margin-top:5vw; padding:0" @click="neutral = !neutral">Delete Job</v-btn>
         </div>
         <div v-else>
-          <v-btn class="select" @click="deleteJobsearch(job.description)" style="margin:0; padding:0; margin-top:5vw; width:12vw">Confirm</v-btn>
+          <v-btn class="select" @click="deleteJobsearch(job.ID)" style="margin:0; padding:0; margin-top:5vw; width:12vw">Confirm</v-btn>
           <v-btn class="select" @click="neutral = !neutral" style="margin:0; margin-top:5vw; padding:0; width:12vw">Cancel</v-btn>
         </div>
       </v-flex>
@@ -171,6 +171,7 @@
           .then(querySnapshot => {
             querySnapshot.forEach(doc => {
               let data = {
+                ID: doc.data().ID,
                 description: doc.data().description,
                 company: doc.data().company,
                 website: doc.data().website,
@@ -219,7 +220,7 @@
         job.advocates.push(this.ID);
         this.$store
           .dispatch("updateAdvocacy", {
-            job: job.description,
+            job: job.ID,
             advocates: job.advocates
           })
           .then(function() {
@@ -229,14 +230,14 @@
             console.error("Error adding advocacy: ", error);
           });
         this.neutral = true;
-        this.jobs.find(item => (item.description == job.description)).isadvocate = true;
+        this.jobs.find(item => (item.ID == job.ID)).isadvocate = true;
       },
   
       removeAdvocacy: function(job) {
         job.advocates.splice(job.advocates.indexOf(this.ID), 1);
         this.$store
           .dispatch("updateAdvocacy", {
-            job: job.description,
+            job: job.ID,
             advocates: job.advocates
           })
           .then(function() {
@@ -246,7 +247,7 @@
             console.error("Error removing advocacy: ", error);
           });
         this.neutral = true;
-        this.jobs.find(item => (item.description == job.description)).isadvocate = false;
+        this.jobs.find(item => (item.ID == job.ID)).isadvocate = false;
       },
   
       checkAdvocacy(advocates) {
@@ -254,10 +255,10 @@
         return advocates.includes(this.ID)
       },
   
-      deleteJobsearch: function(desc) {
+      deleteJobsearch: function(ID) {
         this.$store
           .dispatch("deleteDocument", {
-            document: desc,
+            document: ID,
             collection: "EmployeeSearches"
           })
           .then(function() {
@@ -275,6 +276,7 @@
               this.jobs = [];
               querySnapshot.forEach(doc => {
                 let data = {
+                  ID: doc.data().ID,
                   company: doc.data().company,
                   website: doc.data().website,
                   background1: doc.data().area1,
@@ -305,7 +307,7 @@
     },
     computed: {
       getJobs() {
-        return uniqBy(this.jobs, "description");
+        return uniqBy(this.jobs, "ID");
       }
     }
   };

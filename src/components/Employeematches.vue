@@ -102,30 +102,6 @@
         select: true,
         activities: [],
         company: null,
-        background1: null,
-        experience: null,
-        background2: null,
-        adaptability: null,
-        perseverence: null,
-        collaboration: null,
-        goalorientation: null,
-        detailorientation: null,
-        customerorientation: null,
-        product: null,
-        design: null,
-        business: null,
-        operations: null,
-        software: null,
-        ai: null,
-        vrar: null,
-        blockchain: null,
-        leadership: null,
-        athmosphere: null,
-        roles: null,
-        moneysatisfaction: null,
-        freedom: null,
-        teamwork: null,
-        pragmatism: null,
         candidates: [],
         uniquecandidates: [],
         email: null,
@@ -178,6 +154,8 @@
               design: doc.data().logo,
               business: doc.data().business,
               product: doc.data().product,
+              sales: doc.data().sales,
+              customer: doc.data().customer,
               operations: doc.data().operations,
               software: doc.data().software,
               vrar: doc.data().vrar,
@@ -228,6 +206,28 @@
               firestore
               .collection("Users")
               .where("product", "==", item.product)
+              .where("searchjob", "==", true)
+              .get()
+              .then(querySnapshot => {
+                querySnapshot.forEach(doc => {
+                  this.saveCandidate(doc);
+                });
+              })
+            ).then(() =>
+              firestore
+              .collection("Users")
+              .where("sales", "==", item.sales)
+              .where("searchjob", "==", true)
+              .get()
+              .then(querySnapshot => {
+                querySnapshot.forEach(doc => {
+                  this.saveCandidate(doc);
+                });
+              })
+            ).then(() =>
+              firestore
+              .collection("Users")
+              .where("customer", "==", item.customer)
               .where("searchjob", "==", true)
               .get()
               .then(querySnapshot => {
