@@ -49,12 +49,12 @@
       </v-text-field>
       <div class="line" style="margin-top:5%"></div>
       <h4>Which job roles do you do?</h4>
-      <p class="body-2">Business and Product</p>
+      <p class="body-2">Business and Product Experts</p>
       <v-checkbox style="margin:0%; padding:0" label="Product Mgmt and Concept" v-model="product" value=true></v-checkbox>
       <v-checkbox style="margin:0%; padding:0" label="Design and User Experience" v-model="design" value=true></v-checkbox>
       <v-checkbox style="margin:0%; padding:0" label="Operations / Finance" v-model="operations" value=true></v-checkbox>
       <v-checkbox style="margin:0%; padding:0" label="Business Dev / Marketing" v-model="business" value=true></v-checkbox>
-      <p class="body-2">Technology</p>
+      <p class="body-2">Technology Heroes</p>
       <v-checkbox style="margin:0%; padding:0" label="Software / Web Development" v-model="software" value=true></v-checkbox>
       <v-checkbox style="margin:0%; padding:0" label="Virtual / Augmented Reality" v-model="vrar" value=true></v-checkbox>
       <v-checkbox style="margin:0%; padding:0" label="Artificial Intelligence" v-model="ai" value=true></v-checkbox>

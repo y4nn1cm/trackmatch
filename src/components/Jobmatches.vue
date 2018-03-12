@@ -27,39 +27,40 @@
           <p class="title" style="margin-bottom:2vw; margin-top:2vw; padding:0">{{job.description}}</p>
         </v-flex>
         <!--
-        <v-flex xs4>
-          <p class="body-2" style="margin-top:3vw; margin-bottom:1vw; padding:0; text-align:right; text-align:left">Culture fit: </p>
-          <p class="body-2" style="margin-top:1.5vw; margin-bottom:0; padding:0; text-align:right; text-align:left">Strengths fit:</p>
-        </v-flex>
-        <v-flex xs2>
-          <p class=title style="margin-top:2.5vw; margin-bottom:1vw; padding:0; text-align:left; color:rgb(34, 120, 207)"> {{job.culturefit}}%</p>
-          <p class=title style="margin-top:1.8vw; margin-bottom:0; padding:0; text-align:left; color:rgb(34, 120, 207)"> {{job.strengthsfit}}%</p>
-        </v-flex>
-        -->
+              <v-flex xs4>
+                <p class="body-2" style="margin-top:3vw; margin-bottom:1vw; padding:0; text-align:right; text-align:left">Culture fit: </p>
+                <p class="body-2" style="margin-top:1.5vw; margin-bottom:0; padding:0; text-align:right; text-align:left">Strengths fit:</p>
+              </v-flex>
+              <v-flex xs2>
+                <p class=title style="margin-top:2.5vw; margin-bottom:1vw; padding:0; text-align:left; color:rgb(34, 120, 207)"> {{job.culturefit}}%</p>
+                <p class=title style="margin-top:1.8vw; margin-bottom:0; padding:0; text-align:left; color:rgb(34, 120, 207)"> {{job.strengthsfit}}%</p>
+              </v-flex>
+              -->
         <v-flex xs12>
           <p style="text-align:justify; margin-top:3vw; margin-bottom:0; padding:0"><span style="font-weight:600">Job Purpose:</span> {{job.purpose}} <a v-if="job.jobad != null" target="_blank" :href="job.jobad"> - see details</a></p>
         </v-flex>
         <v-flex xs12>
           <p class="body-2" style="margin-top:2.5vw; margin-bottom:0; padding:0; text-align:left">
-          <span class="body-2" style="margin-top:1.4vw; margin-bottom:0; text-align:left"><span class="title">{{job.experience}}</span> years experience preferred</span></p>
+            <span class="body-2" style="margin-top:1.4vw; margin-bottom:0; text-align:left"><span class="title">{{job.experience}}</span> years experience preferred</span>
+          </p>
         </v-flex>
         <!--
-            <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Adaptability: {{job.adaptability}}</p>
-            <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Detailorientation: {{job.detailorientation}}</p>
-            <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Perseverence: {{job.perseverence}}</p>
-            <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Customerorientation: {{job.customerorientation}}</p>
-            <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Collaboration: {{job.collaboration}}</p>
-            <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Goalorientation: {{job.goalorientation}}</p>
-            -->
+                  <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Adaptability: {{job.adaptability}}</p>
+                  <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Detailorientation: {{job.detailorientation}}</p>
+                  <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Perseverence: {{job.perseverence}}</p>
+                  <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Customerorientation: {{job.customerorientation}}</p>
+                  <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Collaboration: {{job.collaboration}}</p>
+                  <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Goalorientation: {{job.goalorientation}}</p>
+                  -->
         <v-flex xs12>
           <!--
-            <div class="fineline"></div>
-            <p style="margin-top:0; margin-bottom:0; padding:0; font-weight:600"> Company vision</p>
-            <p style="text-align:justify; margin-bottom:5vw; padding:0">{{job.vision}}</p>
-            
-            <p style="font-weight:500; margin-top:1.5vw; margin-bottom:0; padding:0">Contact:</p>
-            <p style="font-weight:400; margin-top:0.5vw; margin-bottom:0; padding:0">{{job.email}} / {{job.phone}}</p>
-            -->
+                  <div class="fineline"></div>
+                  <p style="margin-top:0; margin-bottom:0; padding:0; font-weight:600"> Company vision</p>
+                  <p style="text-align:justify; margin-bottom:5vw; padding:0">{{job.vision}}</p>
+                  
+                  <p style="font-weight:500; margin-top:1.5vw; margin-bottom:0; padding:0">Contact:</p>
+                  <p style="font-weight:400; margin-top:0.5vw; margin-bottom:0; padding:0">{{job.email}} / {{job.phone}}</p>
+                  -->
           <v-expansion-panel expand style="margin-bottom:2vw; margin-top:5vw">
             <v-expansion-panel-content>
               <div style="font-weight:500" slot="header">Read our Vision</div>
@@ -105,22 +106,22 @@
               </v-card>
             </v-expansion-panel-content>
             <!--
-            <v-expansion-panel-content>
-              <div style="font-weight:500" slot="header">or apply directly</div>
-              <v-card>
-                <v-card-text>
-                  <p style="font-weight:500; margin-top:0; margin-bottom:1vw; padding:0">
-                    {{job.name}}
-                  </p>
-                  <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">
-                    <a :href="`mailto:${job.email}`" style="font-weight:400">{{job.email}}</a>
-                  </p>
-                  <p style="font-weight:400; margin-top:0; margin-bottom:0; padding:0">
-                    <a :href="`tel:${job.email}`" style="font-weight:400">{{job.phone}}</a></p>
-                </v-card-text>
-              </v-card>
-            </v-expansion-panel-content>
-            -->
+                  <v-expansion-panel-content>
+                    <div style="font-weight:500" slot="header">or apply directly</div>
+                    <v-card>
+                      <v-card-text>
+                        <p style="font-weight:500; margin-top:0; margin-bottom:1vw; padding:0">
+                          {{job.name}}
+                        </p>
+                        <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">
+                          <a :href="`mailto:${job.email}`" style="font-weight:400">{{job.email}}</a>
+                        </p>
+                        <p style="font-weight:400; margin-top:0; margin-bottom:0; padding:0">
+                          <a :href="`tel:${job.email}`" style="font-weight:400">{{job.phone}}</a></p>
+                      </v-card-text>
+                    </v-card>
+                  </v-expansion-panel-content>
+                  -->
           </v-expansion-panel>
           <v-btn class="button select" v-if="job.likedbythisuser" @click="removeLike(job)" style="text-align:left; margin:5vw; margin-left:0; padding:0">Remove Like</v-btn>
           <v-btn v-else class="button select teal" @click="giveLike(job)" style="text-align:left; margin:5vw; margin-left:0; padding:0; color:white">Like</v-btn>
@@ -197,7 +198,8 @@
         freedomfit: 0,
         strengthsfit: 0,
         culturefit: 0,
-        user: {}
+        user: {},
+        advocates: []
       };
     },
   
@@ -456,11 +458,39 @@
           experience: doc.data().experiencelevels,
           purpose: doc.data().purpose,
           //strengthsfit: this.calculateStrengthsFit(doc),
-          advocates: doc.data().advocates,
+          advocates: this.getAdvocates(doc.data().advocates),
           //culturefit: this.calculateCultureFit(doc),
           //fit: (this.strengthsfit + this.culturefit) / 2
         };
         this.jobs.push(data);
+      },
+  
+      getAdvocates: function(advocateids) {
+        var advocates = []
+        advocateids.forEach(ID => {
+          firestore
+            .collection("Users")
+            .where("ID", "==", ID)
+            .get().then(querySnapshot => {
+              querySnapshot.forEach(doc => {
+                let data = {
+                  ID: doc.data().ID,
+                  firstname: doc.data().firstname,
+                  lastname: doc.data().lastname,
+                  profilepicture: doc.data().profilepicture,
+                  goal: doc.data().goal,
+                  worklove: doc.data().worklove,
+                  linkedin: doc.data().linkedin,
+                  email: doc.data().email,
+                  background1: doc.data().background1,
+                  background2: doc.data().background2,
+                  phone: doc.data().phone
+                };
+                advocates.push(data);
+              });
+            });
+        })
+        return advocates
       },
   
       editProfile: function(event) {
@@ -541,20 +571,7 @@
       },
   
       giveLike: function(job) {
-        this.user = {
-          ID: this.ID,
-          firstname: this.firstname,
-          lastname: this.lastname,
-          profilepicture: this.profilepicture,
-          goal: this.goal,
-          whyme: this.whyme,
-          linkedin: this.linkedin,
-          culturefit: job.culturefit,
-          strengthsfit: job.strengthsfit,
-          email: this.email,
-          phone: this.phone
-        };
-        job.userlikes.push(this.user);
+        job.userlikes.push(this.ID);
         this.$store.dispatch("updateLike", {
           userlikes: job.userlikes,
           job: job.description
@@ -571,7 +588,8 @@
         this.uniquejobs.find(item => (item.description == job.description)).likedbythisuser = false;
       },
       checkLike(userlikes) {
-        return userlikes.some(userlikes => userlikes.ID === this.ID);
+        // return userlikes.some(userlikes => userlikes.ID === this.ID);
+        return userlikes.includes(this.ID)
       }
     },
     computed: {

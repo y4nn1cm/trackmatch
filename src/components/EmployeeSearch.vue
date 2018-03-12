@@ -44,279 +44,280 @@
         <v-text-field name="experience" label="Experience in years" id="experience" type="experience" v-model="experience" style="margin-top:0; border:0; font-size:10%" required>
         </v-text-field>
         <div class="text-xs-center">
-          <p v-if="describestrengths" style="margin-top:5vw; text-align:justify">We recommend applicants based on their strengths and fit with your company culture. Please describe with the following template which profile is most suitable for the job.</p>
           <!--
-        <p v-if="selectemployees" @click="selectemployees=false; describestrengths=true" style='text-align:left; margin-bottom:0px; font-size:2.5vw'>Alternatively, click to choose employees to serve as role models</p>
-        <p v-if="describestrengths" @click="selectemployees=true; describestrengths=false" style='text-align:left; margin-bottom:0px; font-size:2.5vw'>Define attributes manually instead</p>
-        <v-layout v-if="selectemployees" row wrap>
-          <v-flex xs4 v-for="employee in employees" :key="employee.lastname">
-          <v-checkbox style="margin-top:7vw; margin-bottom:0; padding:0" :label="employee.firstname" :value="employee.ID" v-model="employeeselection">
-          </v-checkbox>
-          <img class="employee-picture" :src="employee.image">
-          </v-flex>
-        </v-layout>
-        -->
-        <!--
-          <div style="text-align:left" v-if="describestrengths">
-            <p style="margin-top:5vw">Distribute 18 points on the following 6 strengths according to your own priorities: <span style="font-weight:500">required!</span></p>
-            <p>Points left: {{pointsleft}}</p>
-            <v-layout row wrap align-baseline>
-              <v-flex xs2>
-                <v-btn @click="minusAdaptability" style="min-width:0">-</v-btn>
-              </v-flex>
-              <v-flex xs8>
-                <p class=strengths>Adaptability: {{adaptability}}</p>
-              </v-flex>
-              <v-flex xs2>
-                <v-btn @click='plusAdaptability' style="min-width:0">+</v-btn>
-              </v-flex>
-  
-              <v-flex xs2>
-                <v-btn @click='minusDetailorientation' style="min-width:0">-</v-btn>
-              </v-flex>
-              <v-flex xs8>
-                <p class=strengths>Detail orientation: {{detailorientation}}</p>
-              </v-flex>
-              <v-flex xs2>
-                <v-btn @click='plusDetailorientation' style="min-width:0">+</v-btn>
-              </v-flex>
-  
-              <v-flex xs2>
-                <v-btn @click='minusGoalorientation' style="min-width:0">-</v-btn>
-              </v-flex>
-              <v-flex xs8>
-                <p class=strengths>Goal orientation: {{goalorientation}}</p>
-              </v-flex>
-              <v-flex xs2>
-                <v-btn @click='plusGoalorientation' style="min-width:0">+</v-btn>
-              </v-flex>
-  
-              <v-flex xs2>
-                <v-btn @click='minusCustomerorientation' style="min-width:0">-</v-btn>
-              </v-flex>
-              <v-flex xs8>
-                <p class=strengths>Customer centricity: {{customerorientation}}</p>
-              </v-flex>
-              <v-flex xs2>
-                <v-btn @click='plusCustomerorientation' style="min-width:0">+</v-btn>
-              </v-flex>
-  
-              <v-flex xs2>
-                <v-btn @click='minusperseverence' style="min-width:0">-</v-btn>
-              </v-flex>
-              <v-flex xs8>
-                <p class=strengths>Perseverence: {{perseverence}}</p>
-              </v-flex>
-              <v-flex xs2>
-                <v-btn @click='plusperseverence' style="min-width:0">+</v-btn>
-              </v-flex>
-  
-              <v-flex xs2>
-                <v-btn @click='minusCollaboration' style="min-width:0">-</v-btn>
-              </v-flex>
-              <v-flex xs8>
-                <p class=strengths>Collaboration: {{collaboration}}</p>
-              </v-flex>
-              <v-flex xs2>
-                <v-btn @click='plusCollaboration' style="min-width:0">+</v-btn>
-              </v-flex>
-            </v-layout>
-          </div>
-          <div style="text-align:left" v-if="describeculture">
-            <p style="margin-top:7vw; text-align:justify">Please outline your companies work environment. You can do so by using the following seven categories: <span style="font-weight:500">required!</span></p>
-            <v-layout row wrap align-center>
-              <v-flex xs12>
-                <p class="body-2" style="text-align:center; margin-bottom:0">Our Leadership is:</p>
-              </v-flex>
-              <v-flex xs3>
-                <p style="text-align:right; margin-right:15%">Strong</p>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="1" v-model="leadership"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="2" v-model="leadership"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="3" v-model="leadership"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="4" v-model="leadership"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="5" v-model="leadership"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="6" v-model="leadership"></v-radio>
-              </v-flex>
-              <v-flex xs3>
-                <p style="margin-left:10px">Loose</p>
-              </v-flex>
-              <v-flex xs12>
-                <p class="body-2" style="text-align:center; margin-bottom:0">We gain Job Satisfaction from:</p>
-              </v-flex>
-              <v-flex xs3>
-                <p style="text-align:right; margin-right:15%">Salary</p>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="1" v-model="moneysatisfaction"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="2" v-model="moneysatisfaction"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="3" v-model="moneysatisfaction"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="4" v-model="moneysatisfaction"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="5" v-model="moneysatisfaction"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="6" v-model="moneysatisfaction"></v-radio>
-              </v-flex>
-              <v-flex xs3>
-                <p style="margin-left:10px">Impact / Fun</p>
-              </v-flex>
-              <v-flex xs12>
-                <p class="body-2" style="text-align:center; margin-bottom:0">We prefer working with:</p>
-              </v-flex>
-              <v-flex xs3>
-                <p style="text-align:right; margin-right:15%">Freestyle</p>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="1" v-model="freedom"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="2" v-model="freedom"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="3" v-model="freedom"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="4" v-model="freedom"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="5" v-model="freedom"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="6" v-model="freedom"></v-radio>
-              </v-flex>
-              <v-flex xs3>
-                <p style="margin-left:10px">Guidelines</p>
-              </v-flex>
-              <v-flex xs12>
-                <p class="body-2" style="text-align:center; margin-bottom:0">Our ideal Athmosphere is:</p>
-              </v-flex>
-              <v-flex xs3>
-                <p style="text-align:right; margin-right:15%">Relaxed</p>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="1" v-model="athmosphere"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="2" v-model="athmosphere"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="3" v-model="athmosphere"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="4" v-model="athmosphere"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="5" v-model="athmosphere"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="6" v-model="athmosphere"></v-radio>
-              </v-flex>
-              <v-flex xs3>
-                <p style="margin-left:10px">Professional</p>
-              </v-flex>
-              <v-flex xs12>
-                <p class="body-2" style="text-align:center; margin-bottom:0">We preferably work:</p>
-              </v-flex>
-              <v-flex xs3>
-                <p style="text-align:right; margin-right:15%">Alone</p>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="1" v-model="teamwork"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="2" v-model="teamwork"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="3" v-model="teamwork"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="4" v-model="teamwork"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="5" v-model="teamwork"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="6" v-model="teamwork"></v-radio>
-              </v-flex>
-              <v-flex xs3>
-                <p style="margin-left:10px">In Teams</p>
-              </v-flex>
-              <v-flex xs12>
-                <p class="body-2" style="text-align:center; margin-bottom:0">We enjoy our Roles to be:</p>
-              </v-flex>
-              <v-flex xs3>
-                <p style="text-align:right; margin-right:15%">Fluid</p>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="1" v-model="roles"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="2" v-model="roles"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="3" v-model="roles"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="4" v-model="roles"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="5" v-model="roles"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="6" v-model="roles"></v-radio>
-              </v-flex>
-              <v-flex xs3>
-                <p style="margin-left:10px">Fixed</p>
-              </v-flex>
-              <v-flex xs12>
-                <p class="body-2" style="text-align:center; margin-bottom:0">We approach tasks with:</p>
-              </v-flex>
-              <v-flex xs3>
-                <p style="text-align:right; margin-right:15%">Processes</p>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="1" v-model="pragmatism"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="2" v-model="pragmatism"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="3" v-model="pragmatism"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="4" v-model="pragmatism"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="5" v-model="pragmatism"></v-radio>
-              </v-flex>
-              <v-flex xs1>
-                <v-radio value="6" v-model="pragmatism"></v-radio>
-              </v-flex>
-              <v-flex xs3>
-                <p style="margin-left:10px">Pragmatism</p>
-              </v-flex>
-            </v-layout>
-          </div>
+            <p v-if="describestrengths" style="margin-top:5vw; text-align:justify">We recommend applicants based on their strengths and fit with your company culture. Please describe with the following template which profile is most suitable for the job.</p>
+            
+          <p v-if="selectemployees" @click="selectemployees=false; describestrengths=true" style='text-align:left; margin-bottom:0px; font-size:2.5vw'>Alternatively, click to choose employees to serve as role models</p>
+          <p v-if="describestrengths" @click="selectemployees=true; describestrengths=false" style='text-align:left; margin-bottom:0px; font-size:2.5vw'>Define attributes manually instead</p>
+          <v-layout v-if="selectemployees" row wrap>
+            <v-flex xs4 v-for="employee in employees" :key="employee.lastname">
+            <v-checkbox style="margin-top:7vw; margin-bottom:0; padding:0" :label="employee.firstname" :value="employee.ID" v-model="employeeselection">
+            </v-checkbox>
+            <img class="employee-picture" :src="employee.image">
+            </v-flex>
+          </v-layout>
           -->
+          <!--
+            <div style="text-align:left" v-if="describestrengths">
+              <p style="margin-top:5vw">Distribute 18 points on the following 6 strengths according to your own priorities: <span style="font-weight:500">required!</span></p>
+              <p>Points left: {{pointsleft}}</p>
+              <v-layout row wrap align-baseline>
+                <v-flex xs2>
+                  <v-btn @click="minusAdaptability" style="min-width:0">-</v-btn>
+                </v-flex>
+                <v-flex xs8>
+                  <p class=strengths>Adaptability: {{adaptability}}</p>
+                </v-flex>
+                <v-flex xs2>
+                  <v-btn @click='plusAdaptability' style="min-width:0">+</v-btn>
+                </v-flex>
+    
+                <v-flex xs2>
+                  <v-btn @click='minusDetailorientation' style="min-width:0">-</v-btn>
+                </v-flex>
+                <v-flex xs8>
+                  <p class=strengths>Detail orientation: {{detailorientation}}</p>
+                </v-flex>
+                <v-flex xs2>
+                  <v-btn @click='plusDetailorientation' style="min-width:0">+</v-btn>
+                </v-flex>
+    
+                <v-flex xs2>
+                  <v-btn @click='minusGoalorientation' style="min-width:0">-</v-btn>
+                </v-flex>
+                <v-flex xs8>
+                  <p class=strengths>Goal orientation: {{goalorientation}}</p>
+                </v-flex>
+                <v-flex xs2>
+                  <v-btn @click='plusGoalorientation' style="min-width:0">+</v-btn>
+                </v-flex>
+    
+                <v-flex xs2>
+                  <v-btn @click='minusCustomerorientation' style="min-width:0">-</v-btn>
+                </v-flex>
+                <v-flex xs8>
+                  <p class=strengths>Customer centricity: {{customerorientation}}</p>
+                </v-flex>
+                <v-flex xs2>
+                  <v-btn @click='plusCustomerorientation' style="min-width:0">+</v-btn>
+                </v-flex>
+    
+                <v-flex xs2>
+                  <v-btn @click='minusperseverence' style="min-width:0">-</v-btn>
+                </v-flex>
+                <v-flex xs8>
+                  <p class=strengths>Perseverence: {{perseverence}}</p>
+                </v-flex>
+                <v-flex xs2>
+                  <v-btn @click='plusperseverence' style="min-width:0">+</v-btn>
+                </v-flex>
+    
+                <v-flex xs2>
+                  <v-btn @click='minusCollaboration' style="min-width:0">-</v-btn>
+                </v-flex>
+                <v-flex xs8>
+                  <p class=strengths>Collaboration: {{collaboration}}</p>
+                </v-flex>
+                <v-flex xs2>
+                  <v-btn @click='plusCollaboration' style="min-width:0">+</v-btn>
+                </v-flex>
+              </v-layout>
+            </div>
+            <div style="text-align:left" v-if="describeculture">
+              <p style="margin-top:7vw; text-align:justify">Please outline your companies work environment. You can do so by using the following seven categories: <span style="font-weight:500">required!</span></p>
+              <v-layout row wrap align-center>
+                <v-flex xs12>
+                  <p class="body-2" style="text-align:center; margin-bottom:0">Our Leadership is:</p>
+                </v-flex>
+                <v-flex xs3>
+                  <p style="text-align:right; margin-right:15%">Strong</p>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="1" v-model="leadership"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="2" v-model="leadership"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="3" v-model="leadership"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="4" v-model="leadership"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="5" v-model="leadership"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="6" v-model="leadership"></v-radio>
+                </v-flex>
+                <v-flex xs3>
+                  <p style="margin-left:10px">Loose</p>
+                </v-flex>
+                <v-flex xs12>
+                  <p class="body-2" style="text-align:center; margin-bottom:0">We gain Job Satisfaction from:</p>
+                </v-flex>
+                <v-flex xs3>
+                  <p style="text-align:right; margin-right:15%">Salary</p>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="1" v-model="moneysatisfaction"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="2" v-model="moneysatisfaction"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="3" v-model="moneysatisfaction"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="4" v-model="moneysatisfaction"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="5" v-model="moneysatisfaction"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="6" v-model="moneysatisfaction"></v-radio>
+                </v-flex>
+                <v-flex xs3>
+                  <p style="margin-left:10px">Impact / Fun</p>
+                </v-flex>
+                <v-flex xs12>
+                  <p class="body-2" style="text-align:center; margin-bottom:0">We prefer working with:</p>
+                </v-flex>
+                <v-flex xs3>
+                  <p style="text-align:right; margin-right:15%">Freestyle</p>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="1" v-model="freedom"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="2" v-model="freedom"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="3" v-model="freedom"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="4" v-model="freedom"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="5" v-model="freedom"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="6" v-model="freedom"></v-radio>
+                </v-flex>
+                <v-flex xs3>
+                  <p style="margin-left:10px">Guidelines</p>
+                </v-flex>
+                <v-flex xs12>
+                  <p class="body-2" style="text-align:center; margin-bottom:0">Our ideal Athmosphere is:</p>
+                </v-flex>
+                <v-flex xs3>
+                  <p style="text-align:right; margin-right:15%">Relaxed</p>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="1" v-model="athmosphere"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="2" v-model="athmosphere"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="3" v-model="athmosphere"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="4" v-model="athmosphere"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="5" v-model="athmosphere"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="6" v-model="athmosphere"></v-radio>
+                </v-flex>
+                <v-flex xs3>
+                  <p style="margin-left:10px">Professional</p>
+                </v-flex>
+                <v-flex xs12>
+                  <p class="body-2" style="text-align:center; margin-bottom:0">We preferably work:</p>
+                </v-flex>
+                <v-flex xs3>
+                  <p style="text-align:right; margin-right:15%">Alone</p>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="1" v-model="teamwork"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="2" v-model="teamwork"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="3" v-model="teamwork"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="4" v-model="teamwork"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="5" v-model="teamwork"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="6" v-model="teamwork"></v-radio>
+                </v-flex>
+                <v-flex xs3>
+                  <p style="margin-left:10px">In Teams</p>
+                </v-flex>
+                <v-flex xs12>
+                  <p class="body-2" style="text-align:center; margin-bottom:0">We enjoy our Roles to be:</p>
+                </v-flex>
+                <v-flex xs3>
+                  <p style="text-align:right; margin-right:15%">Fluid</p>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="1" v-model="roles"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="2" v-model="roles"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="3" v-model="roles"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="4" v-model="roles"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="5" v-model="roles"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="6" v-model="roles"></v-radio>
+                </v-flex>
+                <v-flex xs3>
+                  <p style="margin-left:10px">Fixed</p>
+                </v-flex>
+                <v-flex xs12>
+                  <p class="body-2" style="text-align:center; margin-bottom:0">We approach tasks with:</p>
+                </v-flex>
+                <v-flex xs3>
+                  <p style="text-align:right; margin-right:15%">Processes</p>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="1" v-model="pragmatism"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="2" v-model="pragmatism"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="3" v-model="pragmatism"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="4" v-model="pragmatism"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="5" v-model="pragmatism"></v-radio>
+                </v-flex>
+                <v-flex xs1>
+                  <v-radio value="6" v-model="pragmatism"></v-radio>
+                </v-flex>
+                <v-flex xs3>
+                  <p style="margin-left:10px">Pragmatism</p>
+                </v-flex>
+              </v-layout>
+            </div>
+            -->
           <v-btn class="teal button" style="color:white; margin-top:10vw; font-size:3.5vw;" type="submit">Create Employee Search</v-btn>
         </div>
       </form>

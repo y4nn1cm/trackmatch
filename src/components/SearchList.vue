@@ -201,6 +201,7 @@
   
     methods: {
       becomeAdvocate: function(job) {
+        /*
         this.advocate = {
           ID: this.ID,
           firstname: this.firstname,
@@ -214,7 +215,8 @@
           background2: this.background2,
           phone: this.phone
         };
-        job.advocates.push(this.advocate);
+        */
+        job.advocates.push(this.ID);
         this.$store
           .dispatch("updateAdvocacy", {
             job: job.description,
@@ -248,7 +250,8 @@
       },
   
       checkAdvocacy(advocates) {
-        return advocates.some(advocates => advocates.ID === this.ID);
+        //return advocates.some(advocates => advocates.ID === this.ID);
+        return advocates.includes(this.ID)
       },
   
       deleteJobsearch: function(desc) {
