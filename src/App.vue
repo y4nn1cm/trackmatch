@@ -52,7 +52,7 @@
       </v-toolbar-items>
     </v-toolbar>
     <main>
-      <v-container fluid>
+      <v-container fluid style="padding:4vw">
         <router-view></router-view>
       </v-container>
     </main>
@@ -94,31 +94,28 @@ import firestore from './main'
 
           if (this.searchjob == true && this.helphiring == true) {
             return [
-      { title: 'Home', path: '/home', icon: 'home' },
-      { title: 'Edit Profile', path: '/details', icon: 'face' },
-      { title: 'My Job Matches', path: '/jobmatches', icon: 'check_circle' },
+      { title: 'Browse Job Postings', path: '/jobmatches', icon: 'check_circle' },
       { title: 'Create Position', path: '/employeesearch', icon: 'find_in_page' },
       { title: 'Our Open Positions', path: '/searchlist', icon: 'list' },
-      { title: 'Candidate Matches', path: '/candidates', icon: 'perm_identity' }
+      { title: 'Candidate Matches', path: '/candidates', icon: 'perm_identity' },
+      { title: 'Edit Profile', path: '/details', icon: 'face' }      
           ]
           }
 
           if (this.searchjob == true && this.helphiring == false) {
             return [
-      { title: 'Home', path: '/home', icon: 'home' },
-      { title: 'Edit Profile', path: '/details', icon: 'face' },
-      { title: 'My Job Matches', path: '/jobmatches', icon: 'check_circle' },
+      { title: 'Browse Job Postings', path: '/jobmatches', icon: 'check_circle' },
+      { title: 'Edit Profile', path: '/details', icon: 'face' }
           ]
           }
 
           if (this.searchjob == false && this.helphiring == true) {
             return [
-      { title: 'Home', path: '/home', icon: 'home' },
-      { title: 'Edit Profile', path: '/details', icon: 'face' },
       { title: 'Browse Job Postings', path: '/jobmatches', icon: 'check_circle' },
       { title: 'Create Position', path: '/employeesearch', icon: 'find_in_page' },
       { title: 'Our Open Positions', path: '/searchlist', icon: 'list' },
-      { title: 'Candidate Matches', path: '/candidates', icon: 'perm_identity' }
+      { title: 'Candidate Matches', path: '/candidates', icon: 'perm_identity' },
+      { title: 'Edit Profile', path: '/details', icon: 'face' }
           ]
           }
 

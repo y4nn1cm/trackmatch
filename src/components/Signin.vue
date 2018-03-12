@@ -12,22 +12,10 @@
             </v-alert>
           </v-flex>
           <v-flex>
-            <v-text-field
-              name="email"
-              label="Email"
-              id="email"
-              type="email"
-              v-model="email"
-              required></v-text-field>
+            <v-text-field name="email" label="Email" id="email" type="email" v-model="email" required></v-text-field>
           </v-flex>
           <v-flex>
-            <v-text-field
-              name="password"
-              label="Password"
-              id="password"
-              type="password"
-              v-model="password"
-              required></v-text-field>
+            <v-text-field name="password" label="Password" id="password" type="password" v-model="password" required></v-text-field>
           </v-flex>
           <v-flex class="text-xs-center" mt-5>
             <v-btn class="teal select" style="color:white" type="submit">login</v-btn>
@@ -39,42 +27,42 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      email: "",
-      password: "",
-      alert: false
-    };
-  },
-
-  computed: {
-    error() {
-      return this.$store.getters.getError;
+  export default {
+    data() {
+      return {
+        email: "",
+        password: "",
+        alert: false
+      };
     },
-    loading() {
-      return this.$store.getters.getLoading;
-    }
-  },
-  watch: {
-    error(value) {
-      if (value) {
-        this.alert = true;
+  
+    computed: {
+      error() {
+        return this.$store.getters.getError;
+      },
+      loading() {
+        return this.$store.getters.getLoading;
       }
     },
-    alert(value) {
-      if (!value) {
-        this.$store.dispatch("setError", false);
+    watch: {
+      error(value) {
+        if (value) {
+          this.alert = true;
+        }
+      },
+      alert(value) {
+        if (!value) {
+          this.$store.dispatch("setError", false);
+        }
+      }
+    },
+    methods: {
+      userSignIn() {
+        this.$store.dispatch("userSignIn", {
+          email: this.email,
+          password: this.password
+        });
       }
     }
-  },
-  methods: {
-    userSignIn() {
-      this.$store.dispatch("userSignIn", {
-        email: this.email,
-        password: this.password
-      });
-    }
-  }
-};
+  };
 </script>

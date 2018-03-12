@@ -104,6 +104,7 @@ export const actions = {
       helphiring: payload.helphiring,
       searchjob: payload.searchjob,
       worklove: payload.worklove,
+      whyme: payload.whyme,
       goal: payload.goal,
       phone: payload.phone,
       email: payload.email,
