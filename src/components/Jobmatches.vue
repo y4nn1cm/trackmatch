@@ -8,7 +8,7 @@
       </p>
       <v-btn class="teal" style="color:white" @click="editProfile">update my profile</v-btn>
     </div>
-    <div style="margin-top:6vw; text-align:center " v-if="this.jobs.length==0">
+    <div style="margin-top:6vw; text-align:center " v-else-if="this.jobs.length==0">
       <p>
         There are currently no jobs for you. Please update your profile and the roles you are looking for.
       </p>
@@ -24,44 +24,44 @@
           </p>
         </v-flex>
         <v-flex xs12>
-          <p class="title" style="margin-bottom:2vw; margin-top:2vw; padding:0">{{job.description}}</p>
+          <p class="title" style="margin-bottom:5vw; margin-top:3vw; padding:0">{{job.description}}</p>
         </v-flex>
         <!--
-              <v-flex xs4>
-                <p class="body-2" style="margin-top:3vw; margin-bottom:1vw; padding:0; text-align:right; text-align:left">Culture fit: </p>
-                <p class="body-2" style="margin-top:1.5vw; margin-bottom:0; padding:0; text-align:right; text-align:left">Strengths fit:</p>
-              </v-flex>
-              <v-flex xs2>
-                <p class=title style="margin-top:2.5vw; margin-bottom:1vw; padding:0; text-align:left; color:rgb(34, 120, 207)"> {{job.culturefit}}%</p>
-                <p class=title style="margin-top:1.8vw; margin-bottom:0; padding:0; text-align:left; color:rgb(34, 120, 207)"> {{job.strengthsfit}}%</p>
-              </v-flex>
-              -->
+                <v-flex xs4>
+                  <p class="body-2" style="margin-top:3vw; margin-bottom:1vw; padding:0; text-align:right; text-align:left">Culture fit: </p>
+                  <p class="body-2" style="margin-top:1.5vw; margin-bottom:0; padding:0; text-align:right; text-align:left">Strengths fit:</p>
+                </v-flex>
+                <v-flex xs2>
+                  <p class=title style="margin-top:2.5vw; margin-bottom:1vw; padding:0; text-align:left; color:rgb(34, 120, 207)"> {{job.culturefit}}%</p>
+                  <p class=title style="margin-top:1.8vw; margin-bottom:0; padding:0; text-align:left; color:rgb(34, 120, 207)"> {{job.strengthsfit}}%</p>
+                </v-flex>
+                -->
         <v-flex xs12>
-          <p style="text-align:justify; margin-top:3vw; margin-bottom:0; padding:0"><span style="font-weight:600">Job Purpose:</span> {{job.purpose}} <a v-if="job.jobad != null" target="_blank" :href="job.jobad"> - see details</a></p>
+          <p style="text-align:justify; margin-top:0vw; margin-bottom:0; padding:0"><span style="font-weight:600">Job Purpose:</span> {{job.purpose}} <a v-if="job.jobad != null" target="_blank" :href="job.jobad"> - see details</a></p>
         </v-flex>
         <v-flex xs12>
-          <p class="body-2" style="margin-top:2.5vw; margin-bottom:0; padding:0; text-align:left">
+          <p class="body-2" style="margin-top:3vw; margin-bottom:0; padding:0; text-align:left">
             <span class="body-2" style="margin-top:1.4vw; margin-bottom:0; text-align:left"><span class="title">{{job.experience}}</span> years experience preferred</span>
           </p>
         </v-flex>
         <!--
-                  <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Adaptability: {{job.adaptability}}</p>
-                  <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Detailorientation: {{job.detailorientation}}</p>
-                  <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Perseverence: {{job.perseverence}}</p>
-                  <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Customerorientation: {{job.customerorientation}}</p>
-                  <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Collaboration: {{job.collaboration}}</p>
-                  <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Goalorientation: {{job.goalorientation}}</p>
-                  -->
+                    <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Adaptability: {{job.adaptability}}</p>
+                    <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Detailorientation: {{job.detailorientation}}</p>
+                    <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Perseverence: {{job.perseverence}}</p>
+                    <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Customerorientation: {{job.customerorientation}}</p>
+                    <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Collaboration: {{job.collaboration}}</p>
+                    <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Goalorientation: {{job.goalorientation}}</p>
+                    -->
         <v-flex xs12>
           <!--
-                  <div class="fineline"></div>
-                  <p style="margin-top:0; margin-bottom:0; padding:0; font-weight:600"> Company vision</p>
-                  <p style="text-align:justify; margin-bottom:5vw; padding:0">{{job.vision}}</p>
-                  
-                  <p style="font-weight:500; margin-top:1.5vw; margin-bottom:0; padding:0">Contact:</p>
-                  <p style="font-weight:400; margin-top:0.5vw; margin-bottom:0; padding:0">{{job.email}} / {{job.phone}}</p>
-                  -->
-          <v-expansion-panel expand style="margin-bottom:2vw; margin-top:5vw">
+                    <div class="fineline"></div>
+                    <p style="margin-top:0; margin-bottom:0; padding:0; font-weight:600"> Company vision</p>
+                    <p style="text-align:justify; margin-bottom:5vw; padding:0">{{job.vision}}</p>
+                    
+                    <p style="font-weight:500; margin-top:1.5vw; margin-bottom:0; padding:0">Contact:</p>
+                    <p style="font-weight:400; margin-top:0.5vw; margin-bottom:0; padding:0">{{job.email}} / {{job.phone}}</p>
+                    -->
+          <v-expansion-panel expand style="margin-bottom:0; margin-top:5vw">
             <v-expansion-panel-content>
               <div style="font-weight:500" slot="header">Read our Vision</div>
               <v-card>
@@ -106,25 +106,25 @@
               </v-card>
             </v-expansion-panel-content>
             <!--
-                  <v-expansion-panel-content>
-                    <div style="font-weight:500" slot="header">or apply directly</div>
-                    <v-card>
-                      <v-card-text>
-                        <p style="font-weight:500; margin-top:0; margin-bottom:1vw; padding:0">
-                          {{job.name}}
-                        </p>
-                        <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">
-                          <a :href="`mailto:${job.email}`" style="font-weight:400">{{job.email}}</a>
-                        </p>
-                        <p style="font-weight:400; margin-top:0; margin-bottom:0; padding:0">
-                          <a :href="`tel:${job.email}`" style="font-weight:400">{{job.phone}}</a></p>
-                      </v-card-text>
-                    </v-card>
-                  </v-expansion-panel-content>
-                  -->
+                    <v-expansion-panel-content>
+                      <div style="font-weight:500" slot="header">or apply directly</div>
+                      <v-card>
+                        <v-card-text>
+                          <p style="font-weight:500; margin-top:0; margin-bottom:1vw; padding:0">
+                            {{job.name}}
+                          </p>
+                          <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">
+                            <a :href="`mailto:${job.email}`" style="font-weight:400">{{job.email}}</a>
+                          </p>
+                          <p style="font-weight:400; margin-top:0; margin-bottom:0; padding:0">
+                            <a :href="`tel:${job.email}`" style="font-weight:400">{{job.phone}}</a></p>
+                        </v-card-text>
+                      </v-card>
+                    </v-expansion-panel-content>
+                    -->
           </v-expansion-panel>
-          <v-btn class="button select" v-if="job.likedbythisuser" @click="removeLike(job)" style="text-align:left; margin:5vw; margin-left:0; padding:0">Remove Like</v-btn>
-          <v-btn v-else class="button select teal" @click="giveLike(job)" style="text-align:left; margin:5vw; margin-left:0; padding:0; color:white">Like</v-btn>
+          <v-btn class="button select" v-if="job.likedbythisuser" @click="removeLike(job)" style="text-align:left; margin-top:7vw; margin-left:0; padding:0">Remove Like</v-btn>
+          <v-btn v-else class="button select teal" @click="giveLike(job)" style="text-align:left; margin-top:7vw; margin-left:0; padding:0; color:white">Like</v-btn>
         </v-flex>
       </v-layout>
     </v-card>
@@ -449,26 +449,6 @@
                 this.saveJob(doc);
               });
             })
-          ).then(() =>
-            firestore
-            .collection("EmployeeSearches")
-            .where("sales", "==", this.sales)
-            .get()
-            .then(querySnapshot => {
-              querySnapshot.forEach(doc => {
-                this.saveJob(doc);
-              });
-            })
-          ).then(() =>
-            firestore
-            .collection("EmployeeSearches")
-            .where("customer", "==", this.customer)
-            .get()
-            .then(querySnapshot => {
-              querySnapshot.forEach(doc => {
-                this.saveJob(doc);
-              });
-            })
           )
           .then(() =>
             firestore
@@ -479,12 +459,31 @@
               querySnapshot.forEach(doc => {
                 this.saveJob(doc);
               });
-            }).then(() => {
+            }).then(() =>
+              firestore
+              .collection("EmployeeSearches")
+              .where("sales", "==", this.sales)
+              .get()
+              .then(querySnapshot => {
+                querySnapshot.forEach(doc => {
+                  this.saveJob(doc);
+                });
+              })
+            ).then(() =>
+              firestore
+              .collection("EmployeeSearches")
+              .where("customer", "==", this.customer)
+              .get()
+              .then(querySnapshot => {
+                querySnapshot.forEach(doc => {
+                  this.saveJob(doc);
+                });
+              })
+            ).then(() => {
               this.uniquejobs = uniqBy(this.jobs, "ID")
             })
           );
       },
-  
       saveJob: function(doc) {
         let data = {
           ID: doc.data().ID,
@@ -641,11 +640,9 @@
     },
     computed: {
       getJobs() {
-        /*
         this.uniquejobs.sort(function(a, b) {
-          return b.fit - a.fit;
+          return b.id - a.id;
         });
-        */
         return this.uniquejobs;
       }
     }

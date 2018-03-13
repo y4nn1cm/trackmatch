@@ -89,8 +89,8 @@
           <v-btn class="select" style="margin-left:1vw; margin-right:0; margin-top:5vw; padding:0" @click="neutral = !neutral">Delete Job</v-btn>
         </div>
         <div v-else>
-          <v-btn class="select" @click="deleteJobsearch(job.ID)" style="margin:0; padding:0; margin-top:5vw; width:12vw">Confirm</v-btn>
-          <v-btn class="select" @click="neutral = !neutral" style="margin:0; margin-top:5vw; padding:0; width:12vw">Cancel</v-btn>
+          <v-btn class="select" @click="deleteJobsearch(job.ID)" style="margin-left:0; margin-right:1vw; margin-top:5vw; padding:0; width:12vw">Confirm</v-btn>
+          <v-btn class="select" @click="neutral = !neutral" style="margin-left:1vw; margin-right:0; margin-top:5vw; padding:0; width:12vw">Cancel</v-btn>
         </div>
       </v-flex>
     </v-layout>

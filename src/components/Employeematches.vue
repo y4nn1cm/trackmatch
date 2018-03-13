@@ -1,13 +1,13 @@
 <template>
   <div>
-    <h3 v-if="select" style="text-align:center">Press a job to see candidates</h3>
+    <h3 v-if="select" style="text-align:center">Press a job to find candidates</h3>
     <div v-else style="text-align:center">
       <h3 style="text-align:center; margin-bottom:0">Candidates for</h3>
       <p class="title" style="margin-top:0">{{description}}</p>
       <v-btn class="teal select" style="color:white; width:50vw" @click="select=true; candidates = []">Back to Job postings</v-btn>
     </div>
     <p style="text-align:center" v-if="noentries">Please create a position to find employees.</p>
-    <v-layout v-if="select" row wrap v-for="item in searchitems" :key="item.description">
+    <v-layout v-if="select" row wrap v-for="item in searchitems" :key="item.ID">
       <div class="line" style="margin-top:6vw; margin-bottom:2vw"></div>
       <v-flex xs2 @click="getCandidates(item)">
         <img class="logo-picture" style="margin-top:3vw" :src="item.logo">
@@ -37,31 +37,20 @@
           <p class="title" style="margin-bottom:2vw; margin-top:2vw; padding:0">{{candidate.firstname}} {{candidate.lastname}}</p>
         </v-flex>
         <v-flex xs12>
-          <p class="body-2" style="margin-top:0; margin-bottom:0; margin-left:0; padding:0">
+          <p class="body-2" style="margin-top:0; margin-bottom:3vw; margin-left:0; padding:0">
             {{candidate.background1}} / {{candidate.background2}}
           </p>
         </v-flex>
-        <v-flex xs6>
-          <p class="body-2" style="margin-top:2.5vw; margin-bottom:0; padding:0; text-align:left">
-            Experience:</p>
-          <p class="body-2" style="margin-top:1.4vw; margin-bottom:0; text-align:left"><span class="title">{{candidate.experience}}</span> years</p>
+        <v-flex xs12>
+          <p style="text-align:justify; margin-top:0vw; margin-bottom:0; padding:0"><span style="font-weight:600">My job goal:</span> {{candidate.goal}}</p>
         </v-flex>
-        <v-flex xs4>
-          <p class="body-2" style="margin-top:3vw; margin-bottom:1vw; padding:0; text-align:right; text-align:left">Culture fit: </p>
-          <p class="body-2" style="margin-top:1.5vw; margin-bottom:0; padding:0; text-align:right; text-align:left">Strengths fit:</p>
-        </v-flex>
-        <v-flex xs2>
-          <p class=title style="margin-top:2.5vw; margin-bottom:1vw; padding:0; text-align:left; color:rgb(34, 120, 207)"> {{candidate.culturefit}}%</p>
-          <p class=title style="margin-top:1.8vw; margin-bottom:0; padding:0; text-align:left; color:rgb(34, 120, 207)"> {{candidate.strengthsfit}}%</p>
+        <v-flex xs12>
+          <p class="body-2" style="margin-top:3vw; margin-bottom:0; padding:0; text-align:left">
+            <span class="body-2" style="margin-top:1.4vw; margin-bottom:0; text-align:left"><span class="title">{{candidate.experience}}</span> years experience</span>
+          </p>
         </v-flex>
         <v-flex xs12>
           <v-expansion-panel expand style="margin-bottom:2vw; margin-top:5vw">
-            <v-expansion-panel-content>
-              <div style="font-weight:500" slot="header">Job Goal</div>
-              <v-card>
-                <v-card-text>{{candidate.goal}}</v-card-text>
-              </v-card>
-            </v-expansion-panel-content>
             <v-expansion-panel-content>
               <div style="font-weight:500" slot="header">Why you should hire me</div>
               <v-card>
@@ -123,7 +112,7 @@
         culturefit: 0,
         searchitems: [],
         noentries: true,
-        description: null
+        description: null,
       };
     },
   
@@ -148,19 +137,20 @@
           querySnapshot.forEach(doc => {
             this.noentries = false;
             let data = {
+              ID: doc.data().ID,
               description: doc.data().description,
               purpose: doc.data().purpose,
               logo: doc.data().logo,
               design: doc.data().logo,
               business: doc.data().business,
               product: doc.data().product,
-              sales: doc.data().sales,
-              customer: doc.data().customer,
               operations: doc.data().operations,
               software: doc.data().software,
               vrar: doc.data().vrar,
               blockchain: doc.data().blockchain,
-              ai: doc.data().ai
+              ai: doc.data().ai,
+              sales: doc.data().sales,
+              customer: doc.data().customer
             };
             this.searchitems.push(data);
           });
@@ -172,7 +162,7 @@
         this.candidates = [];
         firestore
           .collection("EmployeeSearches")
-          .where("description", "==", item.description)
+          .where("ID", "==", item.ID)
           .get()
           .then(querySnapshot => {
             querySnapshot.forEach(doc => {
@@ -206,28 +196,6 @@
               firestore
               .collection("Users")
               .where("product", "==", item.product)
-              .where("searchjob", "==", true)
-              .get()
-              .then(querySnapshot => {
-                querySnapshot.forEach(doc => {
-                  this.saveCandidate(doc);
-                });
-              })
-            ).then(() =>
-              firestore
-              .collection("Users")
-              .where("sales", "==", item.sales)
-              .where("searchjob", "==", true)
-              .get()
-              .then(querySnapshot => {
-                querySnapshot.forEach(doc => {
-                  this.saveCandidate(doc);
-                });
-              })
-            ).then(() =>
-              firestore
-              .collection("Users")
-              .where("customer", "==", item.customer)
               .where("searchjob", "==", true)
               .get()
               .then(querySnapshot => {
@@ -306,11 +274,33 @@
                 querySnapshot.forEach(doc => {
                   this.saveCandidate(doc);
                 });
-              })
+              }).then(() =>
+                firestore
+                .collection("Users")
+                .where("sales", "==", item.sales)
+                .where("searchjob", "==", true)
+                .get()
+                .then(querySnapshot => {
+                  querySnapshot.forEach(doc => {
+                    this.saveCandidate(doc);
+                  });
+                })
+              ).then(() =>
+                firestore
+                .collection("Users")
+                .where("customer", "==", item.customer)
+                .where("searchjob", "==", true)
+                .get()
+                .then(querySnapshot => {
+                  querySnapshot.forEach(doc => {
+                    this.saveCandidate(doc);
+                  });
+                })
+              )
             )
           );
         this.select = false;
-        this.uniquejobs = uniqBy(this.jobs, "description");
+        this.uniquejobs = uniqBy(this.jobs, "ID");
         this.description = item.description;
         window.scrollTo(0, 0);
       },
@@ -381,7 +371,6 @@
       saveCandidate: function(doc) {
         let data = {
           image: doc.data().profilepicture,
-          description: doc.data().description,
           adaptability: doc.data().adaptability,
           perseverence: doc.data().perseverence,
           collaboration: doc.data().collaboration,
@@ -399,9 +388,9 @@
           goal: doc.data().goal,
           linkedin: doc.data().linkedin,
           ID: doc.data().ID,
-          strengthsfit: this.calculateStrengthsFit(doc),
-          culturefit: this.calculateCultureFit(doc),
-          fit: (this.strengthsfit + this.culturefit) / 2
+          //strengthsfit: this.calculateStrengthsFit(doc),
+          //culturefit: this.calculateCultureFit(doc),
+          //fit: (this.strengthsfit + this.culturefit) / 2
         };
         this.candidates.push(data);
       }
@@ -410,7 +399,7 @@
       getJobCandidates() {
         this.uniquecandidates = uniqBy(this.candidates, "ID");
         this.uniquecandidates.sort(function(a, b) {
-          return b.fit - a.fit;
+          return b.ID - a.ID;
         });
         return this.uniquecandidates;
       }
@@ -426,7 +415,7 @@
     border-radius: 10%;
     object-fit: cover;
   }
-
+  
   .logo-picture {
     width: 10vw;
     height: 10vw;
