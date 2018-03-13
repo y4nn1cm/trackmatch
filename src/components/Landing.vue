@@ -6,7 +6,7 @@
     </v-flex>
     <v-flex xs12 sm6 offset-sm3 mt-3>
       <blockquote>
-        Where Munich's <span style="font-weight:500">Talents</span> and <span style="font-weight:500">Professionals</span> match with visionary <span style="font-weight:500">Companies</span> and <span style="font-weight:500">Employees</span> to find and
+        Where Munich's <span style="font-weight:500">Talents</span> and <span style="font-weight:500">Professionals</span> meet <span style="font-weight:500">Employees</span> of visionary <span style="font-weight:500">Companies</span> to find and
         fill rewarding job opportunities!
       </blockquote>
     </v-flex>

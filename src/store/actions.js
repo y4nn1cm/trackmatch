@@ -214,6 +214,7 @@ export const actions = {
   userSignOut ({commit}) {
     firebase.auth().signOut()
     commit('setUser', null)
-    router.push('/')
+    window.location.replace("https://www.trackmatch.net")
+    //router.push('/')
   }
 }

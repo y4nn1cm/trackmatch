@@ -29,11 +29,11 @@
       </v-text-field>
       <v-text-field v-else required name="company" label="Current employer" id="company" type="company" v-model="company" style="margin-top:0; border:0">
       </v-text-field>
-      <v-text-field v-if="helphiring" name="worklove" label="Why should I join your company?" id="worklove" type="worklove" v-model="worklove" style="margin-top:0; border:0">
+      <v-text-field v-if="helphiring" name="worklove" label="Why should I join your company?" id="worklove" type="worklove" multi-line v-model="worklove" style="margin-top:0; border:0">
       </v-text-field>
-      <v-text-field v-if="searchjob" name="whyme" label="Why should I hire you?" id="whyme" type="whyme" v-model="whyme" style="margin-top:0; border:0">
+      <v-text-field v-if="searchjob" multi-line name="whyme" label="Why should I hire you?" id="whyme" type="whyme" v-model="whyme" style="margin-top:0; border:0">
       </v-text-field>
-      <v-text-field name="goal" label="Your summary (motivation, goals)" id="goal" type="goal" v-model="goal" style="margin-top:0; border:0">
+      <v-text-field name="goal" multi-line label="Your summary (motivation, goals)" id="goal" type="goal" v-model="goal" style="margin-top:0; border:0">
       </v-text-field>
       <v-text-field name="mail" label="Change contact mail" id="mail" type="mail" v-model="email" style="margin-top:0; border:0">
       </v-text-field>
@@ -515,89 +515,15 @@
         lastname: null,
         worklove: null,
         disciplineitems1: [
-          "Accounting and Finance",
-          "Architecture",
-          "Art",
-          "Chemistry",
-          "Company Building",
-          "Consulting",
-          "Culture Science",
-          "e-commerce",
-          "Education",
-          "Food",
-          "Governmental Institutions",
-          "Hardware Technology",
-          "Healthcare",
-          "History",
-          "International Relationships",
-          "Languages",
-          "Literature",
-          "Logistics",
-          "Marketing",
-          "Math",
-          "Media",
-          "Medicine",
-          "Music",
-          "Philosophy",
-          "Physics",
-          "Politics",
-          "Production",
-          "Psychology",
-          "Recruiting",
-          "Sales Tools",
-          "Social Media",
-          "Social Networks",
-          "Social Science",
-          "Software Technology",
-          "Sports",
-          "Tourism",
-          "Trade",
-          "Transportation",
-          "Venture Capital",
-          "Writing"
+          "Accounting", "Business Administration & Management", "Economics", "Finance", "Human Resource", "Innovation", "Marketing", "Aerospace", "Engineering", "Automotive Engineering", "Biological Engineering", "Chemical Engineering", "Civil Engineering", "Electrical Engineering", "Environmental Engineering", "Industrial Engineering", "Introductory Engineering", "Mechanical Engineering", "Medical Engineering", "Telecommunications Engineering", "Software & System Development", "Internet", "Multimedia", "Data Science", "Agriculture", "Biological Sciences", "Chemistry Sciences", "Environmental Sciences", "Mathematics", "Medicine & Healthcare", "Nutrition Science", "Sports Science", "Physics Sciences", "Psychology", "Law", "Political Science", "Sociology", "Politics", "Urban Studies and Planning", "News Media", "Journalism & Writing", "Anthropology", "Architecture", "Design", "Drama & Theatre", "History", "Language", "Literatures", "Musicology", "Philosophy", "Theology and Religion", "Ethnology", "Teaching", "Education Science", "Linguistics", "Subjects Education", "Youth Education"
         ],
         disciplineitems2: [
           "",
-          "Accounting and Finance",
-          "Architecture",
-          "Art",
-          "Chemistry",
-          "Company Building",
-          "Consulting",
-          "Culture Science",
-          "e-commerce",
-          "Education",
-          "Food",
-          "Governmental Institutions",
-          "Hardware Technology",
-          "Healthcare",
-          "History",
-          "International Relationships",
-          "Languages",
-          "Literature",
-          "Logistics",
-          "Marketing",
-          "Math",
-          "Media",
-          "Medicine",
-          "Music",
-          "Philosophy",
-          "Physics",
-          "Politics",
-          "Production",
-          "Psychology",
-          "Recruiting",
-          "Sales Tools",
-          "Social Media",
-          "Social Networks",
-          "Social Science",
-          "Software Technology",
-          "Sports",
-          "Tourism",
-          "Trade",
-          "Transportation",
-          "Venture Capital",
-          "Writing"
+          "Accounting", "Business Administration & Management", "Economics", "Finance", "Human Resource", "Innovation", "Marketing", "Aerospace", "Engineering", "Automotive Engineering", "Biological Engineering", "Chemical Engineering", "Civil Engineering", "Electrical Engineering", "Environmental Engineering", "Industrial Engineering", "Introductory Engineering", "Mechanical Engineering", "Medical Engineering", "Telecommunications Engineering", "Software & System Development", "Internet", "Multimedia", "Data Science", "Agriculture", "Biological Sciences", "Chemistry Sciences", "Environmental Sciences", "Mathematics", "Medicine & Healthcare", "Nutrition Science", "Sports Science", "Physics Sciences", "Psychology", "Law", "Political Science", "Sociology", "Politics", "Urban Studies and Planning", "News Media", "Journalism & Writing", "Anthropology", "Architecture", "Design", "Drama & Theatre", "History", "Language", "Literatures", "Musicology", "Philosophy", "Theology and Religion", "Ethnology", "Teaching", "Education Science", "Linguistics", "Subjects Education", "Youth Education"
+        ],
+        sectoritems: [
+          "",
+          "Accounting", "Business Administration & Management", "Economics", "Finance", "Human Resource", "Innovation", "Marketing", "Aerospace", "Engineering", "Automotive Engineering", "Biological Engineering", "Chemical Engineering", "Civil Engineering", "Electrical Engineering", "Environmental Engineering", "Industrial Engineering", "Introductory Engineering", "Mechanical Engineering", "Medical Engineering", "Telecommunications Engineering", "Software & System Development", "Internet", "Multimedia", "Data Science", "Agriculture", "Biological Sciences", "Chemistry Sciences", "Environmental Sciences", "Mathematics", "Medicine & Healthcare", "Nutrition Science", "Sports Science", "Physics Sciences", "Psychology", "Law", "Political Science", "Sociology", "Politics", "Urban Studies and Planning", "News Media", "Journalism & Writing", "Anthropology", "Architecture", "Design", "Drama & Theatre", "History", "Language", "Literatures", "Musicology", "Philosophy", "Theology and Religion", "Ethnology", "Teaching", "Education Science", "Linguistics", "Subjects Education", "Youth Education"
         ]
       };
     },

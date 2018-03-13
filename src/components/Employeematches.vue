@@ -25,13 +25,50 @@
               </v-card-text>
             </v-card>
           </v-expansion-panel-content>
+          <v-expansion-panel-content>
+              <div style="font-weight:700" slot="header">See likes of job seekers</div>
+              <v-card v-for="like in item.likes" :key="like.ID">
+                <v-card-text>
+                  <v-layout row wrap>
+                    <v-flex xs4>
+                      <img class="seeker-picture" :src="like.profilepicture">
+                    </v-flex>
+                    <v-flex xs8>
+                      <p style="font-weight:500; margin-top:0; margin-bottom:1vw; padding:0">
+                        {{like.firstname}} {{like.lastname}}
+                      </p>
+                      <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">
+                        {{like.background1}} / {{like.background2}}
+                      </p>
+                      <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">
+                        <a target="_blank" :href="like.linkedin" style="font-weight:400">LinkedIn / Xing</a>
+                      </p>
+                    </v-flex>
+                    <v-flex>
+                      <p style="font-weight:500; margin-top:2.5vw; margin-bottom:0vw; padding:0">Why you should hire me:</p>
+                      <p style="text-align:justify; font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">{{like.whyme}}</p>
+                      <p style="font-weight:500; margin-top:2.5vw; margin-bottom:0vw; padding:0">About myself:</p>
+                      <p style="text-align:justify; font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">{{like.goal}}</p>
+                      <p style="font-weight:500; margin-top:2.5vw; margin-bottom:0vw; padding:0">Please contact me:</p>
+                      <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">
+                        <a :href="`mailto:${like.email}`" style="font-weight:400">{{like.email}}</a>
+                      </p>
+                      <p style="font-weight:400; margin-top:0; margin-bottom:0; padding:0">
+                        <a :href="`tel:${like.phone}`" style="font-weight:400">{{like.phone}}</a>
+                      </p>
+                    </v-flex>
+                  </v-layout>
+                  <div class=line style="margin-top:2vw"></div>
+                </v-card-text>
+              </v-card>
+            </v-expansion-panel-content>
         </v-expansion-panel>
       </v-flex>
     </v-layout>
     <v-card v-for="candidate in getJobCandidates" :key="candidate.ID" row wrap style="margin-top:8vw; padding-top:5vw; padding-bottom:5vw; padding-left:4vw; padding-right:4vw">
       <v-layout align-top style="text-align:center" row wrap>
         <v-flex xs12>
-          <img class="employee-picture" :src="candidate.image">
+          <img class="seeker-picture" :src="candidate.image">
         </v-flex>
         <v-flex xs12>
           <p class="title" style="margin-bottom:2vw; margin-top:2vw; padding:0">{{candidate.firstname}} {{candidate.lastname}}</p>
@@ -150,7 +187,8 @@
               blockchain: doc.data().blockchain,
               ai: doc.data().ai,
               sales: doc.data().sales,
-              customer: doc.data().customer
+              customer: doc.data().customer,
+              likes: this.getLikes(doc.data().userlikes),
             };
             this.searchitems.push(data);
           });
@@ -158,6 +196,34 @@
     },
   
     methods: {
+      getLikes: function(userlikes) {
+        var likes = []
+        userlikes.forEach(ID => {
+          firestore
+            .collection("Users")
+            .where("ID", "==", ID)
+            .get().then(querySnapshot => {
+              querySnapshot.forEach(doc => {
+                let data = {
+                  ID: doc.data().ID,
+                  firstname: doc.data().firstname,
+                  lastname: doc.data().lastname,
+                  profilepicture: doc.data().profilepicture,
+                  goal: doc.data().goal,
+                  whyme: doc.data().whyme,
+                  linkedin: doc.data().linkedin,
+                  email: doc.data().email,
+                  background1: doc.data().background1,
+                  background2: doc.data().background2,
+                  phone: doc.data().phone
+                };
+                likes.push(data);
+              });
+            });
+        })
+        return likes
+      },
+
       getCandidates(item) {
         this.candidates = [];
         firestore
@@ -409,7 +475,8 @@
 
 <style>
   @import url("https://fonts.googleapis.com/css?family=Merriweather");
-  .employee-picture {
+  
+  .seeker-picture {
     width: 20vw;
     height: 20vw;
     border-radius: 10%;
