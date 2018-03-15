@@ -1,56 +1,42 @@
 <template>
   <v-app>
     <div class="center hidden-md-and-up">
+      <!-- TO DO : Picture Upload -->
       <img @click="editpicture=!editpicture" :src="profilepicture" class="profile-picture">
-      <div v-if="profilepicture === 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCmabCGq2mC6eLOAHLuIHI30k837EGKTzQB7wLe8DNRIIqaR0b'">
-        <a @click="editpicture=true" v-if="editpicture === false" style='text-align:center; font-size:2.5vw'>
-          <p>press to edit profile picture</p>
-        </a>
-        <div v-if="editpicture === true">
-          <a @click="editpicture=false">
-            <p style='text-align:center; margin-bottom:0px; font-size:2.5vw;'>press to close</p>
-          </a>
-          <form @submit.prevent="pictureUpload">
-            <v-text-field name="imageurl" label="PASTE LINK TO IMAGE HERE" id="imageurl" type="imageurl" v-model="imageurl" style="margin-bottom:0; padding-bottom:0">
-            </v-text-field>
-            <v-btn class="button teal" type="submit" style="margin-top:0; margin-bottom:5vw; padding-top:0; color:white">submit</v-btn>
-          </form>
-        </div>
-      </div>
       <h2>Hello {{ user }}</h2>
       <h3>Great that you are here!</h3>
       <v-layout style=margin-top:5vw row wrap>
         <v-flex class="text-xs-center">
           <div v-if="searchjob">
             <div v-if="ready!=0">
-              <v-btn class="teal select" @click="editProfile">First create my profile</v-btn>
-              <v-btn disabled @click="openSite('jobmatches')" class="teal select">Show my job matches</v-btn>
+              <v-btn style="background-color:rgb(56,174,179); color:white" class="select" @click="editProfile">First create my profile</v-btn>
+              <v-btn disabled @click="openSite('jobmatches')" style="background-color:rgb(56,174,179); color:white" class="select">Show my job matches</v-btn>
             </div>
-            <v-btn v-else @click="openSite('jobmatches')" class="teal select">Show my job matches</v-btn>
+            <v-btn v-else @click="openSite('jobmatches')" style="background-color:rgb(56,174,179); color:white" class="select">Show my job matches</v-btn>
           </div>
           <div v-else-if="helphiring">
             <div v-if="ready==null">
-              <v-btn class="teal select" @click="editProfile">First create my profile</v-btn>
-              <v-btn disabled @click="openSite('employeesearch')" class="teal select">create position</v-btn><br>
-              <v-btn disabled @click="openSite('candidates')" class="teal select">Show candidate matches</v-btn><br>
-              <v-btn disabled @click="openSite('searchlist')" class="teal select">Represent Jobs</v-btn>
+              <v-btn style="background-color:rgb(56,174,179); color:white" class="select" @click="editProfile">First create my profile</v-btn>
+              <v-btn disabled @click="openSite('employeesearch')" style="background-color:rgb(56,174,179); color:white" class="select">create position</v-btn><br>
+              <v-btn disabled @click="openSite('candidates')" style="background-color:rgb(56,174,179); color:white" class="select">Show candidate matches</v-btn><br>
+              <v-btn disabled @click="openSite('searchlist')" style="background-color:rgb(56,174,179); color:white" class="select">Represent Jobs</v-btn>
             </div>
             <div v-else>
               <div v-if="noentries">
-                <v-btn @click="openSite('employeesearch')" class="teal select">Next, create a position</v-btn><br>
-                <v-btn disabled @click="openSite('candidates')" class="teal select">Show candidate matches</v-btn><br>
-                <v-btn disabled @click="openSite('searchlist')" class="teal select">represent Jobs</v-btn>
+                <v-btn @click="openSite('employeesearch')" style="background-color:rgb(56,174,179); color:white" class="select">Next, create a position</v-btn><br>
+                <v-btn disabled @click="openSite('candidates')" style="background-color:rgb(56,174,179); color:white" class="select">Show candidate matches</v-btn><br>
+                <v-btn disabled @click="openSite('searchlist')" style="background-color:rgb(56,174,179); color:white" class="select">represent Jobs</v-btn>
               </div>
               <div v-else>
-                <v-btn @click="openSite('employeesearch')" class="teal select" style="color:white">create a position</v-btn><br>
-                <v-btn @click="openSite('candidates')" class="teal select">Show candidate matches</v-btn><br>
-                <v-btn @click="openSite('searchlist')" class="teal select">Represent Jobs</v-btn>
+                <v-btn @click="openSite('employeesearch')" class=" select" style="background-color:rgb(56,174,179); color:white">create a position</v-btn><br>
+                <v-btn @click="openSite('candidates')" style="background-color:rgb(56,174,179); color:white" class="select">Show candidate matches</v-btn><br>
+                <v-btn @click="openSite('searchlist')" style="background-color:rgb(56,174,179); color:white" class="select">Represent Jobs</v-btn>
               </div>
             </div>
           </div>
           <div v-else>
-            <v-btn class="teal select" @click="togglejobsearch">I am open for a new job</v-btn><br>
-            <v-btn class="teal select" @click="togglehiring">our company is hiring</v-btn>
+            <v-btn class="select" style="background-color:rgb(56,174,179)" @click="togglejobsearch">I am open for a new job</v-btn><br>
+            <v-btn class="select" style="background-color:rgb(56,174,179)" @click="togglehiring">our company is hiring</v-btn>
           </div>
         </v-flex>
       </v-layout>
@@ -79,7 +65,8 @@
               <form @submit.prevent="pictureUpload">
                 <v-text-field name="imageurl" label="PASTE LINK TO IMAGE HERE" id="imageurl" type="imageurl" v-model="imageurl" style="padding-bottom:0">
                 </v-text-field>
-                <v-btn class="button teal" type="submit" style="margin-top:0; margin-bottom:5vw; padding-top:0; color:white">submit</v-btn>
+                <v-btn class="button" type="submit" style="margin-top:0; margin-bottom:5vw; padding-top:0; color:white; background-color:rgb(56,174,179)">submit</v-btn>
+                <br>
               </form>
             </div>
           </div>
@@ -87,34 +74,34 @@
         <v-flex class="text-xs-left" md-7 offset-md1>
           <div v-if="searchjob">
             <div v-if="ready!=0">
-              <v-btn class="teal select-desktop" @click="editProfile">First create my profile</v-btn>
-              <v-btn disabled @click="openSite('jobmatches')" class="teal select-desktop">Show my job matches</v-btn>
+              <v-btn style="background-color:rgb(56,174,179); color:white" class="select-desktop" @click="editProfile">First create my profile</v-btn><br>
+              <v-btn disabled @click="openSite('jobmatches')" style="background-color:rgb(56,174,179); color:white" class="select-desktop">Show my job matches</v-btn><br>
             </div>
-            <v-btn v-else @click="openSite('jobmatches')" class="teal select-desktop">Show my job matches</v-btn>
+            <v-btn v-else @click="openSite('jobmatches')" style="background-color:rgb(56,174,179); color:white" class="select-desktop">Show my job matches</v-btn><br>
           </div>
           <div v-else-if="helphiring">
             <div v-if="ready!=0">
-              <v-btn class="teal select-desktop" @click="editProfile">First create my profile</v-btn>
-              <v-btn disabled @click="openSite('employeesearch')" class="teal select-desktop">create position</v-btn><br>
-              <v-btn disabled @click="openSite('candidates')" class="teal select-desktop">Show candidate matches</v-btn><br>
-              <v-btn disabled @click="openSite('searchlist')" class="teal select-desktop">Represent Jobs</v-btn>
+              <v-btn style="background-color:rgb(56,174,179); color:white" class="select-desktop" @click="editProfile">First create my profile</v-btn><br>
+              <v-btn disabled @click="openSite('employeesearch')" style="background-color:rgb(56,174,179); color:white" class="select-desktop">create position</v-btn><br>
+              <v-btn disabled @click="openSite('candidates')" style="background-color:rgb(56,174,179); color:white" class="select-desktop">Show candidate matches</v-btn><br>
+              <v-btn disabled @click="openSite('searchlist')" style="background-color:rgb(56,174,179); color:white" class="select-desktop">Represent Jobs</v-btn><br>
             </div>
             <div v-else>
               <div v-if="noentries">
-                <v-btn @click="openSite('employeesearch')" class="teal select-desktop">Next, create a position</v-btn><br>
-                <v-btn disabled @click="openSite('candidates')" class="teal select-desktop">Show candidate matches</v-btn><br>
-                <v-btn disabled @click="openSite('searchlist')" class="teal select-desktop">represent Jobs</v-btn>
+                <v-btn @click="openSite('employeesearch')" style="background-color:rgb(56,174,179); color:white" class="select-desktop">Next, create a position</v-btn><br>
+                <v-btn disabled @click="openSite('candidates')" style="background-color:rgb(56,174,179); color:white" class="select-desktop">Show candidate matches</v-btn><br>
+                <v-btn disabled @click="openSite('searchlist')" style="background-color:rgb(56,174,179); color:white" class="select-desktop">represent Jobs</v-btn>
               </div>
               <div v-else>
-                <v-btn @click="openSite('employeesearch')" class="teal select-desktop" style="color:white">create a position</v-btn><br>
-                <v-btn @click="openSite('candidates')" class="teal select-desktop">Show candidate matches</v-btn><br>
-                <v-btn @click="openSite('searchlist')" class="teal select-desktop">Represent Jobs</v-btn>
+                <v-btn @click="openSite('employeesearch')" style="background-color:rgb(56,174,179); color:white" class="select-desktop">create a position</v-btn><br>
+                <v-btn @click="openSite('candidates')" style="background-color:rgb(56,174,179); color:white" class="select-desktop">Show candidate matches</v-btn><br>
+                <v-btn @click="openSite('searchlist')" style="background-color:rgb(56,174,179); color:white" class="select-desktop">Represent Jobs</v-btn>
               </div>
             </div>
           </div>
           <div v-else>
-            <v-btn class="teal select-desktop" @click="togglejobsearch">I am open for a new job</v-btn><br>
-            <v-btn class="teal select-desktop" @click="togglehiring">our company is hiring</v-btn>
+            <v-btn style="background-color:rgb(56,174,179); color:white" class="select-desktop" @click="togglejobsearch">I am open for a new job</v-btn><br>
+            <v-btn style="background-color:rgb(56,174,179); color:white" class="select-desktop" @click="togglehiring">our company is hiring</v-btn>
           </div>
         </v-flex>
       </v-layout>

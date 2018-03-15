@@ -85,7 +85,7 @@
       <v-flex>
         <div v-if="neutral" style="text-align:left">
           <v-btn class="select" v-if="job.isadvocate" @click="removeAdvocacy(job)" style="margin-left:0; margin-right:1vw; margin-top:5vw; padding:0">Unrepresent</v-btn>
-          <v-btn v-else class="button select teal" @click="becomeAdvocate(job)" style="margin-left:0; margin-right:1vw; margin-top:5vw; padding:0; color:white">Represent Job</v-btn>
+          <v-btn v-else class="button select" @click="becomeAdvocate(job)" style="margin-left:0; margin-right:1vw; margin-top:5vw; padding:0; background-color:rgb(56,174,179); color:white">Represent Job</v-btn>
           <v-btn class="select" style="margin-left:1vw; margin-right:0; margin-top:5vw; padding:0" @click="neutral = !neutral">Delete Job</v-btn>
         </div>
         <div v-else>
@@ -99,72 +99,72 @@
 </template>
 
 <script>
-  import firebase from "firebase";
-  import firestore from "../main";
-  import uniqBy from "lodash/uniqBy";
-  
-  export default {
-    data() {
-      return {
-        jobs: [],
-        company: null,
-        neutral: true,
-        ID: null,
-        phone: null,
-        email: null,
-        linkedin: null,
-        profilepicture: null,
-        vision: null,
-        firstname: null,
-        lastname: null,
-        background1: '',
-        background2: '',
-        goal: null,
-        worklove: null,
-        advocate: {}
-      };
-    },
-  
-    created() {
-      window.scrollTo(0, 0);
-      firestore
-        .collection("Users")
-        .where("ID", "==", firebase.auth().currentUser.uid)
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            if (doc.data().company != null) {
-              this.company = doc.data().company;
-            }
-            this.ID = doc.data().ID;
-            this.email = doc.data().email
-            this.firstname = doc.data().firstname
-            this.lastname = doc.data().lastname
-            if (doc.data().phone != null) {
-              this.phone = doc.data().phone;
-            }
-            if (doc.data().goal != null) {
-              this.goal = doc.data().goal;
-            }
-            if (doc.data().worklove != null) {
-              this.worklove = doc.data().worklove;
-            }
-            if (doc.data().background2 != null) {
-              this.background2 = doc.data().background2;
-            }
-            if (doc.data().background1 != null) {
-              this.background1 = doc.data().background1;
-            }
-            if (doc.data().linkedin != null) {
-              this.linkedin = doc.data().linkedin;
-            }
-            if (doc.data().profilepicture != null) {
-              this.profilepicture = doc.data().profilepicture;
-            }
-          });
-        })
-        .then(() =>
-          firestore
+import firebase from "firebase";
+import firestore from "../main";
+import uniqBy from "lodash/uniqBy";
+
+export default {
+  data() {
+    return {
+      jobs: [],
+      company: null,
+      neutral: true,
+      ID: null,
+      phone: null,
+      email: null,
+      linkedin: null,
+      profilepicture: null,
+      vision: null,
+      firstname: null,
+      lastname: null,
+      background1: "",
+      background2: "",
+      goal: null,
+      worklove: null,
+      advocate: {}
+    };
+  },
+
+  created() {
+    window.scrollTo(0, 0);
+    firestore
+      .collection("Users")
+      .where("ID", "==", firebase.auth().currentUser.uid)
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          if (doc.data().company != null) {
+            this.company = doc.data().company;
+          }
+          this.ID = doc.data().ID;
+          this.email = doc.data().email;
+          this.firstname = doc.data().firstname;
+          this.lastname = doc.data().lastname;
+          if (doc.data().phone != null) {
+            this.phone = doc.data().phone;
+          }
+          if (doc.data().goal != null) {
+            this.goal = doc.data().goal;
+          }
+          if (doc.data().worklove != null) {
+            this.worklove = doc.data().worklove;
+          }
+          if (doc.data().background2 != null) {
+            this.background2 = doc.data().background2;
+          }
+          if (doc.data().background1 != null) {
+            this.background1 = doc.data().background1;
+          }
+          if (doc.data().linkedin != null) {
+            this.linkedin = doc.data().linkedin;
+          }
+          if (doc.data().profilepicture != null) {
+            this.profilepicture = doc.data().profilepicture;
+          }
+        });
+      })
+      .then(() =>
+        firestore
           .collection("EmployeeSearches")
           .where("company", "==", this.company)
           .get()
@@ -197,12 +197,12 @@
               this.jobs.push(data);
             });
           })
-        );
-    },
-  
-    methods: {
-      becomeAdvocate: function(job) {
-        /*
+      );
+  },
+
+  methods: {
+    becomeAdvocate: function(job) {
+      /*
         this.advocate = {
           ID: this.ID,
           firstname: this.firstname,
@@ -217,58 +217,58 @@
           phone: this.phone
         };
         */
-        job.advocates.push(this.ID);
-        this.$store
-          .dispatch("updateAdvocacy", {
-            job: job.ID,
-            advocates: job.advocates
-          })
-          .then(function() {
-            console.log("You successfully became an advocate!");
-          })
-          .catch(function(error) {
-            console.error("Error adding advocacy: ", error);
-          });
-        this.neutral = true;
-        this.jobs.find(item => (item.ID == job.ID)).isadvocate = true;
-      },
-  
-      removeAdvocacy: function(job) {
-        job.advocates.splice(job.advocates.indexOf(this.ID), 1);
-        this.$store
-          .dispatch("updateAdvocacy", {
-            job: job.ID,
-            advocates: job.advocates
-          })
-          .then(function() {
-            console.log("Advocacy removed");
-          })
-          .catch(function(error) {
-            console.error("Error removing advocacy: ", error);
-          });
-        this.neutral = true;
-        this.jobs.find(item => (item.ID == job.ID)).isadvocate = false;
-      },
-  
-      checkAdvocacy(advocates) {
-        //return advocates.some(advocates => advocates.ID === this.ID);
-        return advocates.includes(this.ID)
-      },
-  
-      deleteJobsearch: function(ID) {
-        this.$store
-          .dispatch("deleteDocument", {
-            document: ID,
-            collection: "EmployeeSearches"
-          })
-          .then(function() {
-            console.log("Document successfully deleted!");
-          })
-          .catch(function(error) {
-            console.error("Error removing document: ", error);
-          })
-          .then(() =>
-            firestore
+      job.advocates.push(this.ID);
+      this.$store
+        .dispatch("updateAdvocacy", {
+          job: job.ID,
+          advocates: job.advocates
+        })
+        .then(function() {
+          console.log("You successfully became an advocate!");
+        })
+        .catch(function(error) {
+          console.error("Error adding advocacy: ", error);
+        });
+      this.neutral = true;
+      this.jobs.find(item => item.ID == job.ID).isadvocate = true;
+    },
+
+    removeAdvocacy: function(job) {
+      job.advocates.splice(job.advocates.indexOf(this.ID), 1);
+      this.$store
+        .dispatch("updateAdvocacy", {
+          job: job.ID,
+          advocates: job.advocates
+        })
+        .then(function() {
+          console.log("Advocacy removed");
+        })
+        .catch(function(error) {
+          console.error("Error removing advocacy: ", error);
+        });
+      this.neutral = true;
+      this.jobs.find(item => item.ID == job.ID).isadvocate = false;
+    },
+
+    checkAdvocacy(advocates) {
+      //return advocates.some(advocates => advocates.ID === this.ID);
+      return advocates.includes(this.ID);
+    },
+
+    deleteJobsearch: function(ID) {
+      this.$store
+        .dispatch("deleteDocument", {
+          document: ID,
+          collection: "EmployeeSearches"
+        })
+        .then(function() {
+          console.log("Document successfully deleted!");
+        })
+        .catch(function(error) {
+          console.error("Error removing document: ", error);
+        })
+        .then(() =>
+          firestore
             .collection("EmployeeSearches")
             .where("company", "==", this.company)
             .get()
@@ -301,52 +301,52 @@
                 this.jobs.push(data);
               });
             })
-          );
-        this.neutral = true;
-      }
-    },
-    computed: {
-      getJobs() {
-        return uniqBy(this.jobs, "ID");
-      }
+        );
+      this.neutral = true;
     }
-  };
+  },
+  computed: {
+    getJobs() {
+      return uniqBy(this.jobs, "ID");
+    }
+  }
+};
 </script>
 
 <style>
-  @import url("https://fonts.googleapis.com/css?family=Merriweather");
-  .employee-picture {
-    width: 10vw;
-    height: 10vw;
-    border-radius: 10%;
-    object-fit: cover;
-    margin-top: 1vw;
-  }
-  
-  .line {
-    position: relative;
-    width: 100%;
-    height: 1px;
-    background: #ddd;
-    border-radius: 10%;
-    line-height: 0px;
-  }
-  
-  .select {
-    margin-top: 2vw;
-    margin-bottom: 2vw;
-    width: 40vw;
-    padding: 0;
-    height: 10vw;
-    font-size: 3.5vw;
-    text-align: center;
-  }
-  
-  .userlike-picture {
-    width: 23vw;
-    height: 23vw;
-    border-radius: 10%;
-    object-fit: cover;
-    margin-top: 1vw;
-  }
+@import url("https://fonts.googleapis.com/css?family=Merriweather");
+.employee-picture {
+  width: 10vw;
+  height: 10vw;
+  border-radius: 10%;
+  object-fit: cover;
+  margin-top: 1vw;
+}
+
+.line {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  background: #ddd;
+  border-radius: 10%;
+  line-height: 0px;
+}
+
+.select {
+  margin-top: 2vw;
+  margin-bottom: 2vw;
+  width: 40vw;
+  padding: 0;
+  height: 10vw;
+  font-size: 3.5vw;
+  text-align: center;
+}
+
+.userlike-picture {
+  width: 23vw;
+  height: 23vw;
+  border-radius: 10%;
+  object-fit: cover;
+  margin-top: 1vw;
+}
 </style>

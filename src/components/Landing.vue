@@ -2,7 +2,7 @@
   <v-layout column>
     <v-flex xs12 class="text-xs-center" mt-5>
       <h3>Welcome to</h3>
-      <h2 style="font-family:Merriweather">trackmatch</h2>
+      <img class="logo" src="../assets/trackmatch_logo_white.png">
     </v-flex>
     <v-flex xs12 sm6 offset-sm3 mt-3>
       <blockquote>
@@ -11,7 +11,7 @@
       </blockquote>
     </v-flex>
     <v-flex class="text-xs-center" mt-5>
-      <v-btn class="teal" style="color:white" to="/signup">sign me up</v-btn>
+      <v-btn style="background-color:rgb(56,174,179); color:white" to="/signup">sign me up</v-btn>
       <v-btn to="/signin">login</v-btn>
     </v-flex>
   </v-layout>
@@ -23,4 +23,9 @@
 
 <style>
   @import url("https://fonts.googleapis.com/css?family=Merriweather");
+
+  .logo {
+    width: 25vw;
+    margin:2vw;
+  }
 </style>

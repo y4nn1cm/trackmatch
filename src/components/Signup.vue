@@ -33,7 +33,7 @@
             <v-radio style="margin-top:0; padding:0" label="Our company is hiring" value="employees" v-model="reason"></v-radio>
           </v-flex>
           <v-flex class="text-xs-center" mt-5>
-            <v-btn class="teal select" style="color:white" type="submit">Sign me Up</v-btn>
+            <v-btn class="select" style="background-color:rgb(56,174,179); color:white" type="submit">Sign me Up</v-btn>
           </v-flex>
         </v-layout>
       </form>

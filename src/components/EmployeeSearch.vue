@@ -6,8 +6,11 @@
       <div class="line" style="margin-top:5vw"></div>
       <h4 style="font-weight:500">About {{forcompany}}</h4>
       <form @submit.prevent="createEmployeeSearch">
-        <v-text-field name="imageurl" label="LINK to company logo here" id="imageurl" type="imageurl" v-model="logourl" style="margin-bottom:0; padding-bottom:0" required>
-        </v-text-field>
+      <input name="logourl" type="file" style="display:none" ref="fileInput" accept="image/*" @change="logoUpload">
+      <v-btn class="button" @click="pickFile" style="background-color:rgb(56,174,179); color:white; margin-top:3vw; margin-bottom:5vw; padding-top:0">change logo</v-btn>
+      <img :src="logourl" class="logo">
+       <!-- <v-text-field name="imageurl" label="LINK to company logo here" id="imageurl" type="imageurl" v-model="logourl" style="margin-bottom:0; padding-bottom:0" required>
+        </v-text-field> -->
         <v-text-field name="website" style="margin-bottom:0; padding-bottom:0" label="LINK to company website here" id="website" type="website" v-model="website" required>
         </v-text-field>
         <v-text-field name="vision" style="margin-bottom:0; padding-bottom:0" label="Company vision in two sentences" multi-line id="vision" type="vision" v-model="vision" required>
@@ -321,7 +324,7 @@
                 </v-layout>
               </div>
     -->
-          <v-btn class="teal button" style="color:white; margin-top:10vw; font-size:3.5vw;" type="submit">Create Employee Search</v-btn>
+          <v-btn class="button"  style="background-color:rgb(56,174,179); color:white; margin-top:10vw; font-size:3.5vw;" type="submit">Create Employee Search</v-btn>
         </div>
       </form>
     </div>
@@ -337,30 +340,32 @@
       return {
         nocompany: true,
         name: null,
-        describeculture: true,
+        //describeculture: true,
         vision: "",
-        describestrengths: true,
+        //describestrengths: true,
         selectemployees: false,
         forcompany: null,
         description: "",
         experience: null,
-        leadership: null,
-        athmosphere: null,
-        roles: null,
-        moneysatisfaction: null,
-        freedom: null,
-        teamwork: null,
-        pragmatism: null,
+        //leadership: null,
+        //athmosphere: null,
+        //roles: null,
+        //moneysatisfaction: null,
+        //freedom: null,
+        //teamwork: null,
+        //pragmatism: null,
         phone: null,
         email: null,
         area1: null,
         area2: null,
-        logourl: null,
         website: null,
         jobad: null,
         toselect: true,
         select: false,
         ID: null,
+        logourl: null,
+        image: null,
+        imageurl: null,
         employeeselection: [],
         disciplineitems1: [
           "Automotive & Aviation",
@@ -396,13 +401,13 @@
           "Venture Capital",
         ],
         employees: [],
-        pointsleft: 18,
-        adaptability: 0,
-        goalorientation: 0,
-        detailorientation: 0,
-        customerorientation: 0,
-        perseverence: 0,
-        collaboration: 0,
+        //pointsleft: 18,
+        //adaptability: 0,
+        //goalorientation: 0,
+        //detailorientation: 0,
+        //customerorientation: 0,
+        //perseverence: 0,
+        //collaboration: 0,
         product: null,
         design: null,
         customer: null,
@@ -445,14 +450,15 @@
               this.area1 = doc.data().area1;
               this.area2 = doc.data().area2;
               this.logourl = doc.data().logo;
+              this.imageurl = doc.data().logo
               this.vision = doc.data().vision;
-              this.pragmatism = doc.data().pragmatism;
-              this.roles = doc.data().roles;
-              this.freedom = doc.data().freedom;
-              this.moneysatisfaction = doc.data().moneysatisfaction;
-              this.athmosphere = doc.data().athmosphere;
-              this.teamwork = doc.data().teamwork;
-              this.leadership = doc.data().leadership;
+              //this.pragmatism = doc.data().pragmatism;
+              //this.roles = doc.data().roles;
+              //this.freedom = doc.data().freedom;
+              //this.moneysatisfaction = doc.data().moneysatisfaction;
+              //this.athmosphere = doc.data().athmosphere;
+              //this.teamwork = doc.data().teamwork;
+              //this.leadership = doc.data().leadership;
             });
           })
         );
@@ -575,6 +581,38 @@
             }
           },
           */
+       pickFile() {
+        this.$refs.fileInput.click();
+      },
+  
+      logoUpload(event) {
+        const files = event.target.files
+        let filename = files[0].name
+        
+        if (filename.lastIndexOf(".") <= 0) {
+          return alert("please add a valid file");
+        }
+        const filereader = new FileReader()
+        filereader.addEventListener("load", () => {
+        this.logourl = filereader.result
+        })
+        filereader.readAsDataURL(files[0])
+        this.image=files[0]
+        this.$store.dispatch("logoUpload", {
+          image: this.image,
+          company: this.forcompany
+        }).then(()=> {
+          firestore
+          .collection("Companies")
+          .where("companyname", "==", this.forcompany)
+          .get()
+          .then(querySnapshot => {
+            querySnapshot.forEach(doc => {
+              this.imageurl = doc.data().logo
+            });
+          })
+        })
+      },
   
       createEmployeeSearch: function(event) {
         /*
@@ -594,12 +632,12 @@
             ID: this.uniqueID,
             selectemployees: this.selectemployees,
             rolemodels: this.employeeselection,
-            adaptability: this.adaptability,
-            perseverence: this.perseverence,
-            detailorientation: this.detailorientation,
-            customerorientation: this.customerorientation,
-            goalorientation: this.goalorientation,
-            collaboration: this.collaboration,
+            //adaptability: this.adaptability,
+            //perseverence: this.perseverence,
+            //detailorientation: this.detailorientation,
+            //customerorientation: this.customerorientation,
+            //goalorientation: this.goalorientation,
+            //collaboration: this.collaboration,
             experiencelevels: this.experience,
             product: this.product,
             design: this.design,
@@ -612,39 +650,24 @@
             vrar: this.vrar,
             blockchain: this.blockchain,
             company: this.forcompany,
-            logo: this.logourl,
             website: this.website,
             jobad: this.jobad,
             area1: this.area1,
             area2: this.area2,
+            logo: this.imageurl,
             description: this.description,
             phone: this.phone,
             email: this.email,
             vision: this.vision,
             purpose: this.purpose,
-            pragmatism: this.pragmatism,
-            roles: this.roles,
-            freedom: this.freedom,
-            moneysatisfaction: this.moneysatisfaction,
-            athmosphere: this.athmosphere,
-            teamwork: this.teamwork,
-            leadership: this.leadership,
+            //pragmatism: this.pragmatism,
+            //roles: this.roles,
+            //freedom: this.freedom,
+            //moneysatisfaction: this.moneysatisfaction,
+            //athmosphere: this.athmosphere,
+            //teamwork: this.teamwork,
+            //leadership: this.leadership,
             name: this.name
-          });
-          this.$store.dispatch("createCompanyDetails", {
-            company: this.forcompany,
-            logo: this.logourl,
-            website: this.website,
-            area1: this.area1,
-            area2: this.area2,
-            vision: this.vision,
-            pragmatism: this.pragmatism,
-            roles: this.roles,
-            freedom: this.freedom,
-            moneysatisfaction: this.moneysatisfaction,
-            athmosphere: this.athmosphere,
-            teamwork: this.teamwork,
-            leadership: this.leadership
           });
           this.$store.dispatch("openSite", {
             target: "/searchlist"

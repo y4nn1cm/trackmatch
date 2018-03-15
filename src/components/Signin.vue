@@ -18,7 +18,7 @@
             <v-text-field name="password" label="Password" id="password" type="password" v-model="password" required></v-text-field>
           </v-flex>
           <v-flex class="text-xs-center" mt-5>
-            <v-btn class="teal select" style="color:white" type="submit">login</v-btn>
+            <v-btn class="select" style="background-color:rgb(56,174,179); color:white" type="submit">login</v-btn>
           </v-flex>
         </v-layout>
       </form>

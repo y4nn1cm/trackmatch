@@ -1,133 +1,189 @@
 <template>
   <div>
-    <h3 style="text-align:center">Loading Jobs in Munich</h3>
-    <div class="line" style="margin-top:4vw"></div>
-    <div style="margin-top:6vw; text-align:center" v-if="noSelection()">
-      <p>
-        You have not selected any job roles. Please edit your profile and select job roles first so we can show you matching jobs.
-      </p>
-      <v-btn class="teal" style="color:white" @click="editProfile">update my profile</v-btn>
+    <div class="hidden-md-and-up">
+      <h3 style="text-align:center">Loading Jobs in Munich</h3>
+      <div class="line" style="margin-top:4vw"></div>
+      <div style="margin-top:6vw; text-align:center" v-if="noSelection()">
+        <p>
+          You have not selected any job roles. Please edit your profile and select job roles first so we can show you matching jobs.
+        </p>
+        <v-btn style="background-color:rgb(56,174,179); color:white" @click="editProfile">update my profile</v-btn>
+      </div>
+      <div style="margin-top:6vw; text-align:center " v-else-if="this.jobs.length==0">
+        <p>
+          There are currently no jobs for you. Please update your profile and the roles you are looking for.
+        </p>
+        <v-btn style="background-color:rgb(56,174,179); color:white" @click="editProfile">Update my profile</v-btn>
+      </div>
+      <v-card v-for="job in getJobs" :key="job.ID" style="margin-top:8vw; margin-left:0; margin-right:0; padding:1vw; padding-bottom:5vw">
+        <v-layout align-top style="margin-top:6vw; text-align:center; margin-right:2vw; margin-left:2vw" row wrap>
+          <v-flex xs12>
+            <img class="employee-picture" :src="job.logo">
+          </v-flex>
+          <v-flex xs12>
+            <p class="body-2" style="margin-top:0; margin-bottom:0; margin-left:0; padding:0"><a target="_blank" :href="job.website" style="font-color: black; font-weight:500; padding:0">{{job.company}}</a><br>{{job.background1}} / {{job.background2}}
+            </p>
+          </v-flex>
+          <v-flex xs12>
+            <p class="title" style="margin-bottom:5vw; margin-top:3vw; padding:0">{{job.description}}</p>
+          </v-flex>
+  
+          <v-flex xs12>
+            <p style="text-align:justify; margin-top:0vw; margin-bottom:0; padding:0"><span style="font-weight:600">Job Purpose:</span> {{job.purpose}} <a v-if="job.jobad != null" target="_blank" :href="job.jobad"> - see details</a></p>
+          </v-flex>
+          <v-flex xs12>
+            <p class="body-2" style="margin-top:3vw; margin-bottom:0; padding:0; text-align:left">
+              <span class="body-2" style="margin-top:1.4vw; margin-bottom:0; text-align:left"><span class="title">{{job.experience}}</span> years experience preferred</span>
+            </p>
+          </v-flex>
+  
+          <v-flex xs12>
+  
+            <v-expansion-panel expand style="margin-bottom:0; margin-top:5vw">
+              <v-expansion-panel-content>
+                <div style="font-weight:500" slot="header">Read our Vision</div>
+                <v-card>
+                  <v-card-text style="text-align:justify">{{job.vision}}</v-card-text>
+                </v-card>
+              </v-expansion-panel-content>
+              <v-expansion-panel-content>
+                <div style="font-weight:700" slot="header">Meet the Team</div>
+                <v-card v-for="advocate in job.advocates" :key="advocate.ID">
+                  <v-card-text>
+                    <v-layout row wrap>
+                      <v-flex xs4>
+                        <img class="advocate-picture" :src="advocate.profilepicture">
+                      </v-flex>
+                      <v-flex xs8>
+                        <p style="font-weight:500; margin-top:0; margin-bottom:1vw; padding:0">
+                          {{advocate.firstname}} {{advocate.lastname}}
+                        </p>
+                        <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">
+                          {{advocate.background1}} / {{advocate.background2}}
+                        </p>
+                        <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">
+                          <a target="_blank" :href="advocate.linkedin" style="font-weight:400">LinkedIn / Xing</a>
+                        </p>
+                      </v-flex>
+                      <v-flex>
+                        <p style="font-weight:500; margin-top:2.5vw; margin-bottom:0vw; padding:0">Why you should join us:</p>
+                        <p style="text-align:justify; font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">{{advocate.worklove}}</p>
+                        <p style="font-weight:500; margin-top:2.5vw; margin-bottom:0vw; padding:0">About myself:</p>
+                        <p style="text-align:justify; font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">{{advocate.goal}}</p>
+                        <p style="font-weight:500; margin-top:2.5vw; margin-bottom:0vw; padding:0">Please contact me:</p>
+                        <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">
+                          <a :href="`mailto:${advocate.email}`" style="font-weight:400">{{advocate.email}}</a>
+                        </p>
+                        <p style="font-weight:400; margin-top:0; margin-bottom:0; padding:0">
+                          <a :href="`tel:${advocate.phone}`" style="font-weight:400">{{advocate.phone}}</a>
+                        </p>
+                      </v-flex>
+                    </v-layout>
+                    <div class=line style="margin-top:2vw"></div>
+                  </v-card-text>
+                </v-card>
+              </v-expansion-panel-content>
+  
+            </v-expansion-panel>
+            <v-btn class="button select" v-if="job.likedbythisuser" @click="removeLike(job)" style="text-align:left; margin-top:7vw; margin-left:0; padding:0">Remove Like</v-btn>
+            <v-btn v-else class="button select" @click="giveLike(job)" style="text-align:left; margin-top:7vw; margin-left:0; padding:0; background-color:rgb(56,174,179); color:white">Like</v-btn>
+          </v-flex>
+        </v-layout>
+      </v-card>
     </div>
-    <div style="margin-top:6vw; text-align:center " v-else-if="this.jobs.length==0">
-      <p>
-        There are currently no jobs for you. Please update your profile and the roles you are looking for.
-      </p>
-      <v-btn class="teal" style="color:white;" @click="editProfile">Update my profile</v-btn>
-    </div>
-    <v-card v-for="job in getJobs" :key="job.ID" style="margin-top:8vw; margin-left:0; margin-right:0; padding:1vw; padding-bottom:5vw">
-      <v-layout align-top style="margin-top:6vw; text-align:center; margin-right:2vw; margin-left:2vw" row wrap>
-        <v-flex xs12>
-          <img class="employee-picture" :src="job.logo">
-        </v-flex>
-        <v-flex xs12>
-          <p class="body-2" style="margin-top:0; margin-bottom:0; margin-left:0; padding:0"><a target="_blank" :href="job.website" style="font-color: black; font-weight:500; padding:0">{{job.company}}</a><br>{{job.background1}} / {{job.background2}}
-          </p>
-        </v-flex>
-        <v-flex xs12>
-          <p class="title" style="margin-bottom:5vw; margin-top:3vw; padding:0">{{job.description}}</p>
-        </v-flex>
-        <!--
-                <v-flex xs4>
-                  <p class="body-2" style="margin-top:3vw; margin-bottom:1vw; padding:0; text-align:right; text-align:left">Culture fit: </p>
-                  <p class="body-2" style="margin-top:1.5vw; margin-bottom:0; padding:0; text-align:right; text-align:left">Strengths fit:</p>
-                </v-flex>
-                <v-flex xs2>
-                  <p class=title style="margin-top:2.5vw; margin-bottom:1vw; padding:0; text-align:left; color:rgb(34, 120, 207)"> {{job.culturefit}}%</p>
-                  <p class=title style="margin-top:1.8vw; margin-bottom:0; padding:0; text-align:left; color:rgb(34, 120, 207)"> {{job.strengthsfit}}%</p>
-                </v-flex>
-                -->
-        <v-flex xs12>
-          <p style="text-align:justify; margin-top:0vw; margin-bottom:0; padding:0"><span style="font-weight:600">Job Purpose:</span> {{job.purpose}} <a v-if="job.jobad != null" target="_blank" :href="job.jobad"> - see details</a></p>
-        </v-flex>
-        <v-flex xs12>
-          <p class="body-2" style="margin-top:3vw; margin-bottom:0; padding:0; text-align:left">
-            <span class="body-2" style="margin-top:1.4vw; margin-bottom:0; text-align:left"><span class="title">{{job.experience}}</span> years experience preferred</span>
-          </p>
-        </v-flex>
-        <!--
-                    <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Adaptability: {{job.adaptability}}</p>
-                    <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Detailorientation: {{job.detailorientation}}</p>
-                    <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Perseverence: {{job.perseverence}}</p>
-                    <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Customerorientation: {{job.customerorientation}}</p>
-                    <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Collaboration: {{job.collaboration}}</p>
-                    <p style="margin-top:0; margin-bottom:0; padding:0; text-align:right">Goalorientation: {{job.goalorientation}}</p>
-                    -->
-        <v-flex xs12>
-          <!--
-                    <div class="fineline"></div>
-                    <p style="margin-top:0; margin-bottom:0; padding:0; font-weight:600"> Company vision</p>
-                    <p style="text-align:justify; margin-bottom:5vw; padding:0">{{job.vision}}</p>
-                    
-                    <p style="font-weight:500; margin-top:1.5vw; margin-bottom:0; padding:0">Contact:</p>
-                    <p style="font-weight:400; margin-top:0.5vw; margin-bottom:0; padding:0">{{job.email}} / {{job.phone}}</p>
-                    -->
-          <v-expansion-panel expand style="margin-bottom:0; margin-top:5vw">
-            <v-expansion-panel-content>
-              <div style="font-weight:500" slot="header">Read our Vision</div>
-              <v-card>
-                <v-card-text style="text-align:justify">{{job.vision}}</v-card-text>
-              </v-card>
-            </v-expansion-panel-content>
-            <v-expansion-panel-content>
-              <div style="font-weight:700" slot="header">Meet the Team</div>
-              <v-card v-for="advocate in job.advocates" :key="advocate.ID">
-                <v-card-text>
-                  <v-layout row wrap>
-                    <v-flex xs4>
-                      <img class="advocate-picture" :src="advocate.profilepicture">
-                    </v-flex>
-                    <v-flex xs8>
-                      <p style="font-weight:500; margin-top:0; margin-bottom:1vw; padding:0">
-                        {{advocate.firstname}} {{advocate.lastname}}
-                      </p>
-                      <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">
-                        {{advocate.background1}} / {{advocate.background2}}
-                      </p>
-                      <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">
-                        <a target="_blank" :href="advocate.linkedin" style="font-weight:400">LinkedIn / Xing</a>
-                      </p>
-                    </v-flex>
-                    <v-flex>
-                      <p style="font-weight:500; margin-top:2.5vw; margin-bottom:0vw; padding:0">Why you should join us:</p>
-                      <p style="text-align:justify; font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">{{advocate.worklove}}</p>
-                      <p style="font-weight:500; margin-top:2.5vw; margin-bottom:0vw; padding:0">About myself:</p>
-                      <p style="text-align:justify; font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">{{advocate.goal}}</p>
-                      <p style="font-weight:500; margin-top:2.5vw; margin-bottom:0vw; padding:0">Please contact me:</p>
-                      <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">
-                        <a :href="`mailto:${advocate.email}`" style="font-weight:400">{{advocate.email}}</a>
-                      </p>
-                      <p style="font-weight:400; margin-top:0; margin-bottom:0; padding:0">
-                        <a :href="`tel:${advocate.phone}`" style="font-weight:400">{{advocate.phone}}</a>
-                      </p>
-                    </v-flex>
-                  </v-layout>
-                  <div class=line style="margin-top:2vw"></div>
-                </v-card-text>
-              </v-card>
-            </v-expansion-panel-content>
-            <!--
-                    <v-expansion-panel-content>
-                      <div style="font-weight:500" slot="header">or apply directly</div>
-                      <v-card>
-                        <v-card-text>
-                          <p style="font-weight:500; margin-top:0; margin-bottom:1vw; padding:0">
-                            {{job.name}}
-                          </p>
-                          <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">
-                            <a :href="`mailto:${job.email}`" style="font-weight:400">{{job.email}}</a>
-                          </p>
-                          <p style="font-weight:400; margin-top:0; margin-bottom:0; padding:0">
-                            <a :href="`tel:${job.email}`" style="font-weight:400">{{job.phone}}</a></p>
-                        </v-card-text>
-                      </v-card>
-                    </v-expansion-panel-content>
-                    -->
-          </v-expansion-panel>
-          <v-btn class="button select" v-if="job.likedbythisuser" @click="removeLike(job)" style="text-align:left; margin-top:7vw; margin-left:0; padding:0">Remove Like</v-btn>
-          <v-btn v-else class="button select teal" @click="giveLike(job)" style="text-align:left; margin-top:7vw; margin-left:0; padding:0; color:white">Like</v-btn>
+  
+  
+    <div class="hidden-sm-and-down">
+      <h3 style="text-align:center">Loading Jobs in Munich</h3>
+      <div class="line" style="margin-top:4vw"></div>
+      <div style="margin-top:6vw; text-align:center" v-if="noSelection()">
+        <p>
+          You have not selected any job roles. Please edit your profile and select job roles first so we can show you matching jobs.
+        </p>
+        <v-btn style="background-color:rgb(56,174,179); color:white" @click="editProfile">update my profile</v-btn>
+      </div>
+      <div style="margin-top:6vw; text-align:center " v-else-if="this.jobs.length==0">
+        <p>
+          There are currently no jobs for you. Please update your profile and the roles you are looking for.
+        </p>
+        <v-btn style="background-color:rgb(56,174,179); color:white" @click="editProfile">Update my profile</v-btn>
+      </div>
+      <v-layout row wrap>
+        <v-flex style="padding:0.7vw" md4 lg4 xl4 v-for="job in getJobs" :key="job.ID">
+          <v-card style="margin-top:3vw; margin-left:0; margin-right:0; padding:0.5vw; padding-bottom:2vw">
+            <v-layout align-top style="margin-top:2vw; text-align:center; margin-right:0.5vw; margin-left:0.5vw" row wrap>
+              <v-flex xs12>
+                <img class="employee-picture-desktop" :src="job.logo">
+              </v-flex>
+              <v-flex xs12>
+                <p class="body-2" style="height:4vw; margin-top:0; margin-bottom:0; margin-left:0; padding:0"><a target="_blank" :href="job.website" style="font-color: black; font-weight:500; padding:0">{{job.company}}</a><br>{{job.background1}} / {{job.background2}}
+                </p>
+              </v-flex>
+              <v-flex xs12>
+                <p class="title" style="height:2vw; margin-bottom:2vw; margin-top:1vw; padding:0">{{job.description}}</p>
+              </v-flex>
+              <v-flex xs12>
+                <p style="height:5vw; text-align:justify; margin-top:0vw; margin-bottom:0; padding:0"><span style="font-weight:600">Job Purpose:</span> {{job.purpose}} <a v-if="job.jobad != null" target="_blank" :href="job.jobad"> - see details</a></p>
+              </v-flex>
+              <v-flex xs12>
+                <p class="body-2" style="margin-top:1vw; margin-bottom:0; padding:0; text-align:left">
+                  <span class="body-2" style="margin-top:0.6vw; margin-bottom:0; text-align:left"><span class="title">{{job.experience}}</span> years experience preferred</span>
+                </p>
+              </v-flex>
+              <v-flex xs12>
+                <v-expansion-panel expand style="margin-bottom:0; margin-top:2vw">
+                  <v-expansion-panel-content>
+                    <div style="font-weight:500" slot="header">Read our Vision</div>
+                    <v-card>
+                      <v-card-text style="text-align:justify">{{job.vision}}</v-card-text>
+                    </v-card>
+                  </v-expansion-panel-content>
+                  <v-expansion-panel-content>
+                    <div style="font-weight:700" slot="header">Meet the Team</div>
+                    <v-card v-for="advocate in job.advocates" :key="advocate.ID">
+                      <v-card-text>
+                        <v-layout row wrap>
+                          <v-flex xs4>
+                            <img class="advocate-picture-desktop" :src="advocate.profilepicture">
+                          </v-flex>
+                          <v-flex xs8>
+                            <p style="font-weight:500; margin-top:0; margin-bottom:1vw; padding:0">
+                              {{advocate.firstname}} {{advocate.lastname}}
+                            </p>
+                            <p style="font-weight:400; margin-top:0; margin-bottom:0.5vw; padding:0">
+                              {{advocate.background1}} / {{advocate.background2}}
+                            </p>
+                            <p style="font-weight:400; margin-top:0; margin-bottom:0.5vw; padding:0">
+                              <a target="_blank" :href="advocate.linkedin" style="font-weight:400">LinkedIn / Xing</a>
+                            </p>
+                          </v-flex>
+                          <v-flex>
+                            <p style="font-weight:500; margin-top:1vw; margin-bottom:0; padding:0">Why you should join us:</p>
+                            <p style="text-align:justify; font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">{{advocate.worklove}}</p>
+                            <p style="font-weight:500; margin-top:1vw; margin-bottom:0vw; padding:0">About myself:</p>
+                            <p style="text-align:justify; font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">{{advocate.goal}}</p>
+                            <p style="font-weight:500; margin-top:1vw; margin-bottom:0vw; padding:0">Please contact me:</p>
+                            <p style="font-weight:400; margin-top:0; margin-bottom:0.5vw; padding:0">
+                              <a :href="`mailto:${advocate.email}`" style="font-weight:400">{{advocate.email}}</a>
+                            </p>
+                            <p style="font-weight:400; margin-top:0; margin-bottom:0; padding:0">
+                              <a :href="`tel:${advocate.phone}`" style="font-weight:400">{{advocate.phone}}</a>
+                            </p>
+                          </v-flex>
+                        </v-layout>
+                        <div class=line style="margin-top:1vw"></div>
+                      </v-card-text>
+                    </v-card>
+                  </v-expansion-panel-content>
+                </v-expansion-panel>
+                <v-btn class="button select-desktop" v-if="job.likedbythisuser" @click="removeLike(job)" style="text-align:left; margin-top:2.5vw; margin-left:0; padding:0">Remove Like</v-btn>
+                <v-btn v-else class="button select-desktop" @click="giveLike(job)" style="text-align:left; margin-top:2.5vw; margin-left:0; padding:0; background-color:rgb(56,174,179); color:white">Like</v-btn>
+              </v-flex>
+            </v-layout>
+          </v-card>
         </v-flex>
       </v-layout>
-    </v-card>
+    </div>
   </div>
 </template>
 
@@ -667,6 +723,23 @@
     object-fit: cover;
     margin-top: 1vw;
   }
+
+    .employee-picture-desktop {
+    width: 5vw;
+    height: 5vw;
+    border-radius: 10%;
+    object-fit: cover;
+    margin-top: 1.5vw;
+    margin-bottom: 0.5vw;
+  }
+  
+  .advocate-picture-desktop {
+    width: 7vw;
+    height: 7vw;
+    border-radius: 10%;
+    object-fit: cover;
+    margin-top: 0.5vw;
+  }
   
   .line {
     position: relative;
@@ -695,6 +768,16 @@
     width: 30vw;
     padding: 0;
     height: 10vw;
+    text-align: center;
+  }
+
+    .select-desktop {
+    font-size: 1vw;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+    width: 10vw;
+    padding: 0;
+    height: 3vw;
     text-align: center;
   }
 </style>

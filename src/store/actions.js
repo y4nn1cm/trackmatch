@@ -9,25 +9,61 @@ export const actions = {
   },
 
   pictureUpload ({commit}, payload) {
-    firestore.collection('Users').doc(firebase.auth().currentUser.uid).set({
-      profilepicture: payload.imageurl
-    }, { merge: true }).then(() => { console.log('image url has been saved') })
+    let imageURL
+    const filename = payload.image.name
+    const ext = filename.slice(filename.lastIndexOf('.'))
+    return firebase.storage().ref('profilepictures/' + firebase.auth().currentUser.uid + ext).put(payload.image).then( fileData => {
+      imageURL = fileData.metadata.downloadURLs[0]
+      return firestore.collection('Users').doc(firebase.auth().currentUser.uid).set({
+           profilepicture: imageURL
+         }, { merge: true }).then(() => { console.log('image url has been saved') })
+    })
+   // firestore.collection('Users').doc(firebase.auth().currentUser.uid).set({
+   //   profilepicture: payload.image
+   // }, { merge: true }).then(() => { console.log('image url has been saved') })
+  },
+
+  logoUpload ({commit}, payload) {
+    let imageURL
+    const filename = payload.image.name
+    const ext = filename.slice(filename.lastIndexOf('.'))
+    return firebase.storage().ref('logos/' + payload.company + ext).put(payload.image).then( fileData => {
+      imageURL = fileData.metadata.downloadURLs[0]
+      return firestore.collection('Companies').doc(payload.company).set({
+           logo: imageURL
+         }, { merge: true }).then(() => { console.log('image url has been saved in company') })
+    })
   },
 
   createEmployeeSearch ({commit}, payload) {
+    
+    firestore.collection('Companies').doc(payload.company).set({
+      companyname: payload.company,
+      vision: payload.vision,
+      website: payload.website,
+      area1: payload.area1,
+      area2: payload.area2,
+      //pragmatism: payload.pragmatism,
+      //roles: payload.roles, 
+      //freedom: payload.freedom, 
+      //moneysatisfaction: payload.moneysatisfaction, 
+      //athmosphere: payload.athmosphere, 
+      //teamwork: payload.teamwork, 
+      //leadership: payload.leadership
+    }, { merge: true }).then(() => { console.log('Company has been updated') }).then(() => {
     firestore.collection('EmployeeSearches').doc(payload.ID).set({
       ID: payload.ID,
       phone: payload.phone,
       email: payload.email,
       name: payload.name,
-      selectemployees: payload.selectemployees,
+      logo: payload.logo,
       rolemodels: payload.rolemodels,
-      adaptability: payload.adaptability,
-      perseverence: payload.perseverence,
-      collaboration: payload.collaboration,
-      goalorientation: payload.goalorientation,
-      customerorientation: payload.customerorientation,
-      detailorientation: payload.detailorientation,
+      //adaptability: payload.adaptability,
+      //perseverence: payload.perseverence,
+      //collaboration: payload.collaboration,
+      //goalorientation: payload.goalorientation,
+      //customerorientation: payload.customerorientation,
+      //detailorientation: payload.detailorientation,
       description: payload.description,
       experiencelevels: payload.experiencelevels,
       product: payload.product,
@@ -41,23 +77,22 @@ export const actions = {
       vrar: payload.vrar,
       blockchain: payload.blockchain,
       company: payload.company,
-      logo: payload.logo,
       website: payload.website,
       jobad: payload.jobad,
       area1: payload.area1,
       area2: payload.area2,
       vision: payload.vision,
       purpose: payload.purpose,
-      pragmatism: payload.pragmatism, 
-      roles: payload.roles, 
-      freedom: payload.freedom, 
-      moneysatisfaction: payload.moneysatisfaction, 
-      athmosphere: payload.athmosphere, 
-      teamwork: payload.teamwork, 
-      leadership: payload.leadership,
+      //pragmatism: payload.pragmatism, 
+      //roles: payload.roles, 
+      //freedom: payload.freedom, 
+      //moneysatisfaction: payload.moneysatisfaction, 
+      //athmosphere: payload.athmosphere, 
+      //teamwork: payload.teamwork, 
+      //leadership: payload.leadership,
       advocates: [],
       userlikes: []
-    }).then(() => { console.log('Job Search has been created') })
+    })}).then(() => { console.log('Job Search has been created') })
   },
 
   updateAdvocacy ({commit}, payload) {
@@ -70,24 +105,6 @@ export const actions = {
     firestore.collection('EmployeeSearches').doc(payload.job).set({
       userlikes: payload.userlikes
     }, { merge: true }).then(() => { console.log('Like has been updated') })
-  },
-
-  createCompanyDetails ({commit}, payload) {
-    firestore.collection('Companies').doc(payload.company).set({
-      companyname: payload.company,
-      vision: payload.vision,
-      logo: payload.logo,
-      website: payload.website,
-      area1: payload.area1,
-      area2: payload.area2,
-      pragmatism: payload.pragmatism, 
-      roles: payload.roles, 
-      freedom: payload.freedom, 
-      moneysatisfaction: payload.moneysatisfaction, 
-      athmosphere: payload.athmosphere, 
-      teamwork: payload.teamwork, 
-      leadership: payload.leadership
-    }, { merge: true }).then(() => { console.log('Company has been updated') })
   },
 
   deleteDocument ({commit}, payload) {
@@ -214,7 +231,6 @@ export const actions = {
   userSignOut ({commit}) {
     firebase.auth().signOut()
     commit('setUser', null)
-    window.location.replace("https://www.trackmatch.net")
-    //router.push('/')
+    router.push('/')
   }
 }

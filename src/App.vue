@@ -24,12 +24,7 @@
           </v-toolbar-side-icon>
         </span>
       <v-toolbar-title>
-        <router-link class="hidden-xs-only" v-if="isAuthenticated" to="/home" tag="span" style="cursor: pointer; font-family:merriweather; color: teal">
-          {{ appTitle }}
-        </router-link>
-        <router-link class="hidden-xs-only" v-else to="/" tag="span" style="cursor: pointer; font-family:merriweather; color: teal">
-          {{ appTitle }}
-        </router-link>
+        
       </v-toolbar-title>
       <v-spacer></v-spacer>
   

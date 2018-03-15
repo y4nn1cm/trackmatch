@@ -4,7 +4,7 @@
     <div v-else style="text-align:center">
       <h3 style="text-align:center; margin-bottom:0">Candidates for</h3>
       <p class="title" style="margin-top:0">{{description}}</p>
-      <v-btn class="teal select" style="color:white; width:50vw" @click="select=true; candidates = []">Back to Job postings</v-btn>
+      <v-btn class="select" style="background-color:rgb(56,174,179); color:white; width:50vw" @click="select=true; candidates = []">Back to Job postings</v-btn>
     </div>
     <p style="text-align:center" v-if="noentries">Please create a position to find employees.</p>
     <v-layout v-if="select" row wrap v-for="item in searchitems" :key="item.ID">
