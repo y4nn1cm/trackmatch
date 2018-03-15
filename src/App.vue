@@ -92,11 +92,6 @@
                 icon: 'find_in_page'
               },
               {
-                title: 'Our Open Positions',
-                path: '/searchlist',
-                icon: 'list'
-              },
-              {
                 title: 'Browse Candidates',
                 path: '/candidates',
                 icon: 'perm_identity'
@@ -133,11 +128,6 @@
                 title: 'Create Position',
                 path: '/employeesearch',
                 icon: 'find_in_page'
-              },
-              {
-                title: 'Our Open Positions',
-                path: '/searchlist',
-                icon: 'list'
               },
               {
                 title: 'Browse Candidates',

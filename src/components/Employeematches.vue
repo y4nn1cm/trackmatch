@@ -1,24 +1,28 @@
 <template>
   <div>
-    <h3 v-if="select" style="text-align:center">Press a job to find candidates</h3>
+    <h3 v-if="select" style="text-align:center">Find candidates for your open positions</h3>
     <div v-else style="text-align:center">
       <h3 style="text-align:center; margin-bottom:0">Candidates for</h3>
       <p class="title" style="margin-top:0">{{description}}</p>
       <v-btn class="select" style="background-color:rgb(56,174,179); color:white; width:50vw" @click="select=true; candidates = []">Back to Job postings</v-btn>
     </div>
     <p style="text-align:center" v-if="noentries">Please create a position to find employees.</p>
-    <v-layout v-if="select" row wrap v-for="item in searchitems" :key="item.ID">
-      <div class="line" style="margin-top:6vw; margin-bottom:2vw"></div>
-      <v-flex xs2 @click="getCandidates(item)">
-        <img class="logo-picture" style="margin-top:3vw" :src="item.logo">
+    
+      <v-card v-if="select" v-for="item in searchitems" :key="item.ID" style="margin-top:8vw; margin-left:0; margin-right:0; padding:4vw">
+      <v-layout align-center row wrap>
+      <v-flex xs2>
+        <img class="logo-picture" :src="item.logo">
       </v-flex>
-      <v-flex xs10 @click="getCandidates(item)">
-        <p class="title" style="margin-top:3vw; margin-bottom:1.5vw; margin-left:0; padding:0">{{item.description}}</p>
+      <v-flex xs10>
+        <p class="title" style="margin-left:0; padding:0">{{item.description}}</p>
+      </v-flex>
+      <v-flex xs12>
+      <v-btn class="button select" @click="getCandidates(item)" style="margin-left:0; margin-right:1vw; margin-top:5vw; padding:0; background-color:rgb(56,174,179); color:white">Find Candidates</v-btn>
       </v-flex>
       <v-flex>
         <v-expansion-panel style="margin-top:3vw">
           <v-expansion-panel-content>
-            <div style="font-weight:500" slot="header">Job description</div>
+            <div style="font-weight:500" slot="header">Job purpose</div>
             <v-card>
               <v-card-text>
                 {{item.purpose}}
@@ -27,7 +31,7 @@
           </v-expansion-panel-content>
           <v-expansion-panel-content>
               <div style="font-weight:700" slot="header">See likes of job seekers</div>
-              <v-card v-for="like in item.likes" :key="like.ID">
+              <v-card v-for="like in item.userlikes" :key="like.ID">
                 <v-card-text>
                   <v-layout row wrap>
                     <v-flex xs4>
@@ -64,7 +68,20 @@
             </v-expansion-panel-content>
         </v-expansion-panel>
       </v-flex>
+      <v-flex>
+        <div v-if="neutral" style="text-align:left">
+          <v-btn class="select" v-if="item.isadvocate" @click="removeAdvocacy(item)" style="margin-left:0; margin-right:1vw; margin-top:5vw; padding:0; color:black">Unrepresent</v-btn>
+          <v-btn v-else class="button select" @click="becomeAdvocate(item)" style="margin-left:0; margin-right:1vw; margin-top:5vw; padding:0; background-color:rgb(56,174,179); color:white">Represent Job</v-btn>
+          <v-btn class="select" style="color:black; margin-left:1vw; margin-right:0; margin-top:5vw; padding:0" @click="neutral = !neutral">Delete Job</v-btn>
+        </div>
+        <div v-else>
+          <v-btn class="select" @click="deleteJobsearch(item.ID)" style="color:black; margin-left:0; margin-right:1vw; margin-top:5vw; padding:0; width:12vw">Confirm</v-btn>
+          <v-btn class="select" @click="neutral = !neutral" style="color:black; margin-left:1vw; margin-right:0; margin-top:5vw; padding:0; width:12vw">Cancel</v-btn>
+        </div>
+      </v-flex>
     </v-layout>
+  </v-card>
+
     <v-card v-for="candidate in getJobCandidates" :key="candidate.ID" row wrap style="margin-top:8vw; padding-top:5vw; padding-bottom:5vw; padding-left:4vw; padding-right:4vw">
       <v-layout align-top style="text-align:center" row wrap>
         <v-flex xs12>
@@ -125,7 +142,9 @@
   export default {
     data() {
       return {
+        ID: null,
         select: true,
+        neutral: true,
         activities: [],
         company: null,
         candidates: [],
@@ -150,6 +169,7 @@
         searchitems: [],
         noentries: true,
         description: null,
+        advocate: {}
       };
     },
   
@@ -161,7 +181,8 @@
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
-            this.company = doc.data().company;
+            this.company = doc.data().company,
+            this.ID = doc.data().ID
           });
         })
         .then(() =>
@@ -174,21 +195,32 @@
           querySnapshot.forEach(doc => {
             this.noentries = false;
             let data = {
-              ID: doc.data().ID,
-              description: doc.data().description,
-              purpose: doc.data().purpose,
-              logo: doc.data().logo,
-              design: doc.data().logo,
-              business: doc.data().business,
-              product: doc.data().product,
-              operations: doc.data().operations,
-              software: doc.data().software,
-              vrar: doc.data().vrar,
-              blockchain: doc.data().blockchain,
-              ai: doc.data().ai,
-              sales: doc.data().sales,
-              customer: doc.data().customer,
-              likes: this.getLikes(doc.data().userlikes),
+                ID: doc.data().ID,
+                description: doc.data().description,
+                company: doc.data().company,
+                website: doc.data().website,
+                background1: doc.data().area1,
+                background2: doc.data().area2,
+                logo: doc.data().logo,
+                product: doc.data().product,
+                design: doc.data().design,
+                business: doc.data().business,
+                operations: doc.data().operations,
+                software: doc.data().software,
+                ai: doc.data().ai,
+                sales: doc.data().sales,
+                customer: doc.data().customer,
+                vrar: doc.data().vrar,
+                blockchain: doc.data().blockchain,
+                jobad: doc.data().jobad,
+                email: doc.data().email,
+                phone: doc.data().phone,
+                vision: doc.data().vision,
+                experience: doc.data().experiencelevels,
+                purpose: doc.data().purpose,
+                advocates: doc.data().advocates,
+                isadvocate: this.checkAdvocacy(doc.data().advocates),
+                userlikes: this.getLikes(doc.data().userlikes),
             };
             this.searchitems.push(data);
           });
@@ -366,7 +398,6 @@
             )
           );
         this.select = false;
-        this.uniquejobs = uniqBy(this.jobs, "ID");
         this.description = item.description;
         window.scrollTo(0, 0);
       },
@@ -433,7 +464,6 @@
           */
       },
   
-  
       saveCandidate: function(doc) {
         let data = {
           image: doc.data().profilepicture,
@@ -459,7 +489,101 @@
           //fit: (this.strengthsfit + this.culturefit) / 2
         };
         this.candidates.push(data);
-      }
+      },
+    
+
+    becomeAdvocate: function(job) {
+      job.advocates.push(this.ID);
+      this.$store
+        .dispatch("updateAdvocacy", {
+          job: job.ID,
+          advocates: job.advocates
+        })
+        .then(function() {
+          console.log("You successfully became an advocate!");
+        })
+        .catch(function(error) {
+          console.error("Error adding advocacy: ", error);
+        });
+      this.neutral = true;
+      this.searchitems.find(item => item.ID == job.ID).isadvocate = true;
+    },
+
+    removeAdvocacy: function(job) {
+      job.advocates.splice(job.advocates.indexOf(this.ID), 1);
+      this.$store
+        .dispatch("updateAdvocacy", {
+          job: job.ID,
+          advocates: job.advocates
+        })
+        .then(function() {
+          console.log("Advocacy removed");
+        })
+        .catch(function(error) {
+          console.error("Error removing advocacy: ", error);
+        });
+      this.neutral = true;
+      this.searchitems.find(item => item.ID == job.ID).isadvocate = false;
+    },
+
+    checkAdvocacy: function(advocates) {
+      return advocates.includes(this.ID);
+    },
+
+    deleteJobsearch: function(ID) {
+      this.$store
+        .dispatch("deleteDocument", {
+          document: ID,
+          collection: "EmployeeSearches"
+        })
+        .then(function() {
+          console.log("Document successfully deleted!");
+        })
+        .catch(function(error) {
+          console.error("Error removing document: ", error);
+        })
+        .then(() =>
+          firestore
+            .collection("EmployeeSearches")
+            .where("company", "==", this.company)
+            .get()
+            .then(querySnapshot => {
+              this.searchitems = [];
+              querySnapshot.forEach(doc => {
+                let data = {
+                ID: doc.data().ID,
+                description: doc.data().description,
+                company: doc.data().company,
+                website: doc.data().website,
+                background1: doc.data().area1,
+                background2: doc.data().area2,
+                product: doc.data().product,
+                design: doc.data().design,
+                business: doc.data().business,
+                operations: doc.data().operations,
+                software: doc.data().software,
+                ai: doc.data().ai,
+                sales: doc.data().sales,
+                customer: doc.data().customer,
+                vrar: doc.data().vrar,
+                blockchain: doc.data().blockchain,
+                logo: doc.data().logo,
+                jobad: doc.data().jobad,
+                email: doc.data().email,
+                phone: doc.data().phone,
+                vision: doc.data().vision,
+                experience: doc.data().experiencelevels,
+                purpose: doc.data().purpose,
+                advocates: doc.data().advocates,
+                isadvocate: this.checkAdvocacy(doc.data().advocates),
+                userlikes: doc.data().userlikes
+                };
+                this.searchitems.push(data);
+              });
+            })
+        );
+      this.neutral = true;
+    }
     },
     computed: {
       getJobCandidates() {
@@ -473,7 +597,7 @@
   };
 </script>
 
-<style>
+<style scoped>
   @import url("https://fonts.googleapis.com/css?family=Merriweather");
   
   .seeker-picture {

@@ -32,7 +32,7 @@
             <p style="text-align:justify; margin-top:0vw; margin-bottom:0; padding:0"><span style="font-weight:600">Job Purpose:</span> {{job.purpose}} <a v-if="job.jobad != null" target="_blank" :href="job.jobad"> - see details</a></p>
           </v-flex>
           <v-flex xs12>
-            <p class="body-2" style="margin-top:3vw; margin-bottom:0; padding:0; text-align:left">
+            <p class="body-2" style="margin-top:3vw; margin-bottom:0; padding:0; text-align:center">
               <span class="body-2" style="margin-top:1.4vw; margin-bottom:0; text-align:left"><span class="title">{{job.experience}}</span> years experience preferred</span>
             </p>
           </v-flex>
@@ -116,14 +116,11 @@
                 <img class="employee-picture-desktop" :src="job.logo">
               </v-flex>
               <v-flex xs12>
-                <p class="body-2" style="height:4vw; margin-top:0; margin-bottom:0; margin-left:0; padding:0"><a target="_blank" :href="job.website" style="font-color: black; font-weight:500; padding:0">{{job.company}}</a><br>{{job.background1}} / {{job.background2}}
+                <p class="body-2" style="height:5.5vw; margin-top:0; margin-bottom:0; margin-left:0; padding:0"><a target="_blank" :href="job.website" style="font-color: black; font-weight:500; padding:0">{{job.company}}</a><br>{{job.background1}} / {{job.background2}}
                 </p>
               </v-flex>
               <v-flex xs12>
-                <p class="title" style="height:2vw; margin-bottom:2vw; margin-top:1vw; padding:0">{{job.description}}</p>
-              </v-flex>
-              <v-flex xs12>
-                <p style="height:5vw; text-align:justify; margin-top:0vw; margin-bottom:0; padding:0"><span style="font-weight:600">Job Purpose:</span> {{job.purpose}} <a v-if="job.jobad != null" target="_blank" :href="job.jobad"> - see details</a></p>
+                <p class="title" style="height:2.5vw; margin-bottom:2vw; margin-top:1vw; padding:0">{{job.description}}</p>
               </v-flex>
               <v-flex xs12>
                 <p class="body-2" style="margin-top:1vw; margin-bottom:0; padding:0; text-align:left">
@@ -132,6 +129,13 @@
               </v-flex>
               <v-flex xs12>
                 <v-expansion-panel expand style="margin-bottom:0; margin-top:2vw">
+                  <v-expansion-panel-content>
+                    <div style="font-weight:500" slot="header">Job Purpose</div>
+                    <v-card>
+                      <v-card-text style="text-align:justify">{{job.purpose}} 
+                        <a v-if="job.jobad != null" target="_blank" :href="job.jobad"> - see details</a></v-card-text>
+                    </v-card>
+                  </v-expansion-panel-content>
                   <v-expansion-panel-content>
                     <div style="font-weight:500" slot="header">Read our Vision</div>
                     <v-card>
@@ -705,7 +709,7 @@
   };
 </script>
 
-<style>
+<style scoped>
   @import url("https://fonts.googleapis.com/css?family=Merriweather");
   .employee-picture {
     width: 10vw;

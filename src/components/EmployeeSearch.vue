@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <div class="hidden-md-and-up">
     <p v-if="nocompany">Before creating a position, please fill out your profile and provide which company you are working for.</p>
     <div v-else>
       <h3 style="text-align:center">New Team Members For {{forcompany}}</h3>
@@ -9,11 +10,9 @@
       <input name="logourl" type="file" style="display:none" ref="fileInput" accept="image/*" @change="logoUpload">
       <v-btn class="button" @click="pickFile" style="background-color:rgb(56,174,179); color:white; margin-top:3vw; margin-bottom:5vw; padding-top:0">change logo</v-btn>
       <img :src="logourl" class="logo">
-       <!-- <v-text-field name="imageurl" label="LINK to company logo here" id="imageurl" type="imageurl" v-model="logourl" style="margin-bottom:0; padding-bottom:0" required>
-        </v-text-field> -->
         <v-text-field name="website" style="margin-bottom:0; padding-bottom:0" label="LINK to company website here" id="website" type="website" v-model="website" required>
         </v-text-field>
-        <v-text-field name="vision" style="margin-bottom:0; padding-bottom:0" label="Company vision in two sentences" multi-line id="vision" type="vision" v-model="vision" required>
+        <v-text-field textarea name="vision" style="margin-bottom:0; padding-bottom:0" label="Company vision in two sentences" multi-line id="vision" type="vision" v-model="vision" required>
         </v-text-field>
         <h4 style="font-weight:500; margin-top:5vw; margin-bottom:3vw">Your Companies Sector</h4>
         <v-select id=discipline1 label="Your Industry" :items="disciplineitems1" v-model="area1" segmented class="input-group--focused" required>
@@ -32,11 +31,13 @@
         <h4 style="font-weight:500; margin-top:8vw; margin-bottom:0">Your Open Position</h4>
         <v-text-field name="description" label="Name of Position" id="description" type="description" v-model="description" style="margin-top:0; border:0; margin-bottom:0; padding-bottom:0" required>
         </v-text-field>
-        <v-text-field name="purpose" label="Job purpose for the company" id="purpose" type="purpose" multi-line v-model="purpose" style="margin-top:0; border:0; margin-bottom:0; padding-bottom:0" required>
-        </v-text-field>
         <v-text-field name="jobad" style="margin-top:0; border:0; margin-bottom:0; padding-bottom:0" label="LINK to job ad or carreer page" id="jobad" type="jobad" v-model="jobad">
         </v-text-field>
-        <h4 style="margin-top:5vw; font-weight:500">The Ideal Candidate</h4>
+        <v-text-field textarea name="purpose" label="Job purpose for the company" id="purpose" type="purpose" multi-line v-model="purpose" style="margin-top:0; border:0; margin-bottom:0; padding-bottom:0" required>
+        </v-text-field>
+        <v-select segmented label="Preferred Experience Level" id="experience"  v-model="experience" :items="levels" required style="margin-top:0; border:0">
+        </v-select>
+        <h4 style="margin-top:5vw; font-weight:500">Who are you looking for?</h4>
         <p class="body-2">Business and Product Experts</p>
         <v-checkbox style="margin:0%; padding:0" label="Product Mgmt and Concept" v-model="product" value=true></v-checkbox>
         <v-checkbox style="margin:0%; padding:0" label="Design and User Experience" v-model="design" value=true></v-checkbox>
@@ -49,8 +50,6 @@
         <v-checkbox style="margin:0%; padding:0" label="Virtual / Augmented Reality" v-model="vrar" value=true></v-checkbox>
         <v-checkbox style="margin:0%; padding:0" label="Artificial Intelligence" v-model="ai" value=true></v-checkbox>
         <v-checkbox style="margin:0%; padding:0" label="Blockchain" v-model="blockchain" value=true></v-checkbox>
-        <v-text-field name="experience" label="Experience in years" id="experience" type="experience" v-model="experience" style="margin-top:0; border:0; font-size:10%" required>
-        </v-text-field>
         <div class="text-xs-center">
           <!--
               <p v-if="describestrengths" style="margin-top:5vw; text-align:justify">We recommend applicants based on their strengths and fit with your company culture. Please describe with the following template which profile is most suitable for the job.</p>
@@ -328,6 +327,85 @@
         </div>
       </form>
     </div>
+    </div>
+
+    <div class="hidden-sm-and-down">
+      <v-layout v-if="nocompany">
+        <v-flex md6 offset-md3>
+    <p >Before creating a position, please fill out your profile and provide which company you are working for.</p>
+    </v-flex>
+      </v-layout>
+    <div v-else>
+      <v-layout row wrap class="center">
+        <v-flex md6 offset-md3>
+      <h3 style="text-align:center">New Team Members For {{forcompany}}</h3>
+      <div class="line" style="margin-top:5vw"></div>
+      <p class="title" style="font-weight:500">About {{forcompany}}</p>
+      </v-flex>
+      </v-layout>
+      
+      <form style="margin-top:1vw" @submit.prevent="createEmployeeSearch">
+      <v-layout align-center row wrap>
+        <v-flex md1 offset-md3>
+      <input name="logourl" type="file" style="display:none" ref="fileInput" accept="image/*" @change="logoUpload">
+      <img :src="logourl" class="logo-desktop">
+        </v-flex>
+        <v-flex md1>
+      <v-btn class="button" @click="pickFile" style="background-color:rgb(56,174,179); color:white; margin-left:3vw">change logo</v-btn>
+        </v-flex>
+      </v-layout>
+      <v-layout row wrap>
+        <v-flex md6 offset-md3>
+        <v-text-field name="website" style="margin-top:2vw; margin-bottom:0; padding-bottom:0" label="LINK to company website here" id="website" type="website" v-model="website" required>
+        </v-text-field>
+        <v-text-field textarea name="vision" style="margin-bottom:0; padding-bottom:0" label="Company vision in two sentences" multi-line id="vision" type="vision" v-model="vision" required>
+        </v-text-field>
+        <p class="title" style="font-weight:500; margin-top:3vw; margin-bottom:3vw">Your Companies Sector</p>
+        <v-select id=discipline1 label="Your Industry" :items="disciplineitems1" v-model="area1" segmented required>
+        </v-select>
+        <v-select id=discipline2 label="Your Company Type" :items="disciplineitems2" v-model="area2" required segmented>
+        </v-select>
+        <p class="title" style="font-weight:500; margin-top:3vw; margin-bottom:1vw">Your Open Position</p>
+        <v-text-field name="description" label="Name of Position" id="description" type="description" v-model="description" style="margin-top:0; border:0; margin-bottom:0; padding-bottom:0" required>
+        </v-text-field>
+        <v-text-field name="jobad" style="margin-top:0; border:0; margin-bottom:0; padding-bottom:0" label="LINK to job ad or carreer page" id="jobad" type="jobad" v-model="jobad">
+        </v-text-field>
+        <v-text-field textarea name="purpose" label="Job purpose for the company" id="purpose" type="purpose" multi-line v-model="purpose" style="margin-top:0; border:0; margin-bottom:0; padding-bottom:0" required>
+        </v-text-field>
+        <v-select segmented label="Preferred Experience Level" id="experience"  v-model="experience" :items="levels" required style="margin-top:0; border:0">
+            </v-select>
+        </v-flex>
+        <v-flex md6 offset-md3>
+            <p class="title" style="text-align:center; margin-top:3vw; margin-bottom:3vw">Who are you looking for?</p>
+            </v-flex>
+            </v-layout>
+            <v-layout row wrap align-top justify-space-around class="center">
+            <v-flex style="padding-left:1vw" md-3 offset-md1 class="text-md-left">
+            <p class="body-2">Business Pro's</p>
+            <v-checkbox style="margin:0%; padding:0" label="Operations / Finance" v-model="operations" value=true></v-checkbox>
+            <v-checkbox style="margin:0%; padding:0" label="Business Dev / Marketing" v-model="business" value=true></v-checkbox>
+            <v-checkbox style="margin:0%; padding:0" label="Sales" v-model="sales" value=true></v-checkbox>
+            </v-flex>
+            <v-flex md-3  class="text-md-left">
+            <p class="body-2">User Experts</p>
+            <v-checkbox style="margin:0%; padding:0" label="Software Development" v-model="software" value=true></v-checkbox>
+            <v-checkbox style="margin:0%; padding:0" label="Product Mgmt and Concept" v-model="product" value=true></v-checkbox>
+            <v-checkbox style="margin:0%; padding:0" label="Design and User Experience" v-model="design" value=true></v-checkbox>
+            <v-checkbox style="margin:0%; padding:0" label="Customer Success" v-model="customer" value=true></v-checkbox>
+            </v-flex>
+            <v-flex md-3 class="text-md-left">
+              <p class="body-2">Technology Heroes</p>
+            <v-checkbox style="margin:0%; padding:0" label="Virtual / Augmented Reality" v-model="vrar" value=true></v-checkbox>
+            <v-checkbox style="margin:0%; padding:0" label="Data Analysis" v-model="ai" value=true></v-checkbox>
+            <v-checkbox style="margin:0%; padding:0" label="Blockchain" v-model="blockchain" value=true></v-checkbox>
+            </v-flex>
+            </v-layout>
+        <div style="text-align:center">
+      <v-btn class="button"  style="background-color:rgb(56,174,179); color:white; margin-top:3vw; font-size:1.5vw;" type="submit">Create Employee Search</v-btn>
+    </div>
+      </form>
+    </div>
+    </div>
   </v-app>
 </template>
 
@@ -367,6 +445,15 @@
         image: null,
         imageurl: null,
         employeeselection: [],
+        levels: [
+          "Student",
+          "Graduate",
+          "Experienced",
+          "Intermediate",
+          "Senior",
+          "Advanced",
+          "Expert"
+        ],
         disciplineitems1: [
           "Automotive & Aviation",
           "Building Industries",
@@ -380,6 +467,7 @@
           "Environmental Technologies",
           "Finance",
           "Information Technologies",
+          "Insurance",
           "Healthcare and Life Sciences",
           "Lightweight Industry",
           "Logistics Industry",
@@ -387,6 +475,7 @@
           "Material Processing & Technologies",
           "Media",
           "Mobility",
+          "Tourism",
           "Trade"
         ],
         disciplineitems2: [
@@ -670,7 +759,7 @@
             name: this.name
           });
           this.$store.dispatch("openSite", {
-            target: "/searchlist"
+            target: "/candidates"
           });
         }
       }
@@ -694,9 +783,17 @@
     padding-left: 20%;
   }
   
-  .employee-picture {
+  .logo {
     width: 22vw;
     height: 22vw;
+    border-radius: 10%;
+    object-fit: cover;
+    margin-top: 0;
+  }
+
+  .logo-desktop {
+    width: 8vw;
+    height: 8vw;
     border-radius: 10%;
     object-fit: cover;
     margin-top: 0;

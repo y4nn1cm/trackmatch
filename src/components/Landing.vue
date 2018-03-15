@@ -21,7 +21,7 @@
   export default {};
 </script>
 
-<style>
+<style scoped>
   @import url("https://fonts.googleapis.com/css?family=Merriweather");
 
   .logo {

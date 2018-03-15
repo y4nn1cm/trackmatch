@@ -2,7 +2,8 @@
   <v-app>
     <div class="center hidden-md-and-up">
       <!-- TO DO : Picture Upload -->
-      <img @click="editpicture=!editpicture" :src="profilepicture" class="profile-picture">
+      <input name="imageurl" type="file" style="display:none" ref="fileInput" accept="image/*" @change="pictureUpload">
+      <img @click="pickFile" :src="profilepicture" class="profile-picture">
       <h2>Hello {{ user }}</h2>
       <h3>Great that you are here!</h3>
       <v-layout style=margin-top:5vw row wrap>
@@ -45,33 +46,16 @@
   
   
     <div class="hidden-sm-and-down">
-      <v-layout row wrap style="margin-top:6vw">
+      <v-layout row wrap align-center style="margin-top:6vw">
         <v-flex md5 style="text-align:center">
-          <img @click="editpicture=!editpicture" :src="profilepicture" class="profile-picture-desktop">
+          <input name="imageurl" type="file" style="display:none" ref="fileInput" accept="image/*" @change="pictureUpload">
+      <img @click="pickFile" :src="profilepicture" class="profile-picture-desktop">
         </v-flex>
         <v-flex md7>
           <h2>Hello {{ user }}</h2>
           <h3>Great that you are here!</h3>
         </v-flex>
-        <v-flex md3 offset-md1 class="text-md-center" style="margin-top:1vw; text-align:center;">
-          <div>
-            <a @click="editpicture=true" v-if="editpicture === false" style='text-align:center; font-size:1vw'>
-              <p>press to edit profile picture</p>
-            </a>
-            <div v-if="editpicture === true">
-              <a @click="editpicture=false">
-                <p style='margin-bottom:0px; font-size:1vw;'>press to close</p>
-              </a>
-              <form @submit.prevent="pictureUpload">
-                <v-text-field name="imageurl" label="PASTE LINK TO IMAGE HERE" id="imageurl" type="imageurl" v-model="imageurl" style="padding-bottom:0">
-                </v-text-field>
-                <v-btn class="button" type="submit" style="margin-top:0; margin-bottom:5vw; padding-top:0; color:white; background-color:rgb(56,174,179)">submit</v-btn>
-                <br>
-              </form>
-            </div>
-          </div>
-        </v-flex>
-        <v-flex class="text-xs-left" md-7 offset-md1>
+        <v-flex style="margin-top:3vw" class="text-xs-left" md-7 offset-md5>
           <div v-if="searchjob">
             <div v-if="ready!=0">
               <v-btn style="background-color:rgb(56,174,179); color:white" class="select-desktop" @click="editProfile">First create my profile</v-btn><br>
@@ -121,9 +105,8 @@
         helphiring: null,
         findevents: null,
         findcoach: null,
-        imageurl: "",
+        image: null,
         user: "",
-        editpicture: false,
         ready: null,
         noentries: true,
         company: null
@@ -139,7 +122,9 @@
           querySnapshot.forEach(doc => {
             this.user = doc.data().firstname;
             this.ready = doc.data().pointsleft;
+            if (doc.data().profilepicture != null ){
             this.profilepicture = doc.data().profilepicture;
+            }
             this.searchjob = doc.data().searchjob;
             this.helphiring = doc.data().helphiring;
             this.givefeedback = doc.data().givefeedback;
@@ -165,23 +150,7 @@
     },
   
     methods: {
-      pictureUpload() {
-        if (this.imageurl.length > 10) {
-          this.editpicture = false;
-          this.$store.dispatch("pictureUpload", {
-            imageurl: this.imageurl
-          });
-          firestore
-            .collection("Users")
-            .where("ID", "==", firebase.auth().currentUser.uid)
-            .get()
-            .then(querySnapshot => {
-              querySnapshot.forEach(doc => {
-                this.profilepicture = doc.data().profilepicture;
-              });
-            });
-        }
-      },
+      
       editProfile: function(event) {
         {
           this.$store.dispatch("openSite", {
@@ -218,7 +187,27 @@
           findevents: this.findevents,
           findcoach: this.findcoach
         });
-      }
+      },
+      pickFile() {
+        this.$refs.fileInput.click();
+      },
+
+      pictureUpload(event) {
+        const files = event.target.files
+        let filename = files[0].name
+        if (filename.lastIndexOf(".") <= 0) {
+          return alert("please add a valid file");
+        }  
+        const filereader = new FileReader()
+        filereader.addEventListener("load", () => {
+          this.profilepicture = filereader.result
+        })
+        filereader.readAsDataURL(files[0])
+        this.image=files[0]
+        this.$store.dispatch("pictureUpload", {
+          image: this.image
+        })
+      },
       /*
           togglefeedback: function (event) {
             this.givefeedback = !this.givefeedback
@@ -261,11 +250,6 @@
     object-fit: cover;
   }
   
-  #imageurl {
-    margin-bottom: 0;
-    font-size: 1vw;
-  }
-  
   .center {
     position: relative;
     text-align: center;
@@ -281,7 +265,6 @@
     width: 65vw;
     padding: 0;
     height: 10vw;
-    text-align: center;
     color: white;
   }
 
@@ -292,37 +275,15 @@
     width: 25vw;
     padding: 0;
     height: 4vw;
-    text-align: left;
     color: white;
   }
   
   .line {
     position: relative;
     width: 100%;
-    margin-top: 5%;
-    margin-bottom: 5%;
     height: 1px;
     background: #ddd;
     border-radius: 10%;
     line-height: 0px;
-  }
-  
-  h1,
-  h2 {
-    font-weight: normal;
-  }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  li {
-    display: inline-block;
-    margin: 0 10px;
-  }
-  
-  a {
-    color: #42b983;
   }
 </style>
