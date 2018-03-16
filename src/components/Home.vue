@@ -18,18 +18,16 @@
           <div v-else-if="helphiring">
             <div v-if="ready==null">
               <v-btn style="background-color:rgb(56,174,179); color:white" class="select" @click="editProfile">First create my profile</v-btn>
-              <v-btn disabled @click="openSite('employeesearch')" style="background-color:rgb(56,174,179); color:white" class="select">create position</v-btn><br>
-              <v-btn disabled @click="openSite('candidates')" style="background-color:rgb(56,174,179); color:white" class="select">Find Candidates</v-btn><br>
-              <v-btn disabled @click="openSite('searchlist')" style="background-color:rgb(56,174,179); color:white" class="select">Represent Jobs</v-btn>
+              <v-btn disabled @click="openSite('employeesearch')" style="background-color:rgb(56,174,179); color:white" class="select">create open position</v-btn><br>
+              <v-btn disabled @click="openSite('candidates')" style="background-color:rgb(56,174,179); color:white" class="select">represent open position</v-btn><br>
             </div>
             <div v-else>
               <div v-if="noentries">
-                <v-btn @click="openSite('employeesearch')" style="background-color:rgb(56,174,179); color:white" class="select">Next, create open positions</v-btn><br>
-                <v-btn disabled @click="openSite('candidates')" style="background-color:rgb(56,174,179); color:white" class="select">Find Candidates</v-btn><br>
+                <v-btn @click="openSite('employeesearch')" style="background-color:rgb(56,174,179); color:white" class="select">create open position</v-btn><br>
+                <v-btn disabled @click="openSite('candidates')" style="background-color:rgb(56,174,179); color:white" class="select">represent open position</v-btn><br>
               </div>
               <div v-else>
-                <v-btn @click="openSite('employeesearch')" class=" select" style="background-color:rgb(56,174,179); color:white">create open position</v-btn><br>
-                <v-btn @click="openSite('candidates')" style="background-color:rgb(56,174,179); color:white" class="select">Find candidates</v-btn><br>
+                <v-btn @click="openSite('candidates')" style="background-color:rgb(56,174,179); color:white" class="select">represent open position</v-btn><br>
               </div>
             </div>
           </div>
@@ -57,27 +55,23 @@
           <div v-if="searchjob">
             <div v-if="ready!=0">
               <v-btn style="background-color:rgb(56,174,179); color:white" class="select-desktop" @click="editProfile">First create my profile</v-btn><br>
-              <v-btn disabled @click="openSite('jobmatches')" style="background-color:rgb(56,174,179); color:white" class="select-desktop">Show my job matches</v-btn><br>
+              <v-btn @click="openSite('jobmatches')" style="background-color:rgb(56,174,179); color:white" class="select-desktop">Explore Job Opportunities</v-btn><br>
             </div>
-            <v-btn v-else @click="openSite('jobmatches')" style="background-color:rgb(56,174,179); color:white" class="select-desktop">Show my job matches</v-btn><br>
+            <v-btn v-else @click="openSite('jobmatches')" style="background-color:rgb(56,174,179); color:white" class="select-desktop">Explore Job Opportunities</v-btn><br>
           </div>
           <div v-else-if="helphiring">
             <div v-if="ready!=0">
               <v-btn style="background-color:rgb(56,174,179); color:white" class="select-desktop" @click="editProfile">First create my profile</v-btn><br>
-              <v-btn disabled @click="openSite('employeesearch')" style="background-color:rgb(56,174,179); color:white" class="select-desktop">create position</v-btn><br>
-              <v-btn disabled @click="openSite('candidates')" style="background-color:rgb(56,174,179); color:white" class="select-desktop">Show candidate matches</v-btn><br>
-              <v-btn disabled @click="openSite('searchlist')" style="background-color:rgb(56,174,179); color:white" class="select-desktop">Represent Jobs</v-btn><br>
+              <v-btn disabled @click="openSite('employeesearch')" style="background-color:rgb(56,174,179); color:white" class="select-desktop"> create open position </v-btn><br>
+              <v-btn disabled @click="openSite('candidates')" style="background-color:rgb(56,174,179); color:white" class="select-desktop">represent open position</v-btn><br>
             </div>
             <div v-else>
               <div v-if="noentries">
-                <v-btn @click="openSite('employeesearch')" style="background-color:rgb(56,174,179); color:white" class="select-desktop">Next, create a position</v-btn><br>
-                <v-btn disabled @click="openSite('candidates')" style="background-color:rgb(56,174,179); color:white" class="select-desktop">Show candidate matches</v-btn><br>
-                <v-btn disabled @click="openSite('searchlist')" style="background-color:rgb(56,174,179); color:white" class="select-desktop">represent Jobs</v-btn>
+                <v-btn @click="openSite('employeesearch')" style="background-color:rgb(56,174,179); color:white" class="select-desktop">create open position</v-btn><br>
+                <v-btn disabled @click="openSite('candidates')" style="background-color:rgb(56,174,179); color:white" class="select-desktop">represent open position</v-btn><br>
               </div>
               <div v-else>
-                <v-btn @click="openSite('employeesearch')" style="background-color:rgb(56,174,179); color:white" class="select-desktop">create a position</v-btn><br>
-                <v-btn @click="openSite('candidates')" style="background-color:rgb(56,174,179); color:white" class="select-desktop">Show candidate matches</v-btn><br>
-                <v-btn @click="openSite('searchlist')" style="background-color:rgb(56,174,179); color:white" class="select-desktop">Represent Jobs</v-btn>
+                <v-btn @click="openSite('candidates')" style="background-color:rgb(56,174,179); color:white" class="select-desktop">represent open position</v-btn><br>
               </div>
             </div>
           </div>

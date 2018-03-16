@@ -82,7 +82,7 @@
   
           if (this.searchjob == true && this.helphiring == true) {
             return [{
-                title: 'Explore Job Opportunities',
+                title: 'Job Opportunities',
                 path: '/jobmatches',
                 icon: 'check_circle'
               },
@@ -92,7 +92,7 @@
                 icon: 'find_in_page'
               },
               {
-                title: 'Find Candidates',
+                title: 'Your Open Positions',
                 path: '/candidates',
                 icon: 'perm_identity'
               },
@@ -106,7 +106,7 @@
   
           if (this.searchjob == true && this.helphiring == false) {
             return [{
-                title: 'Explore Job Opportunities',
+                title: 'Job Opportunities',
                 path: '/jobmatches',
                 icon: 'check_circle'
               },
@@ -120,7 +120,7 @@
   
           if (this.searchjob == false && this.helphiring == true) {
             return [{
-                title: 'Browse Job Postings',
+                title: 'All Job Postings',
                 path: '/jobmatches',
                 icon: 'check_circle'
               },
@@ -130,7 +130,7 @@
                 icon: 'find_in_page'
               },
               {
-                title: 'Find Candidates',
+                title: 'Your Open Positions',
                 path: '/candidates',
                 icon: 'perm_identity'
               },

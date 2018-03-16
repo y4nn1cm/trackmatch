@@ -454,9 +454,9 @@
         employeeselection: [],
         levels: [
           "Student",
-          "Graduate",
-          "Experienced",
+          "Graduate",         
           "Intermediate",
+          "Experienced",
           "Senior",
           "Advanced",
           "Expert"

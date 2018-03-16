@@ -584,8 +584,8 @@
         levels: [
           "Student",
 "Graduate",
-"Experienced",
 "Intermediate",
+"Experienced",
 "Senior",
 "Advanced",
 "Expert"
