@@ -3,15 +3,15 @@
     <div class="hidden-md-and-up">
       <h3 style="text-align:center">Loading Jobs in Munich</h3>
       <div class="line" style="margin-top:4vw"></div>
-      <div style="margin-top:6vw; text-align:center" v-if="noSelection()">
+      <div style="margin-top:6vw; text-align:center" v-if="!this.ready">
         <p>
-          You have not selected any job roles. Please edit your profile and select job roles first so we can show you matching jobs.
+          You see all Jobs that are listed on our platform because you have not selected any job roles yet.
         </p>
         <v-btn style="background-color:rgb(56,174,179); color:white" @click="editProfile">update my profile</v-btn>
       </div>
-      <div style="margin-top:6vw; text-align:center " v-else-if="this.jobs.length==0">
+      <div style="margin-top:6vw; text-align:center " v-if="this.jobs.length==0">
         <p>
-          There are currently no jobs for you. Please update your profile and the roles you are looking for.
+          There are currently no jobs for you. Please update your profile and the job roles you are looking for.
         </p>
         <v-btn style="background-color:rgb(56,174,179); color:white" @click="editProfile">Update my profile</v-btn>
       </div>
@@ -50,19 +50,16 @@
                 <div style="font-weight:700" slot="header">Meet the Team</div>
                 <v-card v-for="advocate in job.advocates" :key="advocate.ID">
                   <v-card-text>
-                    <v-layout row wrap>
+                    <v-layout row wrap align-top>
                       <v-flex xs4>
                         <img class="advocate-picture" :src="advocate.profilepicture">
                       </v-flex>
                       <v-flex xs8>
-                        <p style="font-weight:500; margin-top:0; margin-bottom:1vw; padding:0">
+                        <p style="font-weight:500; margin-top:0; margin-bottom:0; padding:0">
                           {{advocate.firstname}} {{advocate.lastname}}
                         </p>
                         <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">
                           {{advocate.background1}} / {{advocate.background2}}
-                        </p>
-                        <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">
-                          <a target="_blank" :href="advocate.linkedin" style="font-weight:400">LinkedIn / Xing</a>
                         </p>
                       </v-flex>
                       <v-flex>
@@ -74,8 +71,11 @@
                         <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">
                           <a :href="`mailto:${advocate.email}`" style="font-weight:400">{{advocate.email}}</a>
                         </p>
-                        <p style="font-weight:400; margin-top:0; margin-bottom:0; padding:0">
+                        <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">
                           <a :href="`tel:${advocate.phone}`" style="font-weight:400">{{advocate.phone}}</a>
+                        </p>
+                        <p style="font-weight:400; margin-top:0; margin-bottom:0; padding:0">
+                          <a target="_blank" :href="advocate.linkedin" style="font-weight:400">LinkedIn / Xing</a>
                         </p>
                       </v-flex>
                     </v-layout>
@@ -96,13 +96,13 @@
     <div class="hidden-sm-and-down">
       <h3 style="text-align:center">Loading Jobs in Munich</h3>
       <div class="line" style="margin-top:4vw"></div>
-      <div style="margin-top:6vw; text-align:center" v-if="noSelection()">
+      <div style="margin-top:6vw; text-align:center" v-if="!this.ready">
         <p>
-          You have not selected any job roles. Please edit your profile and select job roles first so we can show you matching jobs.
+          You see all Jobs that are listed on our platform because you have not selected any job roles yet.
         </p>
         <v-btn style="background-color:rgb(56,174,179); color:white" @click="editProfile">update my profile</v-btn>
       </div>
-      <div style="margin-top:6vw; text-align:center " v-else-if="this.jobs.length==0">
+      <div style="margin-top:6vw; text-align:center " v-if="this.jobs.length==0">
         <p>
           There are currently no jobs for you. Please update your profile and the roles you are looking for.
         </p>
@@ -146,19 +146,16 @@
                     <div style="font-weight:700" slot="header">Meet the Team</div>
                     <v-card v-for="advocate in job.advocates" :key="advocate.ID">
                       <v-card-text>
-                        <v-layout row wrap>
+                        <v-layout row wrap align-top>
                           <v-flex xs4>
                             <img class="advocate-picture-desktop" :src="advocate.profilepicture">
                           </v-flex>
                           <v-flex xs8>
-                            <p style="font-weight:500; margin-top:0; margin-bottom:1vw; padding:0">
+                            <p style="font-weight:500; margin-top:0; margin-bottom:0.3vw; padding:0">
                               {{advocate.firstname}} {{advocate.lastname}}
                             </p>
-                            <p style="font-weight:400; margin-top:0; margin-bottom:0.5vw; padding:0">
+                            <p style="font-weight:400; margin-top:0; margin-bottom:0; padding:0">
                               {{advocate.background1}} / {{advocate.background2}}
-                            </p>
-                            <p style="font-weight:400; margin-top:0; margin-bottom:0.5vw; padding:0">
-                              <a target="_blank" :href="advocate.linkedin" style="font-weight:400">LinkedIn / Xing</a>
                             </p>
                           </v-flex>
                           <v-flex>
@@ -170,8 +167,11 @@
                             <p style="font-weight:400; margin-top:0; margin-bottom:0.5vw; padding:0">
                               <a :href="`mailto:${advocate.email}`" style="font-weight:400">{{advocate.email}}</a>
                             </p>
-                            <p style="font-weight:400; margin-top:0; margin-bottom:0; padding:0">
+                            <p style="font-weight:400; margin-top:0; margin-bottom:0.5vw; padding:0">
                               <a :href="`tel:${advocate.phone}`" style="font-weight:400">{{advocate.phone}}</a>
+                            </p>
+                            <p style="font-weight:400; margin-top:0; margin-bottom:0; padding:0">
+                              <a target="_blank" :href="advocate.linkedin" style="font-weight:400">LinkedIn / Xing</a>
                             </p>
                           </v-flex>
                         </v-layout>
@@ -221,16 +221,16 @@
         leadership: 0,
         roles: 0,
         freedom: 0,
-        product: false,
-        design: false,
-        sales: false,
-        customer: false,
-        business: false,
-        operations: false,
-        software: false,
-        ai: false,
-        vrar: false,
-        blockchain: false,
+        product: "true",
+        design: "true",
+        sales: "true",
+        customer: "true",
+        business: "true",
+        operations: "true",
+        software: "true",
+        ai: "true",
+        vrar: "true",
+        blockchain: "true",
         leadership: null,
         athmosphere: null,
         roles: null,
@@ -245,6 +245,7 @@
         goal: "",
         linkedin: null,
         phone: null,
+        ready: true,
         adaptabilityfit: 0,
         perseverencefit: 0,
         collaborationfit: 0,
@@ -273,12 +274,7 @@
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
-            (this.ID = doc.data().ID),
-            (this.firstname = doc.data().firstname),
-            (this.lastname = doc.data().lastname),
-            (this.profilepicture = doc.data().profilepicture),
-            (this.experience = doc.data().experience),
-            (this.background1 = doc.data().background1),
+            (this.ID = doc.data().ID)
             /*
             (this.adaptability = doc.data().adaptability),
             (this.goalorientation = doc.data().goalorientation),
@@ -294,6 +290,7 @@
             (this.teamwork = doc.data().teamwork),
             (this.pragmatism = doc.data().pragmatism),
             */
+            if (doc.data().pointsleft<19){
             (this.product = doc.data().product),
             (this.design = doc.data().design),
             (this.business = doc.data().business),
@@ -303,21 +300,11 @@
             (this.sales = doc.data().sales),
             (this.customer = doc.data().customer),
             (this.vrar = doc.data().vrar),
-            (this.blockchain = doc.data().blockchain);
-            if (doc.data().whyme != null) {
-              this.whyme = doc.data().whyme;
+            (this.blockchain = doc.data().blockchain)
             }
-            if (doc.data().phone != null) {
-              this.phone = doc.data().phone;
-            }
-            if (doc.data().goal != null) {
-              this.goal = doc.data().goal;
-            }
-            if (doc.data().background2 != null) {
-              this.background2 = doc.data().background2;
-            }
-            if (doc.data().linkedin != null) {
-              this.linkedin = doc.data().linkedin;
+            else 
+            {
+              this.ready = false
             }
           });
         })
@@ -604,23 +591,6 @@
           });
         }
       },
-  
-      noSelection() {
-        if (
-          this.design == false &&
-          this.product == false &&
-          this.business == false &&
-          this.operations == false &&
-          this.ai == false &&
-          this.vrar == false &&
-          this.sales == false &&
-          this.customer == false &&
-          this.software == false &&
-          this.blockchain == false
-        ) {
-          return true;
-        }
-      },
       calculateStrengthsFit(doc) {
         this.adaptabilityfit = Math.abs(
           this.adaptability - doc.data().adaptability
@@ -725,7 +695,7 @@
     height: 23vw;
     border-radius: 10%;
     object-fit: cover;
-    margin-top: 1vw;
+    margin-top: 0;
   }
 
     .employee-picture-desktop {
@@ -733,8 +703,8 @@
     height: 5vw;
     border-radius: 10%;
     object-fit: cover;
-    margin-top: 1.5vw;
-    margin-bottom: 0.5vw;
+    margin-top: 0;
+    margin-bottom: 0;
   }
   
   .advocate-picture-desktop {

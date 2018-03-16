@@ -13,8 +13,7 @@ const routerOptions = [
   { path: '/employeesearch', component: 'EmployeeSearch', meta: { requiresAuth: true } },
   { path: '/jobmatches', component: 'Jobmatches', meta: { requiresAuth: true } },
   { path: '/candidates', component: 'Employeematches', meta: { requiresAuth: true } },
-  { path: '/searchlist', component: 'SearchList', meta: { requiresAuth: true } },
-  { path: '/start', component: 'Start', meta: { requiresAuth: true } }
+  { path: '/searchlist', component: 'SearchList', meta: { requiresAuth: true } }
 ]
 
 const routes = routerOptions.map(route => {

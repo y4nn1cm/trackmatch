@@ -37,15 +37,16 @@
           <v-select name="experience" label="Level of Expertise" segmented v-model="experience" :items="levels" required style="margin-top:2vw; border:0">
             </v-select>
           <p class="title" style="margin-top:5vw; margin-bottom:7vw">Job roles you are looking for</p>
-          <p class="body-2">Business and Product Experts</p>
-          <v-checkbox style="margin:0%; padding:0" label="Product Management and Concept" v-model="product" value=true></v-checkbox>
-          <v-checkbox style="margin:0%; padding:0" label="Design and User Experience" v-model="design" value=true></v-checkbox>
+          <p class="body-2">Business Pros</p>
           <v-checkbox style="margin:0%; padding:0" label="Operations / Finance" v-model="operations" value=true></v-checkbox>
+          <v-checkbox style="margin:0%; padding:0" label="Business Dev / Marketing" v-model="business" value=true></v-checkbox>
           <v-checkbox style="margin:0%; padding:0" label="Sales" v-model="sales" value=true></v-checkbox>
-          <v-checkbox style="margin:0%; padding:0" label="Customer Success" v-model="customer" value=true></v-checkbox>
-          <v-checkbox style="margin:0%; padding:0" label="Business Development / Marketing" v-model="business" value=true></v-checkbox>
-          <p class="body-2">Technology Heroes</p>
+          <p class="body-2">User Experts</p>
           <v-checkbox style="margin:0%; padding:0" label="Software / Web Development" v-model="software" value=true></v-checkbox>
+          <v-checkbox style="margin:0%; padding:0" label="Product Mgmt and Concept" v-model="product" value=true></v-checkbox>
+          <v-checkbox style="margin:0%; padding:0" label="Design and User Experience" v-model="design" value=true></v-checkbox>
+          <v-checkbox style="margin:0%; padding:0" label="Customer Success" v-model="customer" value=true></v-checkbox>
+          <p class="body-2">Technology Heroes</p>
           <v-checkbox style="margin:0%; padding:0" label="Virtual / Augmented Reality" v-model="vrar" value=true></v-checkbox>
           <v-checkbox style="margin:0%; padding:0" label="Artificial Intelligence" v-model="ai" value=true></v-checkbox>
           <v-checkbox style="margin:0%; padding:0" label="Blockchain" v-model="blockchain" value=true></v-checkbox>
@@ -490,7 +491,7 @@
             </v-layout>
             <v-layout row wrap align-top justify-space-around="" class="center">
             <v-flex style="padding-left:2vw" md-3 offset-md1 class="text-md-left">
-            <p class="body-2">Business Pro's</p>
+            <p class="body-2">Business Pros</p>
             <v-checkbox style="margin:0%; padding:0" label="Operations / Finance" v-model="operations" value=true></v-checkbox>
             <v-checkbox style="margin:0%; padding:0" label="Business Dev / Marketing" v-model="business" value=true></v-checkbox>
             <v-checkbox style="margin:0%; padding:0" label="Sales" v-model="sales" value=true></v-checkbox>

@@ -7,17 +7,23 @@
       <div class="line" style="margin-top:5vw"></div>
       <h4 style="font-weight:500">About {{forcompany}}</h4>
       <form @submit.prevent="createEmployeeSearch">
+      <v-layout align-center row wrap>
+        <v-flex xs4 >
       <input name="logourl" type="file" style="display:none" ref="fileInput" accept="image/*" @change="logoUpload">
-      <v-btn class="button" @click="pickFile" style="background-color:rgb(56,174,179); color:white; margin-top:3vw; margin-bottom:5vw; padding-top:0">change logo</v-btn>
       <img :src="logourl" class="logo">
-        <v-text-field name="website" style="margin-bottom:0; padding-bottom:0" label="LINK to company website here" id="website" type="website" v-model="website" required>
+        </v-flex>
+        <v-flex xs8>
+      <v-btn class="button" @click="pickFile" style="margin-left:3vw">change logo</v-btn>
+        </v-flex>
+      </v-layout>
+        <v-text-field name="website" style="margin-top:5vw; margin-bottom:0; padding-bottom:0" label="LINK to company website" id="website" type="website" v-model="website" required>
         </v-text-field>
         <v-text-field textarea name="vision" style="margin-bottom:0; padding-bottom:0" label="Company vision in two sentences" multi-line id="vision" type="vision" v-model="vision" required>
         </v-text-field>
         <h4 style="font-weight:500; margin-top:5vw; margin-bottom:3vw">Your Companies Sector</h4>
-        <v-select id=discipline1 label="Your Industry" :items="disciplineitems1" v-model="area1" segmented class="input-group--focused" required>
+        <v-select id=discipline1 label="Your Industry" :items="disciplineitems1" v-model="area1" segmented required>
         </v-select>
-        <v-select id=discipline2 label="Your Company Type" :items="disciplineitems2" v-model="area2" class="input-group--focused" required segmented>
+        <v-select id=discipline2 label="Your Company Type" :items="disciplineitems2" v-model="area2" required segmented>
         </v-select>
         <!--
                       <h4 style="font-weight:500">Job contact</h4>
@@ -33,23 +39,24 @@
         </v-text-field>
         <v-text-field name="jobad" style="margin-top:0; border:0; margin-bottom:0; padding-bottom:0" label="LINK to job ad or carreer page" id="jobad" type="jobad" v-model="jobad">
         </v-text-field>
+        <v-select segmented label="Preferred Experience Level" id="experience"  v-model="experience" :items="levels" required style="margin-top:5vw; border:0">
+        </v-select>
         <v-text-field textarea name="purpose" label="Job purpose for the company" id="purpose" type="purpose" multi-line v-model="purpose" style="margin-top:0; border:0; margin-bottom:0; padding-bottom:0" required>
         </v-text-field>
-        <v-select segmented label="Preferred Experience Level" id="experience"  v-model="experience" :items="levels" required style="margin-top:0; border:0">
-        </v-select>
         <h4 style="margin-top:5vw; font-weight:500">Who are you looking for?</h4>
-        <p class="body-2">Business and Product Experts</p>
-        <v-checkbox style="margin:0%; padding:0" label="Product Mgmt and Concept" v-model="product" value=true></v-checkbox>
-        <v-checkbox style="margin:0%; padding:0" label="Design and User Experience" v-model="design" value=true></v-checkbox>
-        <v-checkbox style="margin:0%; padding:0" label="Operations / Finance" v-model="operations" value=true></v-checkbox>
-        <v-checkbox style="margin:0%; padding:0" label="Sales" v-model="sales" value=true></v-checkbox>
-        <v-checkbox style="margin:0%; padding:0" label="Customer Success" v-model="customer" value=true></v-checkbox>
-        <v-checkbox style="margin:0%; padding:0" label="Business Dev / Marketing" v-model="business" value=true></v-checkbox>
-        <p class="body-2">Technology Heroes</p>
-        <v-checkbox style="margin:0%; padding:0" label="Software / Web Development" v-model="software" value=true></v-checkbox>
-        <v-checkbox style="margin:0%; padding:0" label="Virtual / Augmented Reality" v-model="vrar" value=true></v-checkbox>
-        <v-checkbox style="margin:0%; padding:0" label="Artificial Intelligence" v-model="ai" value=true></v-checkbox>
-        <v-checkbox style="margin:0%; padding:0" label="Blockchain" v-model="blockchain" value=true></v-checkbox>
+        <p class="body-2">Business Pros</p>
+          <v-checkbox style="margin:0%; padding:0" label="Operations / Finance" v-model="operations" value=true></v-checkbox>
+          <v-checkbox style="margin:0%; padding:0" label="Business Dev / Marketing" v-model="business" value=true></v-checkbox>
+          <v-checkbox style="margin:0%; padding:0" label="Sales" v-model="sales" value=true></v-checkbox>
+          <p class="body-2">User Experts</p>
+          <v-checkbox style="margin:0%; padding:0" label="Software / Web Development" v-model="software" value=true></v-checkbox>
+          <v-checkbox style="margin:0%; padding:0" label="Product Mgmt and Concept" v-model="product" value=true></v-checkbox>
+          <v-checkbox style="margin:0%; padding:0" label="Design and User Experience" v-model="design" value=true></v-checkbox>
+          <v-checkbox style="margin:0%; padding:0" label="Customer Success" v-model="customer" value=true></v-checkbox>
+          <p class="body-2">Technology Heroes</p>
+          <v-checkbox style="margin:0%; padding:0" label="Virtual / Augmented Reality" v-model="vrar" value=true></v-checkbox>
+          <v-checkbox style="margin:0%; padding:0" label="Artificial Intelligence" v-model="ai" value=true></v-checkbox>
+          <v-checkbox style="margin:0%; padding:0" label="Blockchain" v-model="blockchain" value=true></v-checkbox>
         <div class="text-xs-center">
           <!--
               <p v-if="describestrengths" style="margin-top:5vw; text-align:justify">We recommend applicants based on their strengths and fit with your company culture. Please describe with the following template which profile is most suitable for the job.</p>
@@ -351,12 +358,12 @@
       <img :src="logourl" class="logo-desktop">
         </v-flex>
         <v-flex md1>
-      <v-btn class="button" @click="pickFile" style="background-color:rgb(56,174,179); color:white; margin-left:3vw">change logo</v-btn>
+      <v-btn class="button" @click="pickFile" style="margin-left:3vw">change logo</v-btn>
         </v-flex>
       </v-layout>
       <v-layout row wrap>
         <v-flex md6 offset-md3>
-        <v-text-field name="website" style="margin-top:2vw; margin-bottom:0; padding-bottom:0" label="LINK to company website here" id="website" type="website" v-model="website" required>
+        <v-text-field name="website" style="margin-top:2vw; margin-bottom:0; padding-bottom:0" label="LINK to company website" id="website" type="website" v-model="website" required>
         </v-text-field>
         <v-text-field textarea name="vision" style="margin-bottom:0; padding-bottom:0" label="Company vision in two sentences" multi-line id="vision" type="vision" v-model="vision" required>
         </v-text-field>
@@ -370,10 +377,10 @@
         </v-text-field>
         <v-text-field name="jobad" style="margin-top:0; border:0; margin-bottom:0; padding-bottom:0" label="LINK to job ad or carreer page" id="jobad" type="jobad" v-model="jobad">
         </v-text-field>
-        <v-text-field textarea name="purpose" label="Job purpose for the company" id="purpose" type="purpose" multi-line v-model="purpose" style="margin-top:0; border:0; margin-bottom:0; padding-bottom:0" required>
-        </v-text-field>
         <v-select segmented label="Preferred Experience Level" id="experience"  v-model="experience" :items="levels" required style="margin-top:0; border:0">
             </v-select>
+        <v-text-field textarea name="purpose" label="Job purpose for the company" id="purpose" type="purpose" multi-line v-model="purpose" style="margin-top:0; border:0; margin-bottom:0; padding-bottom:0" required>
+        </v-text-field>
         </v-flex>
         <v-flex md6 offset-md3>
             <p class="title" style="text-align:center; margin-top:3vw; margin-bottom:3vw">Who are you looking for?</p>
@@ -381,7 +388,7 @@
             </v-layout>
             <v-layout row wrap align-top justify-space-around class="center">
             <v-flex style="padding-left:1vw" md-3 offset-md1 class="text-md-left">
-            <p class="body-2">Business Pro's</p>
+            <p class="body-2">Business Pros</p>
             <v-checkbox style="margin:0%; padding:0" label="Operations / Finance" v-model="operations" value=true></v-checkbox>
             <v-checkbox style="margin:0%; padding:0" label="Business Dev / Marketing" v-model="business" value=true></v-checkbox>
             <v-checkbox style="margin:0%; padding:0" label="Sales" v-model="sales" value=true></v-checkbox>

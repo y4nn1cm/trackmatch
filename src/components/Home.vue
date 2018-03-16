@@ -9,29 +9,27 @@
       <v-layout style=margin-top:5vw row wrap>
         <v-flex class="text-xs-center">
           <div v-if="searchjob">
-            <div v-if="ready!=0">
+            <div v-if="ready==null">
               <v-btn style="background-color:rgb(56,174,179); color:white" class="select" @click="editProfile">First create my profile</v-btn>
-              <v-btn disabled @click="openSite('jobmatches')" style="background-color:rgb(56,174,179); color:white" class="select">Show my job matches</v-btn>
+              <v-btn @click="openSite('jobmatches')" style="background-color:rgb(56,174,179); color:white" class="select">Explore Job Opportunities</v-btn>
             </div>
-            <v-btn v-else @click="openSite('jobmatches')" style="background-color:rgb(56,174,179); color:white" class="select">Show my job matches</v-btn>
+            <v-btn v-else @click="openSite('jobmatches')" style="background-color:rgb(56,174,179); color:white" class="select">Explore Job Opportunities</v-btn>
           </div>
           <div v-else-if="helphiring">
             <div v-if="ready==null">
               <v-btn style="background-color:rgb(56,174,179); color:white" class="select" @click="editProfile">First create my profile</v-btn>
               <v-btn disabled @click="openSite('employeesearch')" style="background-color:rgb(56,174,179); color:white" class="select">create position</v-btn><br>
-              <v-btn disabled @click="openSite('candidates')" style="background-color:rgb(56,174,179); color:white" class="select">Show candidate matches</v-btn><br>
+              <v-btn disabled @click="openSite('candidates')" style="background-color:rgb(56,174,179); color:white" class="select">Find Candidates</v-btn><br>
               <v-btn disabled @click="openSite('searchlist')" style="background-color:rgb(56,174,179); color:white" class="select">Represent Jobs</v-btn>
             </div>
             <div v-else>
               <div v-if="noentries">
-                <v-btn @click="openSite('employeesearch')" style="background-color:rgb(56,174,179); color:white" class="select">Next, create a position</v-btn><br>
-                <v-btn disabled @click="openSite('candidates')" style="background-color:rgb(56,174,179); color:white" class="select">Show candidate matches</v-btn><br>
-                <v-btn disabled @click="openSite('searchlist')" style="background-color:rgb(56,174,179); color:white" class="select">represent Jobs</v-btn>
+                <v-btn @click="openSite('employeesearch')" style="background-color:rgb(56,174,179); color:white" class="select">Next, create open positions</v-btn><br>
+                <v-btn disabled @click="openSite('candidates')" style="background-color:rgb(56,174,179); color:white" class="select">Find Candidates</v-btn><br>
               </div>
               <div v-else>
-                <v-btn @click="openSite('employeesearch')" class=" select" style="background-color:rgb(56,174,179); color:white">create a position</v-btn><br>
-                <v-btn @click="openSite('candidates')" style="background-color:rgb(56,174,179); color:white" class="select">Show candidate matches</v-btn><br>
-                <v-btn @click="openSite('searchlist')" style="background-color:rgb(56,174,179); color:white" class="select">Represent Jobs</v-btn>
+                <v-btn @click="openSite('employeesearch')" class=" select" style="background-color:rgb(56,174,179); color:white">create open position</v-btn><br>
+                <v-btn @click="openSite('candidates')" style="background-color:rgb(56,174,179); color:white" class="select">Find candidates</v-btn><br>
               </div>
             </div>
           </div>
@@ -270,8 +268,8 @@
 
     .select-desktop {
     font-size: 1.5vw;
-    margin-top: 2vw;
-    margin-bottom: 2vw;
+    margin-top: 1.5vw;
+    margin-bottom: 1vw;
     width: 25vw;
     padding: 0;
     height: 4vw;

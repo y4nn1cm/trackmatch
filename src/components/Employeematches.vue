@@ -9,18 +9,24 @@
     <p style="text-align:center" v-if="noentries">Please create a position to find employees.</p>
     
       <v-card v-if="select" v-for="item in searchitems" :key="item.ID" style="margin-top:8vw; margin-left:0; margin-right:0; padding:4vw">
-      <v-layout align-center row wrap>
-      <v-flex xs2>
-        <img class="logo-picture" :src="item.logo">
+      <v-layout align-top row wrap>
+      <v-flex xs11>
+        <p class="title" style="margin-top:2vw; margin-bottom:0; margin-left:0; padding:0">{{item.description}}</p>
       </v-flex>
-      <v-flex xs10>
-        <p class="title" style="margin-left:0; padding:0">{{item.description}}</p>
+      <v-flex xs1>
+        <img @click="item.neutral = !item.neutral" style="width:5vw; height:5vw" :src="'https://image.flaticon.com/icons/png/128/70/70287.png'">
       </v-flex>
-      <v-flex xs12>
-      <v-btn class="button select" @click="getCandidates(item)" style="margin-left:0; margin-right:1vw; margin-top:5vw; padding:0; background-color:rgb(56,174,179); color:white">Find Candidates</v-btn>
+      <v-flex v-if="item.neutral" xs12>
+      <v-btn class="button select" @click="getCandidates(item)" style="margin-left:0; margin-right:2vw; margin-top:7vw; padding:0; background-color:rgb(56,174,179); color:white">Find Candidates</v-btn>
+      <v-btn class="select" v-if="item.isadvocate" @click="removeAdvocacy(item)" style="margin-left:2; margin-right:0vw; margin-top:7vw; padding:0; color:black">Unrepresent</v-btn>
+      <v-btn v-else class="button select" @click="becomeAdvocate(item)" style="margin-left:2; margin-right:0vw; margin-top:7vw; padding:0; background-color:rgb(56,174,179); color:white">Represent Job</v-btn>
       </v-flex>
+      <v-flex v-else xs12 style="text-align:right">
+      <v-btn class="select" @click="deleteJobsearch(item.ID)" style="color:black; margin-left:0; margin-right:1vw; margin-top:7vw; padding:0; width:12vw">Confirm</v-btn>
+          <v-btn class="select" @click="item.neutral = !item.neutral" style="color:black; margin-left:1vw; margin-right:0; margin-top:7vw; padding:0; width:12vw">Cancel</v-btn>
+          </v-flex>
       <v-flex>
-        <v-expansion-panel style="margin-top:3vw">
+        <v-expansion-panel style="margin-top:5vw; margin-bottom:2vw">
           <v-expansion-panel-content>
             <div style="font-weight:500" slot="header">Job purpose</div>
             <v-card>
@@ -44,9 +50,6 @@
                       <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">
                         {{like.background1}} / {{like.background2}}
                       </p>
-                      <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">
-                        <a target="_blank" :href="like.linkedin" style="font-weight:400">LinkedIn / Xing</a>
-                      </p>
                     </v-flex>
                     <v-flex>
                       <p style="font-weight:500; margin-top:2.5vw; margin-bottom:0vw; padding:0">Why you should hire me:</p>
@@ -57,8 +60,11 @@
                       <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">
                         <a :href="`mailto:${like.email}`" style="font-weight:400">{{like.email}}</a>
                       </p>
-                      <p style="font-weight:400; margin-top:0; margin-bottom:0; padding:0">
+                      <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">
                         <a :href="`tel:${like.phone}`" style="font-weight:400">{{like.phone}}</a>
+                      </p>
+                      <p style="font-weight:400; margin-top:0; margin-bottom:1vw; padding:0">
+                        <a target="_blank" :href="like.linkedin" style="font-weight:400">LinkedIn / Xing</a>
                       </p>
                     </v-flex>
                   </v-layout>
@@ -67,17 +73,6 @@
               </v-card>
             </v-expansion-panel-content>
         </v-expansion-panel>
-      </v-flex>
-      <v-flex>
-        <div v-if="neutral" style="text-align:left">
-          <v-btn class="select" v-if="item.isadvocate" @click="removeAdvocacy(item)" style="margin-left:0; margin-right:1vw; margin-top:5vw; padding:0; color:black">Unrepresent</v-btn>
-          <v-btn v-else class="button select" @click="becomeAdvocate(item)" style="margin-left:0; margin-right:1vw; margin-top:5vw; padding:0; background-color:rgb(56,174,179); color:white">Represent Job</v-btn>
-          <v-btn class="select" style="color:black; margin-left:1vw; margin-right:0; margin-top:5vw; padding:0" @click="neutral = !neutral">Delete Job</v-btn>
-        </div>
-        <div v-else>
-          <v-btn class="select" @click="deleteJobsearch(item.ID)" style="color:black; margin-left:0; margin-right:1vw; margin-top:5vw; padding:0; width:12vw">Confirm</v-btn>
-          <v-btn class="select" @click="neutral = !neutral" style="color:black; margin-left:1vw; margin-right:0; margin-top:5vw; padding:0; width:12vw">Cancel</v-btn>
-        </div>
       </v-flex>
     </v-layout>
   </v-card>
@@ -144,7 +139,6 @@
       return {
         ID: null,
         select: true,
-        neutral: true,
         activities: [],
         company: null,
         candidates: [],
@@ -196,6 +190,7 @@
             this.noentries = false;
             let data = {
                 ID: doc.data().ID,
+                neutral: true,
                 description: doc.data().description,
                 company: doc.data().company,
                 website: doc.data().website,
@@ -582,7 +577,6 @@
               });
             })
         );
-      this.neutral = true;
     }
     },
     computed: {
@@ -626,6 +620,7 @@
   .select {
     margin-top: 2vw;
     margin-bottom: 2vw;
+    width: 35vw;
     padding: 0;
     height: 10vw;
     font-size: 3.5vw;
